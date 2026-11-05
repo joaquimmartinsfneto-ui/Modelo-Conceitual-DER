@@ -17,7 +17,7 @@ Integrantes:
 ## 1. Caracterização da Organização 🗃️
 
 - **Nome e natureza da organização:**  Xenon multimarcas (Concenssionaria )
-- **Contexto e porte:** Com fins lucrativos, Uma empresa com micro operações, com uma quantidade baixa de funcionarios no total atual 6 podendo aumentar.  
+- **Contexto e porte:** Com fins lucrativos, Uma empresa com micro operações que realiza no mínimo de 15 venda ao mês, com uma quantidade de 6 funcionarios no total atual podendo aumentar futuramente.  
 - **Problemas e necessidades identificados:** Falta de organização e comprovante de transações, manutenções não organizadas.
 - **Justificativa da escolha:** Um de nossos integrantes do grupo identificou a necessidade da empresa e notou que encaixaria perfeitamente no trabalho solicitado, consideramos o fato dessa área ter bastante movimentação
 - **Evidências da organização:** instagram: @multimarcasxenon
