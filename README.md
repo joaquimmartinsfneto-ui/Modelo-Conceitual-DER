@@ -35,21 +35,21 @@ Integrantes:
 ## 3. Requisitos do Sistema 
 
 - RF01 – Gerenciamento de Clientes
-  D: O sistema deve permitir o cadastro, alteração e armazenamento de clientes, registrando obrigatoriamente o nome completo, o CPF e o telefone, além dos dados opcionais de endereço e e-mail
+- D: O sistema deve permitir o cadastro, alteração e armazenamento de clientes, registrando obrigatoriamente o nome completo, o CPF e o telefone, além dos dados opcionais de endereço e e-mail
 
- - RF02 - Gerenciamento de Veiculo
-D: O sistema deve registrar e manter os dados dos colaboradores da concessionária, armazenando obrigatoriamente o nome completo, o CPF, o telefone de contato e o cargo exercido
+- **RF02 - Gerenciamento de Veiculo**
+- D: O sistema deve registrar e manter os dados dos colaboradores da concessionária, armazenando obrigatoriamente o nome completo, o CPF, o telefone de contato e o cargo exercido
 
-- RF03 – Gerenciamento de Funcionários
-D: O sistema deve registrar e manter os dados dos colaboradores da concessionária, armazenando obrigatoriamente o nome completo, o CPF, o telefone de contato e o cargo exercido   
-- RF04 – Registro de Vendas e Formas de Pagamento
-D: O sistema deve permitir registrar as transações comerciais de venda, associando o cliente comprador, o funcionário responsável e o veículo comercializado, registrando a data da venda, o valor total e a forma de pagamento utilizada
+- **RF03 – Gerenciamento de Funcionários**
+- D: O sistema deve registrar e manter os dados dos colaboradores da concessionária, armazenando obrigatoriamente o nome completo, o CPF, o telefone de contato e o cargo exercido   
+- **RF04 – Registro de Vendas e Formas de Pagamento**
+- D: O sistema deve permitir registrar as transações comerciais de venda, associando o cliente comprador, o funcionário responsável e o veículo comercializado, registrando a data da venda, o valor total e a forma de pagamento utilizada
 
-RF05 – Gestão de Financiamentos 
-D: O sistema deve permitir vincular um financiamento à venda quando aplicável, registrando a instituição financeira parceira, o valor financiado, a quantidade de parcelas, o valor da parcela e o status da aprovação de crédito pelo banco.
+- **RF05 – Gestão de Financiamentos** 
+- D: O sistema deve permitir vincular um financiamento à venda quando aplicável, registrando a instituição financeira parceira, o valor financiado, a quantidade de parcelas, o valor da parcela e o status da aprovação de crédito pelo banco.
 
-RF06 – Pedido de Venda
-D: O sistema deve gerar um "Pedido de Venda" formal vinculado à transação comercial após a aprovação do financiamento (ou confirmação da compra), registrando a identificação do pedido, a data de emissão, o número da nota fiscal, o nome do cartório para trâmites legais e o status atual do pedido.
+- **RF06 – Pedido de Venda**
+- D: O sistema deve gerar um "Pedido de Venda" formal vinculado à transação comercial após a aprovação do financiamento (ou confirmação da compra), registrando a identificação do pedido, a data de emissão, o número da nota fiscal, o nome do cartório para trâmites legais e o status atual do pedido.
 
 ### 3.1 Requisitos Funcionais 
 O sistema devera permetir a realização de vendas e a verificação de veiculos disponiveis na concenssionaria, tambêm tera que ter informações sobre a situação da venda e da entrega para a notificação a o cliente e para a organização da organização.
