@@ -418,6 +418,26 @@ foi para a criação de dados rapidos e coerentes de pessoas ficticias e evitar 
 
 | **Reflexão crítica** | Não tivemos probelmas com a resposta da IA, ela nos ajudou a ter um processo mais rapido de informações ficitias e dados coerentes. |
 
+|------|------------------|
+
+5 USO
+
+| **Ferramenta e etapa** | Gemini, utilizado em caráter temporário na etapa de criação do script.sql. |
+
+| **Motivação** | O grupo utilizou a IA como ferramenta temporária de suporte técnico para acelerar a escrita da sintaxe repetitiva dos comandos DDL (`CREATE TABLE`), definição de restrições (`CHECK`, `FOREIGN KEY`) e consultas de auditoria. |
+
+| **Prompt(s) utilizados** | *"Com base no modelo relacional da concessionária Xenon Multimarcas (tabelas Cliente, Funcionario, Veiculo, Banco, Venda, Financiamento, Pedido_de_venda e Entrega), crie a estrutura do script SQL para o MySQL incluindo DDL com restrições de integridade."* |
+
+| **Resposta recebida** | A IA gerou um rascunho técnico inicial do script dividindo o código entre criação de tabelas, restrições relacionais, carga de dados e bloco de consultas de verificação. |
+
+| **Fontes consultadas e verificada** |todo o código gerado executando o script diretamente no MySQL Workbench e cruzando as chaves primárias e estrangeiras com o Modelo Lógico do projeto. |
+
+| **Trechos rejeitados ou corrigidos** | Foram corrigidos manualmente os tipos de dados e a ordem de execução dos comandos `DROP TABLE` e `CREATE TABLE` para evitar conflitos de dependência de chaves estrangeiras (`FK`). |
+
+| **Justificativa da escolha final** | A utilização da IA foi estritamente temporária, servindo apenas como suporte no início da fase de desenvolvimento. |
+
+| **Reflexão crítica** | A IA é eficiente na geração rápida de estruturas básicas de código, utilizando apenas para uma base temporária. |
+
 ---
 
 ---
