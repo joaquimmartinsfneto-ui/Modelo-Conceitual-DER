@@ -52,7 +52,29 @@ Integrantes:
 - D: O sistema deve gerar um "Pedido de Venda" formal vinculado à transação comercial após a aprovação do financiamento (ou confirmação da compra), registrando a identificação do pedido, a data de emissão, o número da nota fiscal, o nome do cartório para trâmites legais e o status atual do pedido.
 
 ### 3.1 Requisitos Funcionais 
-O sistema devera permetir a realização de vendas e a verificação de veiculos disponiveis na concenssionaria, tambêm tera que ter informações sobre a situação da venda e da entrega para a notificação a o cliente e para a organização da organização.
+- **RF01 – Gerenciamento de Clientes**
+  - **Descrição:** O sistema deve permitir o cadastro, alteração e armazenamento de clientes, registrando obrigatoriamente o nome completo, o CPF e o telefone, além dos dados opcionais de endereço e e-mail.
+
+- **RF02 – Gerenciamento de Veículos**
+  - **Descrição:** O sistema deve permitir o controle do estoque de veículos, armazenando o número de identificação (chassi), a marca, o modelo, o ano de fabricação, o preço estipulado, o tipo de veículo (ex: SUV, hatch, sedan) e a situação de disponibilidade atual.
+
+- **RF03 – Gerenciamento de Funcionários**
+  - **Descrição:** O sistema deve registrar e manter os dados dos colaboradores da concessionária, armazenando obrigatoriamente o nome completo, o CPF, o telefone de contato e o cargo exercido.
+
+- **RF04 – Registro e Gestão de Vendas**
+  - **Descrição:** O sistema deve permitir a realização e o registro das vendas de veículos, armazenando a data da transação, o valor total, a forma de pagamento selecionada (à vista, PIX ou financiamento), o status da venda (*Pendente*, *Aprovada*, *Concluída* ou *Cancelada*), associando obrigatoriamente o cliente comprador, o vendedor responsável e o veículo negociado.
+
+- **RF05 – Gestão de Financiamentos Bancários**
+  - **Descrição:** O sistema deve permitir vincular um financiamento à venda quando aplicável, registrando a instituição financeira parceira, o valor financiado, a quantidade de parcelas, o valor da parcela e o status da aprovação de crédito pelo banco.
+
+- **RF06 – Emissão de Pedido de Venda**
+  - **Descrição:** O sistema deve gerar um "Pedido de Venda" formal vinculado à transação comercial após a aprovação do financiamento (ou confirmação da compra), registrando a identificação do pedido, a data de emissão, o número da nota fiscal, o nome do cartório para trâmites legais e o status atual do pedido.
+
+- **RF07 – Consulta e Verificação de Veículos Disponíveis**
+  - **Descrição:** O sistema deve permitir a consulta em tempo real do estoque da concessionária, exibindo a situação do veículo (*Disponível*, *Vendido*, *Reservado* ou *Em Manutenção*), juntamente com seus dados de identificação (marca, modelo, ano, preço, chassi e tipo).
+
+- **RF08 – Acompanhamento de Pedidos e Notificação de Entregas**
+  - **Descrição:** O sistema deve permitir o rastreamento da situação do pedido de venda e do fluxo logístico de entrega do veículo, registrando o status da entrega (*Agendada*, *Em Preparação*, *Pronto para Retirada*, *Entregue*), a data prevista e a data de entrega efetiva, visando a organização interna da concessionária e a notificação atualizada ao cliente.
 
 ### 3.2 Requisitos Não Funcionais
 Os requisitos não funcionais que nos averiguamos foram: Usabilidade e disponibilidade.
