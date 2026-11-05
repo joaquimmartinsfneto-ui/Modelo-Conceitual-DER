@@ -373,6 +373,31 @@ Na parte dos atributos a gente adotou uma nomenclatura bem padronizada usando pr
 
 | **Reflexão crítica** | Não tivemos probelmas com a resposta da IA, já que conseguimos realizar um prompt que deu uma resposta que colidiu com oque a organização necesstiva. |
 
+|------|------------------|
+
+4 USO
+
+| **Ferramenta e etapa** | Gemini, Utilização para a criação da massa_de_dados.sql.
+
+| **Motivação** | Recorremos a IA nesta etapa para ter uma estrutura mais agil, elaborada e coerente com oque vai ser escrito no script.sql, A utilização tambêm
+foi para a criação de dados rapidos e coerentes de pessoas ficticias e evitar tambêm uma tarefa repetitiva.|
+
+| **Prompt(s) utilizados** |
+
+ **Prompt:** Com base no nosso modelo relacional da concessionária Xenon Multimarcas (tabelas Cliente, Funcionario, Veiculo, Banco, Venda, Financiamento, Pedido_de_venda e Entrega), crie uma massa de dados fictícia em comandos INSERT INTO para o MySQL. Os dados devem respeitar o porte enxuto da empresa (5 clientes, 3 funcionários, alguns veículos em estoque e vendidos) e cobrir diferentes cenários para validar consultas gerenciais e de auditoria.
+
+| **Resposta recebida** | A IA estruturou e gerou os blocos completos de comandos INSERT INTO divididos logicamente por tabela, mantendo as relações de chaves estrangeiras (id_cliente, id_funcionario, id_veiculo, etc.) alinhadas. |
+
+| **Fontes consultadas e verificadas** | O nós cruzamos os dados gerados com o diagrama DER e com o modelo lógico para garantir que os campos obrigatórios e as restrições (NOT NULL, UNIQUE) fossem respeitados |
+
+| **Trechos rejeitados ou corrigidos** | Foram ajustados manualmente os valores de datas para manter uma linha cronológica coerente, de resto não houve necessidade de alteração e correção de trechos. |
+
+| **Justificativa da escolha final** | A estrutura sugerida pela IA foi mantida e adaptada porque reduziu o tempo de escrita manual repetitiva de comandos SQL |
+
+| **Reflexão crítica** | Não tivemos probelmas com a resposta da IA, ela nos ajudou a ter um processo mais rapido de informações ficitias e dados coerentes. |
+
+---
+
 ---
 
 ## Critérios Atitudinais (20%)
