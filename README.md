@@ -310,7 +310,7 @@ Na parte dos atributos a gente adotou uma nomenclatura bem padronizada usando pr
 ## 9. Uso de Inteligência Artificial
  
 | Item | O que registrar |
-teste
+
 |------|------------------|
 
 1 e 2 USO
