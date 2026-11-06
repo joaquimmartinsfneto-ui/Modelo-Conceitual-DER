@@ -1,463 +1,383 @@
-# Entrega 1 — Modelo Conceitual (DER)
+# Entrega 2 — Modelo Lógico, Implementação SQL e Apresentação Final
+
 ### Modelagem de um sistema de gestão de informações para uma organização de pequeno porte
 
----
+> Este arquivo é o esqueleto dos artefatos finais do grupo, a serem organizados no repositório GitHub. **Será corrigido exclusivamente o conteúdo da branch `main` do repositório** — arquivos que estiverem em qualquer outra branch não serão considerados, mesmo que o link enviado aponte para ela. Preencha cada seção com o conteúdo do seu projeto. Alguns itens são documentos Markdown, outros são arquivos separados (diagramas, dicionário de dados, script `.sql`, massa de dados, slides) — está indicado em cada seção. Nesta etapa vocês atuam como uma **software house** implementando o banco de dados completo do sistema modelado na Entrega 1 e revisado na seção 1.1 — seja para uma empresa, uma ONG ou outra organização escolhida pelo grupo.
 
-## Metadados 📈
+> **Lembrete:** termos como "empresa" e "negócio" usados abaixo são o vocabulário técnico padrão de modelagem de dados e se aplicam a qualquer tipo de organização, com ou sem fins lucrativos.
 
-Integrantes: 
+> **Importante:** esta etapa exige uma **organização real**, com evidências de existência e contato com um responsável.
 
-- Joaquim Martins Ferreira Neto RGM: 47609630
-- Gabriel Cabrera Conceição RGM: 47657499 
-- Guilherme Reis RGM: 47513438
-- Gabriel Franco RGM: 47451289
+> - **Se a organização da Entrega 1 era real**, continue com ela — não é permitido trocá-la por outra.  
+> - **Se a organização da Entrega 1 era fictícia** (ou não teve a existência comprovada na correção), o grupo deve **procurar agora uma organização real** e refazer, para ela, toda a base da Entrega 1, inclusive o DER (ver seção 1.1, Caso B).
 
-![Modelo Entidade-Relacionamento](ImagemDoGrupo.jpeg)
-
-## 1. Caracterização da Organização 
-
-- **Nome e natureza da organização:**  Xenon multimarcas (Concenssionaria )
-- **Contexto e porte:** Com fins lucrativos, Uma empresa com micro operações que realiza no mínimo de 15 venda ao mês, com uma quantidade de 6 funcionarios no total atual podendo aumentar futuramente.  
-- **Problemas e necessidades identificados:** Falta de organização e comprovante de transações, manutenções não organizadas.
-- **Justificativa da escolha:** Um de nossos integrantes do grupo identificou a necessidade da empresa e notou que encaixaria perfeitamente no trabalho solicitado, consideramos o fato dessa área ter bastante movimentação
-- **Evidências da organização:** instagram: @multimarcasxenon
-- Cartão digital da empresa: https://cartao-digital.com/xenonmultimarcas/
-- local do Maps: https://share.google/2ecURySgI5GrRgYwr
+> Em qualquer caso, o grupo deve manter o acesso à organização, pois pode ser necessário voltar a campo para validar regras, tirar dúvidas sobre o processo de normalização ou conferir se a massa de dados reflete a realidade observada.
 
 ---
 
-## 2. Processos de Negócio 
+## 1\. Relatório Técnico Final
 
-- **Principais processos mapeados:** Cadastro de clientes, cadastro e controle de veículos, registro de pedidos de vendas, gerenciamento de vendas, controle de financiamento, gerenciamento de entregas, organização dos registros comerciais.
+*(arquivo Markdown — reúne a maior parte da Dimensão Conceitual, 30%)*
+
+**O Relatório Técnico Final deve ser o próprio `README.md` da raiz da branch `main`**, seguindo a estrutura deste esqueleto. Relatório entregue em outro arquivo (PDF, Word, outro `.md`, Google Docs, wiki do GitHub etc.) **não será corrigido**. Os demais artefatos (DER, modelo lógico, dicionário de dados, levantamento, script SQL, massa de dados, slides) ficam em arquivos separados no repositório, com link a partir do README.
+
+### Integrantes
+
+| Nome completo do aluno | RGM | Usuário do GitHub |
+| :---- | :---- | :---- |
+| Nome | RGM | usuario |
+| Joaquim Martins Ferreira Neto | 47609630 | netosec |
+| Gabriel Cabrera Conceição | RGM | gabrielcabrera602-commits |
+| Guilherme Reis | 47513438 | Coelho  |
+| Gabriel Franco | 47451289 | gfranco0 |
+
+&nbsp;
+
+### 1.1 Revisão do Modelo Conceitual
+
+*(obrigatória, sem peso próprio — mas todo o restante da entrega é construído e avaliado sobre este modelo: um erro que permanecer no DER revisado se propaga para a conversão, a normalização, o modelo lógico e o script SQL)*
+
+**Caracterização da organização (todos os grupos)**
+
+*Repita aqui a caracterização da organização — atualizada, mesmo que a organização seja a da Entrega 1\. Na Entrega 1, os erros mais comuns foram: porte sem números, problema declarado que depois não aparecia no DER, evidências fora do repositório e modelo cobrindo só parte da organização. Evite-os:*
+
+- **Nome e natureza da organização:** qual organização real o grupo escolheu (com acesso garantido para pesquisa de campo) — pode ser uma empresa (livraria, lanchonete, pet shop), uma ONG, uma associação comunitária ou outra instituição.  
+- **Contexto e porte:** com ou sem fins lucrativos; tamanho da operação; número de pessoas envolvidas (funcionários, voluntários, membros, fiéis); volume de atividades (vendas, atendimentos, doações, rituais, eventos). **Informe números**, não só adjetivos (ex.: "cerca de 300 pedidos por semana", e não "grande movimento") — são eles que justificam o tamanho da massa de dados (seção 4).  
+- **Problemas e necessidades identificados:** qual é a "crise operacional" — o que está desorganizado hoje (planilhas soltas, papel, falta de controle de estoque/doações/cadastros etc.)? Numere cada problema (`P1`, `P2`…). **Todo problema declarado aqui precisa ser resolvido pelo modelo:** deve aparecer no DER e ter ao menos uma consulta gerencial no script SQL (ver a tabela de rastreabilidade da seção 1.6). O problema deve ser de **gestão de informações** — refazer o site ou melhorar a divulgação da organização, por exemplo, não é um problema que um banco de dados resolva.  
+- **Escopo do sistema:** o banco de dados deve reunir **todos os dados da organização**, não só os de um setor ou processo. Mesmo que os problemas declarados se concentrem em uma área, o modelo não pode servir somente a um recorte (ex.: só o estoque de uma clínica, deixando de fora pacientes e atendimentos).  
+- **Justificativa da escolha:** por que essa organização foi escolhida e por que ela é um bom caso para o projeto? Se algum integrante trabalha na organização ou tem vínculo familiar com os responsáveis, declare isso — o vínculo não gera desconto, mas **não dispensa a comprovação da entrevista com o responsável, realizada no ambiente da organização**.  
+- **Evidências da organização:** comprove que a organização existe e que o grupo teve acesso a ela — fotos do local/da visita, link da organização no Google, endereço completo e forma de contato. **Prefira o perfil da organização no Google Meu Negócio (Google Business Profile)**, que é a comprovação mais direta; site e redes sociais complementam. As fotos só são aceitas como **arquivos JPG ou PNG dentro do repositório** — fotos hospedadas fora dele (Google Drive, Imgur, anexos colados no editor do GitHub etc.) não são consideradas.  
+- **Responsável pela organização:** **nome e telefone** de quem atendeu o grupo — o professor pode entrar em contato para confirmar as informações.
+
+**Relato da entrevista (todos os grupos)**
+
+*Relate a entrevista com o responsável pela organização. A entrevista da Entrega 1 pode ser reaproveitada se atender a todos os itens abaixo — inclusive ter sido feita no ambiente da organização, com foto — e se tiver levantado o necessário para os processos, requisitos e regras desta etapa. Se algo precisou ser confirmado depois (ex.: processos típicos levantados por pesquisa), relate também a nova visita.*
+
+- **Quem:** nome e função do entrevistado e quais integrantes do grupo participaram.  
+- **Quando e onde:** data e local — a entrevista deve ser realizada **no ambiente da organização**. A **observação presencial** da rotina é parte importante do levantamento de requisitos: o que o grupo vê acontecer no local (como um pedido é anotado, onde o estoque é controlado, que papéis e planilhas circulam) muitas vezes difere do que é dito na entrevista. **Destaque os achados obtidos pela observação**, separados dos obtidos pelas respostas do entrevistado.  
+- **Comprovação:** ao menos uma foto da entrevista no local, como arquivo JPG ou PNG no repositório.  
+- **O que foi levantado:** o que foi perguntado, o que foi confirmado e, se houve nova visita, o que mudou em relação à Entrega 1 (processos, regras, volumes, problemas). O levantamento completo fica em **um arquivo Markdown (`.md`) à parte no repositório**, com link no README — **recomenda-se fortemente** colocá-lo numa pasta chamada **`levantamento`** (ex.: `levantamento/levantamento.md`). Esse arquivo é um **texto organizado, escrito pelo grupo**, sobre o que foi levantado — **não** é um vídeo ou áudio da entrevista, nem a transcrição crua de formulários ou de perguntas e respostas. **No README, apresente um resumo do levantamento.**
+
+**Nível de detalhe — processos, requisitos e regras de negócio (todos os grupos)**
+
+*Frases genéricas como "o sistema deve permitir cadastrar cliente" são **superficiais** e não bastam. Em processos, requisitos e regras, indique **quais dados** estão envolvidos — todos os campos que aparecem no trabalho (DER, dicionário de dados, modelo lógico):*
+
+| Superficial | Detalhado |
+| :---- | :---- |
+| *O sistema deve permitir cadastrar cliente.* | *RF03 — O sistema deve permitir cadastrar cliente com nome completo, CPF, telefone, e-mail e endereço (logradouro, número, bairro, CEP).* |
+| *O cliente faz o pedido.* | *O garçom anota no pedido a mesa, o número da pulseira do cliente e, para cada item, o produto, a quantidade e as observações.* |
+| *O cliente precisa estar cadastrado.* | *RN05 — Todo cliente deve ter CPF válido e único; telefone e nome completo são obrigatórios.* |
+
+&nbsp;
+
+**Processos de negócio (todos os grupos)**
+
+*Apresente os **principais processos mapeados** na organização — ex.: cadastro de clientes/beneficiários/fiéis, controle de estoque ou doações, vendas ou arrecadação, emissão de pedidos ou solicitações, entregas ou distribuição, organização de eventos/rituais/mutirões.*
+
+- **Levante os processos típicos do tipo de organização.** É recomendável usar pesquisas e ferramentas de IA para descobrir quais processos são comuns em organizações do mesmo tipo (ex.: o que toda pizzaria, ONG de doação de alimentos ou oficina mecânica costuma fazer) e conferir se eles existem na organização escolhida. Isso pode exigir **uma nova visita à organização** para confirmar como cada processo funciona lá. Registre esse uso de IA na seção 6\.  
+- **Inclua os processos que existem na organização**, mesmo os que não estão ligados aos problemas declarados — o banco de dados reúne todos os dados da organização (ver *Escopo do sistema* acima).  
+- **Justifique os processos prováveis não incluídos:** se um processo comum nesse tipo de organização ficou de fora (ex.: compras de fornecedores, cancelamentos, escala da equipe), explique por quê — por exemplo, a organização não o realiza, ou ele é feito por terceiros.
+
+**Requisitos (todos os grupos)**
+
+*Apresente os requisitos do sistema, atualizados com base na correção da Entrega 1 (ou elaborados agora, para quem trocou de organização):*
+
+- **Requisitos Funcionais:** o que o sistema precisa **fazer**, com os dados envolvidos (ex.: "o sistema deve permitir registrar uma venda com data, cliente, vendedor, forma de pagamento e, para cada item, produto, quantidade e preço unitário"). Cada um com um código (`RF01`, `RF02`…).  
+- **Requisitos Não Funcionais:** características de qualidade (ex.: desempenho, segurança, usabilidade, disponibilidade). Cada um com um código (`RNF01`, `RNF02`…).  
+- **Levante os requisitos típicos do tipo de organização.** Assim como nos processos, é recomendável usar pesquisas e ferramentas de IA para descobrir quais requisitos funcionais e não funcionais são comuns em sistemas de organizações semelhantes e conferir se eles se aplicam à organização escolhida — o que pode exigir confirmação com o responsável. Registre esse uso de IA na seção 6\.  
+- **Justifique os requisitos prováveis não incluídos:** se um requisito comum nesse tipo de organização ficou de fora, explique por quê (ex.: a organização não realiza o processo correspondente, ou a necessidade não existe no porte dela).
+
+*Na Entrega 1, os erros mais comuns foram: requisitos de um sistema diferente do que foi mapeado (ex.: cardápio por QR Code ou motor de recomendação, quando o processo real é o garçom anotar o pedido), problemas declarados sem nenhum requisito que os resolva e requisitos técnicos (autenticação por JWT, hospedagem em nuvem) listados como funcionais. Os requisitos devem corresponder aos processos de negócio descritos acima e cobrir todos os problemas declarados (`P1`, `P2`…).*
+
+**Regras de negócio (todos os grupos)**
+
+*Liste as regras de negócio vigentes, cada uma com um código (`RN01`, `RN02`…) — mantenha os códigos da Entrega 1 quando já existirem. Esses códigos são citados nas justificativas das restrições (seção 1.5) e nas consultas de auditoria do script SQL (seção 3).*
+
+- **Levante as regras típicas do tipo de organização.** Assim como nos processos e nos requisitos, é recomendável usar pesquisas e ferramentas de IA para descobrir quais regras são comuns em organizações semelhantes e conferir se elas valem na organização escolhida — o que pode exigir confirmação com o responsável. Considere tanto as **regras operacionais** (ex.: pedido só é entregue se estiver registrado; cancelamento fica no histórico, não é apagado) quanto as **restrições legais e organizacionais** (ex.: LGPD, emissão de nota fiscal, normas sanitárias, idade mínima, acesso por cargo). Registre esse uso de IA na seção 6\.  
+- **Justifique as regras prováveis não incluídas:** se uma regra comum nesse tipo de organização ficou de fora, explique por quê (ex.: a organização não realiza o processo correspondente, ou a regra não se aplica ao porte ou à natureza dela).
+
+**Notação do DER conceitual (todos os grupos — Caso A e Caso B)**
+
+*O DER deve seguir a notação do **brModelo**, como no exemplo abaixo:*
+
+![Exemplo de DER na notação do brModelo](Exemplo_DER.png)
+
+| Elemento | Como aparece | No exemplo |
+| :---- | :---- | :---- |
+| **Entidade** | retângulo | `Entity 1` a `Entity 5` |
+| **Relacionamento** | losango | `Rel 33`, `Rel 34` |
+| **Cardinalidade mínima e máxima** | par `(mín, máx)` dos dois lados de cada relacionamento | `(0, 1)`, `(1, n)`, `(0, n)` |
+| **Autorrelacionamento** | losango ligado duas vezes à mesma entidade, cada lado com sua cardinalidade | `Rel 33`, em `Entity 3` |
+| **Atributo identificador (chave)** | círculo **preenchido** | `Chave 1`, `Chave 2`, `Chave 3`, `Chave 4` |
+| **Identificador composto** | mais de um círculo preenchido na mesma entidade (obrigatório) — ou mais de um atributo sublinhado, se os atributos estiverem listados no retângulo | `Chave 50` \+ `Chave 51`, em `Entity 5` |
+| **Atributo comum** | círculo **vazio** | `Attribute 10`, `Attribute 30` |
+| **Atributo multivalorado** | círculo vazio com a cardinalidade do atributo | `Attribute 11 (1, n)` |
+| **Atributo composto** *(representação gráfica opcional)* | atributo com seus próprios subatributos ligados a ele | `Attribute 21`, com `attr 211` e `attr 212` |
+| **Generalização/especialização** | triângulo ligando a entidade genérica às especializadas. **A indicação de totalidade e disjunção não é obrigatória** | `Entity 1` → `Entity 2` e `Entity 3` |
+| **Entidade associativa** | retângulo envolvendo o losango do relacionamento, que passa a poder se relacionar com outras entidades e ter atributos próprios | `Rel 53`, com `Attribute 530` |
+
+&nbsp;
+
+- **Representação gráfica opcional:** atributos compostos podem ser desenhados como no exemplo (subatributos ligados ao atributo), mas não é obrigatório; o mesmo vale para a indicação de totalidade/disjunção da generalização/especialização.  
+- **Atributos de entidades:** podem ser representados como no brModelo (círculos ligados à entidade, como no exemplo) **ou** listados dentro do retângulo da entidade — nesse caso, o **identificador deve estar sublinhado**.  
+- **Atributos de relacionamentos e de entidades associativas:** **somente** como no brModelo, ligados ao losango ou à entidade associativa (como `Attribute 530`) — não podem ser listados dentro de um retângulo.  
+- **Sem chaves estrangeiras** — elas só aparecem no modelo lógico (seção 2).
+
+*Informe no README **em qual software ou aplicativo o DER foi criado**.*
+
+**Caso A — mesma organização da Entrega 1**
+
+*Apresente o **DER conceitual revisado**, na notação descrita acima. A revisão parte da correção da Entrega 1 recebida pelo grupo — o DER e os demais itens acima. Para cada apontamento da correção, registre o que foi feito:*
+
+| Apontamento da correção da E1 | O que mudou no trabalho | Por quê |
+| :---- | :---- | :---- |
+| *ex.: N:N entre PEDIDO e PRODUTO sem quantidade* | *criada a entidade associativa ITEM\_PEDIDO com quantidade e preço praticado* | *sem ela não é possível saber quanto de cada produto foi vendido* |
+| *ex.: chaves estrangeiras desenhadas no DER* | *removidas — passam a aparecer só no modelo lógico (seção 2\)* | *FK é decisão do modelo lógico, não do conceitual* |
+
+&nbsp;
+
+*Se o grupo discordar de algum apontamento e mantiver o modelo como estava, registre isso na tabela com a justificativa. Apontamento não citado na tabela é tratado como não corrigido.*
+
+**Caso B — nova organização (a da Entrega 1 era fictícia ou não teve a existência comprovada)**
+
+*Além de todos os itens acima, apresente o **DER conceitual** da nova organização, na notação descrita acima.*
+
+*Use a correção da Entrega 1 do grupo como guia dos erros a não repetir, mesmo sendo outra organização.*
+
+### 1.2 Conversão do Modelo Conceitual para o Modelo Lógico
+
+*(vale 7,5%)*
+
+- **Entidades → Tabelas:** *como cada entidade virou tabela.*  
+- **Atributos → Colunas:** *conversão correta dos atributos.*  
+- **Relacionamentos → Chaves:** *como os relacionamentos foram traduzidos.*  
+- **Cardinalidades:** *como cada cardinalidade (1:1, 1:N, N:N) foi tratada (inclusive tabelas associativas, se houver).*  
+- **Generalização/especialização:** *se o DER tiver, qual estratégia de conversão foi usada (tabela única, uma tabela por entidade ou só as especializadas) e por quê.*
+
+### 1.3 Definição de Chaves Primárias e Estrangeiras
+
+*Liste as PKs e FKs de cada tabela (serve de base para a justificativa técnica abaixo).*
+
+### 1.4 Processo de Normalização (1FN, 2FN e 3FN)
+
+*(vale 7,5%)*
+
+- **1FN:** *eliminação de grupos repetitivos/atributos multivalorados.*  
+- **2FN:** *eliminação de dependências parciais.*  
+- **3FN:** *eliminação de dependências transitivas.*  
+- **Justificativa do processo:** *por que cada forma normal foi necessária no seu caso.*
+
+### 1.5 Justificativas Técnicas das Decisões
+
+*(vale 7,5%)*
+
+- Justificar as **chaves primárias** escolhidas.  
+- Justificar as **chaves estrangeiras** e os relacionamentos que elas implementam.  
+- Justificar as **restrições** aplicadas (unicidade, obrigatoriedade, valores permitidos etc.), citando o código da regra de negócio (`RNxx`) que cada restrição implementa, quando houver.  
+- Justificar **decisões arquiteturais** gerais do modelo.
+
+### 1.6 Proposta de Arquitetura Analítica para BI e IA
+
+*(vale 7,5%)*
+
+- **Informações estratégicas** que podem ser extraídas dos dados para a gestão da organização.  
+- **Indicadores e métricas gerenciais** propostos (KPIs).  
+- **Potencial dos dados para BI:** como a estrutura apoia dashboards/relatórios.  
+- **Aplicações analíticas e de IA:** como o modelo pode alimentar análises preditivas, recomendações etc.
+
+**Rastreabilidade:** inclua uma tabela que ligue cada problema declarado na caracterização da organização e cada KPI proposto às tabelas que o sustentam e à consulta do script SQL que o responde (pelo código da consulta — ver seção 3):
+
+| Problema ou KPI | Tabelas envolvidas | Consulta no script |
+| :---- | :---- | :---- |
+| *ex.: P1 — ruptura de estoque de bebidas* | *PRODUTO, MOVIMENTACAO\_ESTOQUE* | *G03* |
+| *ex.: ticket médio por ambiente* | *PEDIDO, ITEM\_PEDIDO, AMBIENTE* | *G05* |
+
+&nbsp;
+
+*KPI sem consulta no script que o calcule não é considerado KPI. Cada problema declarado deve ter pelo menos uma consulta que o responda.*
+
+> **O que é KPI:** *Key Performance Indicator* (indicador-chave de desempenho) é um número que mostra, de forma objetiva, se a organização está indo bem em algo que importa para a gestão dela. Um KPI tem **fórmula** (como é calculado), **período** (por dia, semana, mês) e, de preferência, uma **meta** para comparação. Exemplos: ticket médio por venda, taxa de cancelamento de pedidos, produtos abaixo do estoque mínimo, tempo médio de atendimento, número de beneficiários atendidos por mês, percentual de doações recorrentes. "Melhorar o atendimento" não é KPI; "tempo médio entre o pedido e a entrega, por semana" é.
+
+> **Como levantar:** é recomendável usar pesquisas e ferramentas de IA para descobrir quais indicadores são usados por organizações do mesmo tipo (ex.: "principais KPIs de uma pizzaria", "indicadores de gestão de uma ONG de doação de alimentos") e quais análises de BI e de IA costumam ser aplicadas a elas. Depois, **filtre pelo que o seu banco consegue calcular**: um KPI só vale se as tabelas do modelo tiverem os dados necessários e se houver uma consulta no script que o calcule (ver *Rastreabilidade*, abaixo). Se possível, confirme com o responsável pela organização quais indicadores seriam úteis para ele. Registre esse uso de IA na seção 6\.
 
 ---
 
-## 3. Requisitos do Sistema 
+## 2\. Modelo Lógico Relacional
 
-- RF01 – Gerenciamento de Clientes
-- D: O sistema deve permitir o cadastro, alteração e armazenamento de clientes, registrando obrigatoriamente o nome completo, o CPF e o telefone, além dos dados opcionais de endereço e e-mail
+*(diagrama separado — vale 10% na Dimensão Procedimental)*
 
-- **RF02 - Gerenciamento de Veiculo**
-- D: O sistema deve registrar e manter os dados dos colaboradores da concessionária, armazenando obrigatoriamente o nome completo, o CPF, o telefone de contato e o cargo exercido
+O modelo lógico deve seguir a **notação visual do brModelo** para o modelo lógico, como no exemplo abaixo. Informe no README **em qual software ou aplicativo ele foi criado**.
 
-- **RF03 – Gerenciamento de Funcionários**
-- D: O sistema deve registrar e manter os dados dos colaboradores da concessionária, armazenando obrigatoriamente o nome completo, o CPF, o telefone de contato e o cargo exercido   
-- **RF04 – Registro de Vendas e Formas de Pagamento**
-- D: O sistema deve permitir registrar as transações comerciais de venda, associando o cliente comprador, o funcionário responsável e o veículo comercializado, registrando a data da venda, o valor total e a forma de pagamento utilizada
+![Exemplo de modelo lógico na notação do brModelo](Exemplo_Logico.png)
 
-- **RF05 – Gestão de Financiamentos** 
-- D: O sistema deve permitir vincular um financiamento à venda quando aplicável, registrando a instituição financeira parceira, o valor financiado, a quantidade de parcelas, o valor da parcela e o status da aprovação de crédito pelo banco.
+| Elemento | Como aparece | No exemplo |
+| :---- | :---- | :---- |
+| **Tabela** | retângulo com o nome da tabela no topo e uma linha por coluna | `Entity 1`, `Entity 5` |
+| **Coluna** | nome da coluna, à esquerda, com o tipo de dado à direita | `Attribute 30` — `INT` |
+| **Chave primária** | marca `PK` ao lado do tipo | `Chave 1`, em `Entity 1`; `Chave 50` \+ `Chave 51`, em `Entity 5` (chave primária composta) |
+| **Chave estrangeira** | marca `FK` ao lado do tipo | `Chave 3`, em `Entity 4` |
+| **Coluna que é chave primária e estrangeira** | marcas `PK, FK` | `Chave 1`, em `Entity 2` |
+| **Ligação entre tabelas** | linha entre a tabela da FK e a tabela referenciada, com a cardinalidade `(mín, máx)` em cada ponta | `Entity 3` — `Entity 4`: `(1, 1)` e `(0, n)` |
 
-- **RF06 – Pedido de Venda**
-- D: O sistema deve gerar um "Pedido de Venda" formal vinculado à transação comercial após a aprovação do financiamento (ou confirmação da compra), registrando a identificação do pedido, a data de emissão, o número da nota fiscal, o nome do cartório para trâmites legais e o status atual do pedido.
+&nbsp;
 
-### 3.1 Requisitos Funcionais 
-- **RF01 – Gerenciamento de Clientes**
-  - **D:** O sistema deve permitir o cadastro, alteração e armazenamento de clientes, registrando obrigatoriamente o nome completo, o CPF e o telefone, além dos dados opcionais de endereço e e-mail.
+Deve apresentar claramente:
 
-- **RF02 – Gerenciamento de Veículos**
-  - **D:** O sistema deve permitir o controle do estoque de veículos, armazenando o número de identificação (chassi), a marca, o modelo, o ano de fabricação, o preço estipulado, o tipo de veículo (ex: SUV, hatch, sedan) e a situação de disponibilidade atual.
+- Tabelas  
+- Atributos (colunas), com seus tipos de dados  
+- Chaves primárias  
+- Chaves estrangeiras  
+- Cardinalidades já convertidas
 
-- **RF03 – Gerenciamento de Funcionários**
-  - **D:** O sistema deve registrar e manter os dados dos colaboradores da concessionária, armazenando obrigatoriamente o nome completo, o CPF, o telefone de contato e o cargo exercido.
-
-- **RF04 – Registro e Gestão de Vendas**
-  - **D:** O sistema deve permitir a realização e o registro das vendas de veículos, armazenando a data da transação, o valor total, a forma de pagamento selecionada (à vista, PIX ou financiamento), o status da venda (*Pendente*, *Aprovada*, *Concluída* ou *Cancelada*), associando obrigatoriamente o cliente comprador, o vendedor responsável e o veículo negociado.
-
-- **RF05 – Gestão de Financiamentos Bancários**
-  - **D:** O sistema deve permitir vincular um financiamento à venda quando aplicável, registrando a instituição financeira parceira, o valor financiado, a quantidade de parcelas, o valor da parcela e o status da aprovação de crédito pelo banco.
-
-- **RF06 – Emissão de Pedido de Venda**
-  - **D:** O sistema deve gerar um "Pedido de Venda" formal vinculado à transação comercial após a aprovação do financiamento (ou confirmação da compra), registrando a identificação do pedido, a data de emissão, o número da nota fiscal, o nome do cartório para trâmites legais e o status atual do pedido.
-
-- **RF07 – Consulta e Verificação de Veículos Disponíveis**
-  - **D:** O sistema deve permitir a consulta em tempo real do estoque da concessionária, exibindo a situação do veículo (*Disponível*, *Vendido*, *Reservado* ou *Em Manutenção*), juntamente com seus dados de identificação (marca, modelo, ano, preço, chassi e tipo).
-
-- **RF08 – Acompanhamento de Pedidos e Notificação de Entregas**
-  - **D:** O sistema deve permitir o rastreamento da situação do pedido de venda e do fluxo logístico de entrega do veículo, registrando o status da entrega (*Agendada*, *Em Preparação*, *Pronto para Retirada*, *Entregue*), a data prevista e a data de entrega efetiva, visando a organização interna da concessionária e a notificação atualizada ao cliente.
-
-### 3.2 Requisitos Não Funcionais
-Os requisitos não funcionais que nos averiguamos foram: Usabilidade e disponibilidade.
+As **demais restrições de integridade** — obrigatoriedade (`NOT NULL`), unicidade (`UNIQUE`), valores permitidos (`CHECK`), valores padrão (`DEFAULT`) — não aparecem no diagrama do brModelo e devem ser documentadas no **dicionário de dados** (seção 5\) e implementadas no **script SQL** (seção 3).
 
 ---
 
-## 4. Regras de Negócio 
+## 3\. Script SQL Completo
 
-- **Regras operacionais:** Um pedido só pode ser feito se houver estoque, em caso de financiamento só pode haver pedido se o banco aprovar.
-Um pedido só pode ser feito se as informações do veículo estiver certas.
+*(arquivo `.sql` — vale 12% na Dimensão Procedimental)*
 
-- **Restrições organizacionais:** Um pedido só pode ser feito se as informações do veículo estiver certas
----
+O script completo é **um arquivo no formato `.sql` disponível no repositório**, de preferência numa pasta chamada **`docs`** (ex.: `docs/script.sql`), com link no README. Script colado só no README, em PDF, em imagem ou em outro formato não é aceito.
 
-## 5. Dicionário de Dados Conceitual (Preliminar) 
+**SGBD:** MySQL — o disponível no laboratório ou outra instalação equivalente a que o grupo tenha acesso. O script deve executar no MySQL.
 
-| Atributo | Descrição | Regra de negócio associada |
+O script deve conter, nesta ordem lógica:
 
+1. `CREATE DATABASE`  
+2. `CREATE TABLE` (todas as tabelas, com tipos de dados adequados)  
+3. **Constraints** (PK, FK, `NOT NULL`, `UNIQUE`, `CHECK` etc.)  
+4. `INSERT INTO` (carga da massa de dados — ver seção 4\)  
+5. `SELECT` com `JOIN` (consultas que cruzam múltiplas tabelas)  
+6. `UPDATE`  
+7. `DELETE`  
+8. **Consultas gerenciais** (que respondem perguntas de gestão, ex.: faturamento/arrecadação por período, número de atendimentos/beneficiários)  
+9. **Consultas de auditoria** (que verificam consistência/integridade dos dados)
 
-##                  CLIENTE
+Cada **consulta gerencial** e cada **consulta de auditoria** deve ter um cabeçalho em comentário com um código (`G01`, `G02`… para gerenciais; `A01`, `A02`… para auditoria), a pergunta que ela responde em português e o que ela atende:
 
-| **id_cliente** | Identificador único do cliente | PK, obrigatório e exclusivo para cada cliente cadastrado. |
+```sql
+-- G03 — Quais bebidas estão abaixo do estoque mínimo hoje?
+-- Atende: P1 (ruptura de estoque de bebidas)
+SELECT ...
 
-| **nm_cliente** | Nome completo do cliente seja civil ou social | Obrigatório para identificação do cliente, devendo conter ao menos nome e sobrenome. |
+-- A02 — Existe pedido registrado sem nenhum item?
+-- Verifica: RN04 (todo pedido tem ao menos um item)
+SELECT ...
+```
 
-| **nr_cpf** | Cadastro de pessoa física do cliente | Obrigatório, deve ser único para cada cliente e possuir formato válido com 11 dígitos numéricos. |
+&nbsp;
 
-| **nr_telefone** | Telefone principal de contato ou WhatsApp do cliente | Obrigatório, deve conter DDD e número telefônico válido. |
+- **Consultas gerenciais** respondem aos problemas declarados e aos KPIs da seção 1.6 — pelo menos uma por problema declarado e por KPI.  
+- **Consultas de auditoria** verificam regras de negócio, citando o código da regra (`RNxx`) que cada uma confere.  
+- Essas mesmas consultas são as usadas na demonstração da apresentação final (seção 7).
 
-| **ds_email** | Endereço eletrônico de contato do cliente | Opcional, quando preenchido deve possuir formato sintático de e-mail válido (ex: usuario@dominio.com). |
-
-| **ds_endereco** | Endereço residencial completo do cliente | Opcional, texto livre contendo logradouro, número, bairro, cidade, UF e CEP. |
-
-
-##                FUNCIONARIO
-
-| **id_funcionario** | Identificador único do funcionário | PK, obrigatório e exclusivo para cada colaborador cadastrado no sistema. |
-
-| **nm_funcionario** | Nome completo do funcionário ou vendedor | Obrigatório para qualificação e identificação nas vendas e comissões. |
-
-| **nr_cpf** | Cadastro de pessoa física do funcionário | Obrigatório, único para cada colaborador e com validação de 11 dígitos numéricos. |
-
-| **ds_cargo** | Cargo ou função ocupada pelo colaborador na empresa | Obrigatório, define a função exercida (ex: Vendedor, Gerente) e nível de acesso. |
-
-| **nr_telefone** | Telefone de contato do funcionário | Obrigatório, deve incluir o código de área (DDD) e o número de telefone. |
-
-
-##                  VEICULO
-
-| **id_veiculo** | Identificador único do veículo no sistema | PK, obrigatório, numérico inteiro gerado automaticamente pelo sistema, exclusivo para cada veículo. |
-
-| **ds_chassi** | Número de identificação do veículo (VIN/Chassi) | Obrigatório, deve ser único para cada veículo e possuir exatamente 17 caracteres alfanuméricos válidos. |
-
-| **nm_marca** | Marca ou fabricante do veículo | Obrigatório, texto simples que identifica a fabricante (ex: Chevrolet, Volkswagen). |
-
-| **nm_modelo** | Modelo comercial do veículo | Obrigatório, texto simples que identifica o modelo do automóvel (ex: Onix, Gol). |
-
-| **nr_ano** | Ano de fabricação e/ou modelo do veículo | Obrigatório, valor numérico de 4 dígitos, devendo ser superior a 1900 e menor ou igual ao ano subsequente ao atual. |
-
-| **vl_preco**. | Valor estipulado para venda do veículo | Obrigatório, valor decimal estritamente positivo (maior que zero). |
-
-| **tp_veiculo** | Tipo ou categoria de carroceria do veículo | Opcional, classificação interna do automóvel (ex: Hatch, Sedan, SUV, Pickup). |
-
-| **st_veiculo** | Situação atual da disponibilidade do veículo em estoque | Obrigatório, valores possíveis restritos ao domínio: 'Disponível', 'Vendido', 'Reservado', 'Em Manutenção'. |
-
-
-##                   VENDA
-
-| **id_venda** | Identificador único da transação de venda | PK, obrigatório e exclusivo para cada registro de venda efetuado. |
-
-| **id_cliente** | Referência ao cliente comprador da venda | FK, obrigatório, deve corresponder a um id_cliente válido e ativo na tabela CLIENTE (relacionamento 1:N). |
-
-| **id_funcionario** | Referência ao funcionário responsável pela venda | FK, obrigatório, deve corresponder a um id_funcionario válido na tabela FUNCIONARIO (relacionamento 1:N). |
-
-| **id_veiculo** | Referência ao veículo comercializado na venda | FK, obrigatório e único para vendas ativas, devendo corresponder a um id_veiculo válido em VEICULO (relacionamento 1:1). |
-
-| **dt_venda** | Data e horário em que a venda foi efetuada | Obrigatório, preenchido automaticamente com a data e hora do sistema; não aceita datas futuras. |
-
-| **vl_total** | Valor total fechado da negociação | Obrigatório, deve ser um valor numérico decimal maior que zero. |
-
-| **ds_forma_pagamento** | Modalidade utilizada para quitação do valor da venda | Obrigatório, valores possíveis restritos a: 'À Vista', 'Financiamento', 'Cartão de Crédito', 'PIX', 'Misto'. |
-
-| **st_venda** | Situação do andamento e fechamento da venda | Obrigatório, valores possíveis restritos a: 'Pendente', 'Aprovada', 'Concluída', 'Cancelada'. |
-
-
-##                   BANCO
-
-| **id_banco** | Identificador único da instituição financeira | PK, obrigatório e exclusivo para cada banco/financeira parceira. |
-
-| **nm_banco** | Nome comercial ou razão social da instituição financeira | Obrigatório, texto simples contendo a identificação do banco. |
-
-| **nr_cnpj** | Cadastro Nacional da Pessoa Jurídica do banco | Obrigatório, único para cada banco e deve possuir formato válido com 14 dígitos numéricos. |
-
-| **nr_telefone** | Telefone de contato da central ou mesa de crédito do banco | Opcional, deve conter o DDD e número telefônico. |
-
-
-##                 FINANCIAMENTO
-
-| **id_financiamento** | Identificador único do contrato de financiamento | PK, obrigatório e exclusivo para cada proposta ou contrato de financiamento. |
-
-| **id_banco** | Referência ao banco concessor do financiamento | FK, obrigatório, deve corresponder a um id_banco válido na tabela BANCO (relacionamento 1:N). |
-
-| **id_venda** | Referência à venda vinculada ao financiamento | FK, obrigatório e único, deve corresponder a um id_venda válido na tabela VENDA (relacionamento 1:1 opcional). |
-
-| **vl_financiado** | Valor total contratado e financiado pelo banco | Obrigatório, deve ser um valor decimal estritamente positivo (maior que zero). |
-
-| **qt_parcelas** | Quantidade total de parcelas acertadas no contrato | Obrigatório, valor inteiro positivo (ex: 12, 24, 36, 48, 60). |
-
-| **vl_parcela** | Valor cobrado em cada parcela mensal | Obrigatório, deve ser um valor decimal estritamente positivo. |
-
-| **st_financiamento** | Status da análise de crédito e concessão do financiamento | Obrigatório, valores possíveis restritos a: 'Em Análise', 'Aprovado', 'Recusado', 'Cancelado'. |
-
-
-##               PEDIDO_DE_VENDA
-
-| **id_pedido** | Identificador único do pedido burocrático de venda | PK, obrigatório e exclusivo para cada pedido emitido. |
-
-| **id_venda** | Referência à venda correspondente ao pedido | FK, obrigatório, deve corresponder a um id_venda válido na tabela VENDA. |
-
-| **dt_pedido** | Data de criação e processamento do pedido | Obrigatório, preenchido automaticamente com a data corrente no momento do faturamento. |
-
-| **nr_nota_fiscal** | Número do documento fiscal (NF-e) emitido | Opcional, preenchido obrigatoriamente após a emissão do faturamento fiscal do veículo. |
-
-| **nm_cartorio** | Nome do cartório responsável pelos trâmites de transferência | Opcional, texto livre indicando a serventia extrajudicial para reconhecimento de firma e CRV. |
-
-| **st_pedido** | Situação do andamento burocrático do pedido | Obrigatório, valores possíveis restritos a: 'Em Processamento', 'Aguardando Emissão', 'Faturado', 'Cancelado'. |
-
-
-##                  ENTREGA 
-
-| **id_entrega** | Identificador único da logística de entrega | PK, obrigatório e exclusivo para cada agendamento de entrega. |
-
-| **id_venda** | Referência à venda correspondente à entrega | FK, obrigatório, deve corresponder a um id_venda válido na tabela VENDA. |
-
-| **dt_prevista** | Data agendada para entrega ou retirada do veículo | Obrigatório, deve ser uma data igual ou posterior à data do pedido de venda. |
-
-| **dt_entrega** | Data e hora em que o veículo foi efetivamente entregue | Opcional, preenchido no momento em que a entrega é finalizada com sucesso. |
-
-| **ds_endereco_entrega** | Endereço estipulado para entrega física do veículo | Opcional, texto livre especificando o local da entrega ou concessionária. |
-
-| **st_entrega** | Estado de progresso do fluxo logístico | Obrigatório, valores possíveis restritos a: 'Agendada', 'Em Preparação', 'Pronto para Retirada', 'Entregue', 'Cancelada'. |
-
+*Teste o script do zero (banco vazio) antes de entregar, para garantir que ele executa sem erros.*
 
 ---
 
-## 6. Modelagem Conceitual (Entidades, Atributos, Relacionamentos)
+## 4\. Massa de Dados
 
-- **Entidades reconhecidas:** 
+*(incluída no script ou em arquivo separado — parte da nota de Implementação SQL, 12%)*
 
-    **VEICULO:** Representa os automóveis em estoque disponíveis para comercialização na concessionária. Justifica-se pela necessidade de rastrear histórico de preços, características físicas e status de disponibilidade.
-   
-    **CLIENTE:** Representa a pessoa física que adquire veículos ou solicita propostas comerciais. Sua manutenção é essencial para a emissão de contratos, faturamento e cumprimento das exigências contratuais
-    
-    **FUNCIONARIO:** Representa o colaborador/vendedor responsável pelo atendimento ao cliente e intermediação da venda. Justifica-se para fins de controle de comissões, 
-    auditoria de processos e auditoria interna de acesso
+Se a massa de dados ficar em arquivo separado, ele deve seguir a mesma regra do script: **um arquivo no formato `.sql` no repositório**, de preferência na pasta **`docs`** (ex.: `docs/massa_de_dados.sql`), com link no README.
 
-    **VENDA:** Entidade central da aplicação que registra a transação comercial. Conecta o cliente, o vendedor e o veículo comercializado em uma data e valor específicos
-   
-    **BANCO:** Representa as instituições financeiras parceiras que concedem crédito para as operações de financiamento. É necessária para o controle de propostas enviadas e parceiros comerciais.
-
-    **FINANCIAMENTO:** Representa o contrato de crédito aprovado por um banco para viabilizar uma venda. Justifica-se para controle de taxas, parcelamento e aprovação de crédito
-
-    **PEDIDO DE VENDA**: Representa o trâmite documental e fiscal decorrente do fechamento da venda. Justifica-se pela necessidade de registrar a emissão de Nota Fiscal Eletrônica e processos de cartório para transferência de propriedade.
-
-    **ENTREGA:** Representa a etapa logística de transferência de posse do veículo ao cliente. Justifica-se para agendamento, controle de datas de liberação e local de entrega.
-
-- **Atributos e classificações:** 
-
-    **VEICULO:**
-      PK: id_veiculo
-      atributos Simples / Obrigatórios: ds_chassi (único), nm_marca, nm_modelo, nr_ano, vl_preco, st_veiculo (domínio restrito)
-      Atributos Opcionais: ds_cor, tp_veiculo
-
-    **CLIENTE:**
-      PK: id_cliente
-      Atributos Simples / Obrigatórios: nm_cliente, nr_cpf (único), nr_telefone
-      Atributos Opcionais: ds_email, ds_endereco
-
-    **FUNCIONARIO:**
-      PK: id_funcionario
-      Atributos Simples / Obrigatórios: nm_funcionario, nr_cpf (único), ds_cargo, nr_telefone
-
-    **VENDA:**
-      PK: id_venda
-      FK: id_cliente, id_funcionario, id_veiculo
-      Atributos Simples / Obrigatórios: dt_venda, vl_total, ds_forma_pagamento, st_venda
-
-    **BANCO**
-      PK: id_banco
-      Atributos Simples / Obrigatórios: nm_banco, nr_cnpj (único)
-      Atributos Opcionais: nr_telefone
-
-    **FINANCIAMENTO**
-      PK: id_financiamento
-      FK: id_banco, id_venda
-      Atributos Simples / Obrigatórios: vl_financiado, qt_parcelas, vl_parcela, st_financiamento
-      Atributos Opcionais: pc_taxa_juros
-
-    **PEDIDO DE VENDA:**
-      PK: id_pedido
-      FK: id_venda
-      Atributos Simples / Obrigatórios: dt_pedido, st_pedido
-      Atributos Opcionais: nr_nota_fiscal, nm_cartorio
-
-    **ENTREGA:**
-      PK: id_entrega
-      FK: id_venda
-      Atributos Simples / Obrigatórios: dt_prevista, st_entrega
-      Atributos Opcionais: dt_entrega, ds_endereco_entrega
-
-- **Relacionamentos pertinentes:** 
-    **Cliente realiza Venda:**
-      Mapeamento: CLIENTE (1, 1) <---- realiza ----> (0, N) VENDA
-      Descrição: Um cliente pode realizar várias vendas ao longo do tempo (0 a N), porém cada registro de venda pertence obrigatoriamente a um único cliente (1 para 1).
-
-    **Funcionário realiza Venda:**
-      Mapeamento: FUNCIONARIO (1, 1) <---- intermedia ----> (0, N) VENDA
-      Descrição: Um colaborador pode atuar em diversas vendas (0 a N), mas cada venda é intermediada por apenas um funcionário responsável (1 para 1).
-
-    **Venda envolve Veículo:**
-      Mapeamento: VEICULO (0, 1) <---- envolve ----> (1, 1) VENDA
-      Descrição: Toda venda registrada deve conter obrigatoriamente exatamente um veículo (1 para 1). Um veículo em estoque participa de no máximo uma venda ativa (0 a 1).
-
-    **Venda possui Financiamento:**
-      Mapeamento: VENDA (0, 1) <---- gera ----> (1, 1) FINANCIAMENTO
-      Descrição: Uma venda pode ou não ser financiada (0 a 1, pois o pagamento pode ser à vista). Quando existe um financiamento, ele pertence a uma única venda específica (1 para 1).
-
-    **Banco analisa Financiamento:**
-      Mapeamento: BANCO (1, 1) <---- avalia ----> (0, N) FINANCIAMENTO
-      Descrição: Um banco pode analisar e aprovar múltiplos financiamentos (0 a N), mas cada proposta de financiamento é vinculada a um único banco concessor (1 para 1).
-    
-    **Venda gera Pedido de Venda:**
-      Mapeamento: VENDA (0, 1) <---- consolida ----> (1, 1) PEDIDO_DE_VENDA
-      Descrição: Uma venda efetuada origina um pedido de venda formal (1 para 1), no qual serão vinculados os trâmites fiscais e cartorários.
-
-    **Pedido gera Entrega:**
-      Mapeamento: PEDIDO_DE_VENDA (0, 1) <---- origina ----> (1, 1) ENTREGA
-      Descrição: Um pedido de venda gera o processo de agendamento e liberação logística para entrega do veículo ao cliente (1 para 1).
-      
-- **Restrições e políticas organizacionais aplicadas ao modelo.**
-
-1. Unicidade e Validação Cadastral: O *nr_cpf* de **clientes** e **funcionários**, o *nr_cnpj* de **bancos** e o *ds_chassi* de veículos possuem restrição de integridade do tipo **UNIQUE**, impedindo a duplicação de cadastros no sistema
-
-2. Exclusividade de Venda de Veículo: Um **veículo** cadastrado só pode estar associado a um único registro de venda com status concluído ou ativo. Seu atributo *st_veiculo* deve ser alterado obrigatoriamente para **'Vendido'** imediatamente após o fechamento da transação
-
-3. Modalidade de Pagamento e Financiamento: A criação de um registro na entidade **FINANCIAMENTO** é condicional: só ocorre caso o atributo *ds_forma_pagamento* da entidade **VENDA** seja igual a *'Financiamento'* ou *'Misto'*.
-
-4. Faturamento e Emissão de Documentação: A liberação da **ENTREGA** com status *'Entregue'* fica estritamente sujeita ao preenchimento do atributo *nr_nota_fiscal* na entidade **PEDIDO_DE_VENDA** e à aprovação prévia do financiamento (caso existente).
-
-5. Datas Cronológicas Coerentes: A *dt_venda* não pode conter valores futuros em relação ao timestamp do servidor, e a dt_prevista da entrega deve ser igual ou posterior à *dt_venda*.
+- **Dados reais da organização (nomes de clientes, fiéis, beneficiários, doadores, valores reais etc.) não devem ser utilizados, em respeito à privacidade dessas informações.** A massa de dados deve ser **fictícia**, mas **coerente com as operações modeladas** (mesmos tipos de processo, volumes e regras observados na organização real).  
+- Volume de registros **coerente com a realidade da organização** (nada de 3 linhas de exemplo — mas também nada artificialmente inflado sem sentido).  
+- **Explique como o volume real da organização** — os números informados em *Contexto e porte* (seção 1.1), como clientes ativos, pedidos por mês, atendimentos por semana, itens no estoque — **justifica a quantidade de registros de cada tabela** da massa de dados.  
+- Dados consistentes o suficiente para validar os processos organizacionais modelados (ex.: pedidos que referenciam clientes e produtos existentes, ou doações que referenciam doadores e campanhas existentes).  
+- **Variedade e quantidade coerentes com a organização, para que os testes sejam possíveis:** os dados devem cobrir as situações reais — não só o caso comum, mas também pedidos cancelados, clientes sem compras, produtos abaixo do estoque mínimo, pagamentos em formas diferentes, registros em períodos diferentes. Sem essa variedade, as consultas gerenciais e de auditoria (seção 3\) não têm o que mostrar: uma consulta de produtos abaixo do estoque mínimo que retorna vazio não demonstra nada.  
+- **Documente o uso de LLMs** para gerar essa massa de dados na seção 6 (**Uso de Inteligência Artificial**), incluindo ferramentas, prompts e ajustes feitos manualmente.
 
 ---
 
-## 7. Diagrama Entidade-Relacionamento (DER)
+## 5\. Repositório GitHub
 
-![Modelo DER Imagem](ModeloDER.png)
-Link: [https://app.brmodeloweb.com/publicview/6ab03281226d3f36496c6ecb](https://app.brmodeloweb.com/publicview/6ab03281226d3f36496c6ecb)
+*(vale 13% — Documentação e Repositório)*
+
+O repositório deve conter:
+
+- Relatório Técnico (no `README.md`)  
+- **Dicionário de Dados** atualizado, no modelo do arquivo `02-03g_Exemplo_Dicionario_Dados.pdf` e com as restrições de integridade de cada coluna (obrigatoriedade, unicidade, valores permitidos, valor padrão), em **um único arquivo HTML** no repositório. **Exceção — turma de GTI:** o dicionário é apresentado em **um único arquivo Markdown (`.md`) separado do README**, seguindo o mesmo modelo do `02-03g_Exemplo_Dicionario_Dados.pdf`.  
+- Diagramas (DER revisado e modelo lógico)  
+- Levantamento (pasta `levantamento`, recomendada) e evidências da organização e da entrevista (fotos JPG ou PNG)  
+- Script SQL completo em arquivo `.sql` (de preferência na pasta `docs`)  
+- **Histórico de commits** que evidencie o desenvolvimento ao longo do tempo (evite um único commit final)  
+- **Evidências de colaboração entre os membros do grupo:** é a listagem de commits do repositório, que deve estar **equilibrada entre os integrantes** — a quantidade de commits deve se distribuir de forma proporcional entre todos os membros do grupo, cada um fazendo commits com a própria conta do GitHub. O integrante precisa ser **identificável na conta do GitHub**: o nome configurado na conta deve ser compatível com o nome do aluno na tabela de Integrantes, onde também deve constar o usuário do GitHub de cada um
 
 ---
 
-## 8. Justificativa Técnica
+## 6\. Uso de Inteligência Artificial
 
-Para este projeto a gente buscou criar uma estrutura bem organizada e fácil de manter no futuro atendendo diretamente aos requisitos que a organização nos solicitou, a decisão de separar venda pedido de venda e entrega em tabelas diferentes foi justamente para cumprir essa exigencia e não sobrecarregar uma tabela só com muita informação misturada a venda cuida da parte comercial da negociação o pedido cuida da burocracia de nota fiscal e cartorio e a entrega cuida apenas da logística física de enviar ou liberar o veiculo, com isso a gente consegue acompanhar o avanço de cada etapa de forma independente conforme o fluxo do negócio exige a mesma ideia serviu para isolar o financiamento e os bancos atendendo a outra necessidade da empresa como nem todo cliente compra um carro financiado colocar esses campos direto na tabela de venda ia deixar um monte de dados em branco desnecessariamente criando uma estrutura propria para financiamento e mantendo o banco separado a gente evita dados repetidos cumpre os requisitos de integração com as financeiras e ainda consegue analisar quais instituições parceiras estão aprovando mais credito para a loja.
+*(documentação obrigatória — não é opcional se o grupo usou IA em qualquer etapa: pesquisa, levantamento de processos, requisitos e regras típicos, escrita, organização de ideias, revisão de texto, geração de massa de dados ou apoio a scripts SQL)*
 
-Na parte dos atributos a gente adotou uma nomenclatura bem padronizada usando prefixos simples antes de cada nome, que foi nos ensinado em uma aula de quinta-feira para seguir as boas praticas e padrões, alem disso vimos que realmente isso ajuda bastante a identificar na hora de consultar o que é texto o que é valor numérico e o que é data sem criar confusão,os relacionamentos foram pensados para garantir as regras reais que a organização utiliza no dia a dia, um cliente pode comprar vários carros com a empresa ao longo do tempo mas cada registro de venda vai pertencer sempre a um unico cliente, o mesmo vale para os vendedores onde um funcionário pode fechar varios negocios mas cada venda tem apenas um responsavel ja a relação entre o veiculo e a venda garante que cada contrato seja de apenas um carro e que um veiculo em estoque so possa ser vendido uma unica vez respeitando a regra do negocio e evitando qualquer tipo de venda duplicada, utilizamos essa entidades para uma facilidade de compreensão da equipe que utilizara o modelo, os atributos foram especialmente escolhidos tambem como necessidade da organização, que fez a solicitação restritamente desses atributos
+Para cada uso relevante de ferramenta de IA (ChatGPT, Claude, Gemini, Perplexity etc.), registre:
 
----
-
-## 9. Uso de Inteligência Artificial
- 
 | Item | O que registrar |
+| :---- | :---- |
+| **Ferramenta e etapa** | Qual IA foi usada e em qual parte do trabalho (ex.: normalização, geração da massa de dados, escrita de queries SQL, redação do relatório, preparação dos slides). |
+| **Motivação** | Por que o grupo recorreu à IA nesse ponto específico. |
+| **Prompt(s) utilizados** | Texto exato (ou muito próximo) do que foi perguntado/pedido à IA. |
+| **Resposta recebida** | Resumo ou trecho relevante da resposta da IA. |
+| **Fontes consultadas e verificadas** | Se a IA citou fontes/dados, quais foram checadas pelo grupo e como. |
+| **Trechos rejeitados ou corrigidos** | O que da resposta da IA foi descartado, editado ou corrigido manualmente (ex.: query SQL ajustada, dado fictício alterado), e por quê. |
+| **Justificativa da escolha final** | Por que o grupo manteve, adaptou ou rejeitou o que a IA sugeriu. |
+| **Reflexão crítica** | Limites, vieses ou erros identificados no uso da IA nessa etapa (ex.: normalização incorreta sugerida pela IA, script SQL com erro de sintaxe, dado fictício incoerente com o volume real da organização). |
 
-|------|------------------|
+&nbsp;
 
-1 e 2 USO
+*Se o grupo não usou nenhuma ferramenta de IA em alguma dessas etapas, declare isso explicitamente.*
 
-| **Ferramenta e etapa** | Gemini, Utilização para ajudar e orientar na organização do modelo DER em relação aos Atributos, e na documentação.
-
-| **Motivação** | Recorremos a IA, pois estavamos com um prazo curto para realizar esse trabalho, já que tivemos dificuldades com uma empresa passada que agendou a entrevista muito encima da hora da entrega do trabalho, utilizamos ela para nos ajudar a terminar o trabalho o mais rapido possivel e com qualidade. |
-
-| **Prompt(s) utilizados** |
-
- **1 Prompt:** Gemini, com base nesse PDF (02-03g_Exemplo_Dicionario_Dados.pdf), e nessa imagem desse modelo DER (Arquivos Anexados no prompt), verifique se as conexões das entidades e seus relacionamentos estão adequados e corretos, caso tenha algum acrescimo ou algum erro nos relate, caso tenha alguma opinião sobre nos diga.
-
- **2 Prompt:** Gemini, com base na imagem desse modelo DER e no PDF (02-03g_Exemplo_Dicionario_Dados.pdf), nos ajude a documentar sobre as entidades e seus relacionamentos. |
-
-| **Resposta recebida** | 1 Prompt: A IA nos notificou sobre um erro que tinha na cardinalidade entre vendas e clientes, venda e veiculols, venda e funcionarios, financiamento e banco, onde nos optamos por seguir a base dela que realmente nos averiguamos e era condizente com oque nos pensamos. 
-
-2 Prompt: A IA nos deu a documentação inteira sobre as entidade e seus relacionamentos para utilizarmos no Dicionario Conceitual, nos ajudando a finalizar ele com mais rapidez, realizamos modificações. |
-
-| **Fontes consultadas e verificadas** | Sim, ambos os Prompts tiveram o PDF e uma Imagem do modelo DER anexados, e ela relatou a utilização sobre eles. |
-
-| **Trechos rejeitados ou corrigidos** | Nos não tivemos problemas ao ponto de necessitar de correções por parte da IA, o prompt foi bem elaborado e ela conseugiu trazer uma resposta condizente com oque precisavamos. |
-
-| **Justificativa da escolha final** | Mantivemos oque a IA sugeriu, Apos uma analise em conjunto chegamos a conclusão que bateu com oque a organização necessitava. |
-
-| **Reflexão crítica** | Não tivemos probelmas com a resposta da IA, já que conseguimos realizar um prompt que deu uma resposta que colidiu com oque a organização necesstiva. |
-
-|------|------------------|
-
-3 USO
-
-| **Ferramenta e etapa** | Gemini, Utilização para a ajuda da documentação em relação a listagem de entidades e atributos, a atribuições e qualificações, relacionamentos pertinentes e as restrições e politicas organizacionais .
-
-| **Motivação** | Recorremos a IA, pois estavamos com um prazo curto para realizar esse trabalho. |
-
-| **Prompt(s) utilizados** |
-
- **Prompt:** Gemini, com base no prompt que pedi para você me ajudar com o modelo DER, agora me ajude a realizar uma listagem de: Entidades e atributos liste e justifique brevemente cada uma, Atributos e classificações quais atributos pertencem a cada entidade, Relacionamentos pertinentes como as entidades se conectam e Restrições e políticas organizacionais aplicadas ao modelo. 
-
-| **Resposta recebida** | O Gemini nos deu toda a listagem de entidades reconhecidas, atributos e classificações, relacionamentos pertinentes e restrições politicas organizacionais aplicadas ao modelo, ele nos deu de maneira organizada e explicando de maneira simples que nos ajudou tambêm a estudar. |
-
-| **Fontes consultadas e verificadas** | O Gemini demonstrou utilizar tanto das informações do chat que nos ficavamos conversando quanto da demonstração dos arquivos que foram anexados no chat, o PDF e a imagem do modelo. |
-
-| **Trechos rejeitados ou corrigidos** | Nos não tivemos problemas ao ponto de necessitar de correções por parte da IA, o prompt foi bem elaborado e ela conseugiu trazer uma resposta condizente com oque precisavamos. |
-
-| **Justificativa da escolha final** | Mantivemos oque a IA nos deu, Apos uma analise em conjunto chegamos a conclusão que bateu com oque a organização necessitava, no maximo fizemos modificações para melhorar o entendimento, marcando as entidades e os atributos. |
-
-| **Reflexão crítica** | Não tivemos probelmas com a resposta da IA, já que conseguimos realizar um prompt que deu uma resposta que colidiu com oque a organização necesstiva. |
-
-|------|------------------|
-
-4 USO
-
-| **Ferramenta e etapa** | Gemini, Utilização para a criação da massa_de_dados.sql.
-
-| **Motivação** | Recorremos a IA nesta etapa para ter uma estrutura mais agil, elaborada e coerente com oque vai ser escrito no script.sql, A utilização tambêm
-foi para a criação de dados rapidos e coerentes de pessoas ficticias e evitar tambêm uma tarefa repetitiva.|
-
-| **Prompt(s) utilizados** |
-
- **Prompt:** Com base no nosso modelo relacional da concessionária Xenon Multimarcas (tabelas Cliente, Funcionario, Veiculo, Banco, Venda, Financiamento, Pedido_de_venda e Entrega), crie uma massa de dados fictícia em comandos INSERT INTO para o MySQL. Os dados devem respeitar o porte enxuto da empresa (5 clientes, 3 funcionários, alguns veículos em estoque e vendidos) e cobrir diferentes cenários para validar consultas gerenciais e de auditoria.
-
-| **Resposta recebida** | A IA estruturou e gerou os blocos completos de comandos INSERT INTO divididos logicamente por tabela, mantendo as relações de chaves estrangeiras (id_cliente, id_funcionario, id_veiculo, etc.) alinhadas. |
-
-| **Fontes consultadas e verificadas** | O nós cruzamos os dados gerados com o diagrama DER e com o modelo lógico para garantir que os campos obrigatórios e as restrições (NOT NULL, UNIQUE) fossem respeitados |
-
-| **Trechos rejeitados ou corrigidos** | Foram ajustados manualmente os valores de datas para manter uma linha cronológica coerente, de resto não houve necessidade de alteração e correção de trechos. |
-
-| **Justificativa da escolha final** | A estrutura sugerida pela IA foi mantida e adaptada porque reduziu o tempo de escrita manual repetitiva de comandos SQL |
-
-| **Reflexão crítica** | Não tivemos probelmas com a resposta da IA, ela nos ajudou a ter um processo mais rapido de informações ficitias e dados coerentes. |
-
-|------|------------------|
-
-5 USO
-
-| **Ferramenta e etapa** | Gemini, utilizado em caráter temporário na etapa de criação do script.sql. |
-
-| **Motivação** | O grupo utilizou a IA como ferramenta temporária de suporte técnico para acelerar a escrita da sintaxe repetitiva dos comandos DDL (`CREATE TABLE`), definição de restrições (`CHECK`, `FOREIGN KEY`) e consultas de auditoria. |
-
-| **Prompt(s) utilizados** | *"Com base no modelo relacional da concessionária Xenon Multimarcas (tabelas Cliente, Funcionario, Veiculo, Banco, Venda, Financiamento, Pedido_de_venda e Entrega), crie a estrutura do script SQL para o MySQL incluindo DDL com restrições de integridade."* |
-
-| **Resposta recebida** | A IA gerou um rascunho técnico inicial do script dividindo o código entre criação de tabelas, restrições relacionais, carga de dados e bloco de consultas de verificação. |
-
-| **Fontes consultadas e verificada** |todo o código gerado executando o script diretamente no MySQL Workbench e cruzando as chaves primárias e estrangeiras com o Modelo Lógico do projeto. |
-
-| **Trechos rejeitados ou corrigidos** | Foram corrigidos manualmente os tipos de dados e a ordem de execução dos comandos `DROP TABLE` e `CREATE TABLE` para evitar conflitos de dependência de chaves estrangeiras (`FK`). |
-
-| **Justificativa da escolha final** | A utilização da IA foi estritamente temporária, servindo apenas como suporte no início da fase de desenvolvimento. |
-
-| **Reflexão crítica** | A IA é eficiente na geração rápida de estruturas básicas de código, utilizando apenas para uma base temporária. |
+**Uso de IA observado e não declarado será penalizado.**
 
 ---
+
+## 7\. Apresentação Corporativa Final
+
+*(pitch cronometrado de **8 minutos** — vale 15%, maior peso individual da Dimensão Procedimental)*
+
+Formato: slides com estética limpa e minimalista — **proibida a leitura de blocos longos de texto**.
+
+O pitch deve conter, nesta ordem:
+
+1. **Contextualização do problema institucional/organizacional** solucionado  
+2. **Apresentação da solução** proposta  
+3. **Apresentação do modelo lógico**  
+4. **Demonstração da implementação** (SQL rodando)  
+5. **Demonstração de consultas** (gerenciais/auditoria)  
+6. **Potencial para BI e IA**  
+7. **Benefícios diretos** para a tomada de decisão da organização
+
+**Defesa do modelo lógico:** logo após o pitch, fora do tempo cronometrado, o grupo responde às perguntas do professor e da turma. **Cada pergunta deve ser respondida exclusivamente pelo aluno a quem foi dirigida** — os colegas não podem responder por ele.
+
+**Regras da apresentação:**
+
+- **Participação:** não é necessário e nem recomendável que todos os integrantes falem durante o pitch, mas é **obrigatório que todos participem** da apresentação e estejam presentes para a defesa.  
+- **Ausência:** o integrante ausente na apresentação terá **nota reduzida**, exceto em casos com justificativa legal (ex.: doença que impeça o comparecimento, com atestado).  
+- **Apresentação pessoal:** será avaliada. Postura e vestimenta adequadas a uma apresentação corporativa. Não são adequados bonés, bermudas, chinelos, camisas de time, roupas esportivas ou semelhantes.
 
 ---
 
 ## Critérios Atitudinais (20%)
-**Estes critérios NÃO constam explicitamente como item de entrega no README.** Eles são avaliados por meio de **Avaliação 360º entre os integrantes do grupo** (cada membro avalia os colegas de equipe) e, no caso da Colaboração, também pela **colaboração equilibrada no histórico de commits** do repositório GitHub — não pela leitura do restante do repositório nem pela apresentação:
 
-- **Participação (5%):** envolvimento nas discussões técnicas e nas decisões do grupo.
-- **Comprometimento (5%):** cumprimento de prazos e responsabilidades assumidas.
-- **Colaboração (5%):** respeito às contribuições dos colegas, cooperação na construção do projeto e colaboração equilibrada no histórico de commits do repositório GitHub.
-- **Autonomia (5%):** busca independente de soluções e proposta de melhorias.
+**Estes critérios NÃO constam explicitamente como item de entrega nos artefatos do grupo.** Eles são avaliados por meio de **Avaliação 360º entre os integrantes do grupo** (cada membro avalia os colegas de equipe) e, no caso da colaboração, também pela **colaboração equilibrada no histórico de commits** do repositório GitHub (Seção 5\) e pela conduta do grupo na **Apresentação Corporativa Final** (seção 7\) — não pela leitura do relatório:
+
+- **Participação e colaboração (5%):** participação técnica ativa \+ colaboração com o grupo, incluindo colaboração equilibrada no histórico de commits do repositório GitHub.  
+- **Responsabilidade (5%):** cumprimento de prazos \+ entrega dos itens sob sua responsabilidade.  
+- **Postura profissional (5%):** comunicação profissional \+ conduta ética.  
+- **Autonomia e resolução de problemas (5%):** buscar soluções independentes \+ propor melhorias.
 
 ---
 
 ## Resumo dos Pesos
 
-| Dimensão | Peso total |
-|----------|-----------|
-| Conceitual (contexto, requisitos/regras, modelagem, justificativa técnica) | 30% |
-| Procedimental (requisitos, fluxogramas, dicionário de dados, DER) | 50% |
-| Atitudinal (participação, comprometimento, colaboração, autonomia) | 20% |
+| Dimensão | Peso total | Itens principais |
+| :---- | :---- | :---- |
+| Conceitual | 30% | Conversão conceitual→lógico (7,5%), Normalização (7,5%), Justificativas técnicas (7,5%), Análise BI/IA (7,5%) |
+| Procedimental | 50% | Modelo lógico (10%), Implementação SQL (12%), Documentação/repositório (13%), Apresentação final (15%) |
+| Atitudinal | 20% | Participação/colaboração, responsabilidade, postura profissional, autonomia |
 
-**Entrega final:** README.md completo + DER + Dicionário de Dados em HTML (com exceção dos cursos GTI) anexado no repositório GitHub do grupo.
+&nbsp;
+
+**Entrega final:** Relatório Técnico \+ Dicionário de Dados \+ Modelo Conceitual \+ Modelo Lógico \+ Script SQL \+ Massa de Dados \+ Repositório GitHub, seguidos da Apresentação Corporativa Final perante o professor e a turma.
+
+&nbsp;
