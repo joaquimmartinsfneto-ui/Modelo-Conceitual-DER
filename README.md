@@ -41,13 +41,28 @@
 
 *Repita aqui a caracterização da organização — atualizada, mesmo que a organização seja a da Entrega 1\. Na Entrega 1, os erros mais comuns foram: porte sem números, problema declarado que depois não aparecia no DER, evidências fora do repositório e modelo cobrindo só parte da organização. Evite-os:*
 
-- **Nome e natureza da organização:** qual organização real o grupo escolheu (com acesso garantido para pesquisa de campo) — pode ser uma empresa (livraria, lanchonete, pet shop), uma ONG, uma associação comunitária ou outra instituição.  
-- **Contexto e porte:** com ou sem fins lucrativos; tamanho da operação; número de pessoas envolvidas (funcionários, voluntários, membros, fiéis); volume de atividades (vendas, atendimentos, doações, rituais, eventos). **Informe números**, não só adjetivos (ex.: "cerca de 300 pedidos por semana", e não "grande movimento") — são eles que justificam o tamanho da massa de dados (seção 4).  
-- **Problemas e necessidades identificados:** qual é a "crise operacional" — o que está desorganizado hoje (planilhas soltas, papel, falta de controle de estoque/doações/cadastros etc.)? Numere cada problema (`P1`, `P2`…). **Todo problema declarado aqui precisa ser resolvido pelo modelo:** deve aparecer no DER e ter ao menos uma consulta gerencial no script SQL (ver a tabela de rastreabilidade da seção 1.6). O problema deve ser de **gestão de informações** — refazer o site ou melhorar a divulgação da organização, por exemplo, não é um problema que um banco de dados resolva.  
-- **Escopo do sistema:** o banco de dados deve reunir **todos os dados da organização**, não só os de um setor ou processo. Mesmo que os problemas declarados se concentrem em uma área, o modelo não pode servir somente a um recorte (ex.: só o estoque de uma clínica, deixando de fora pacientes e atendimentos).  
-- **Justificativa da escolha:** por que essa organização foi escolhida e por que ela é um bom caso para o projeto? Se algum integrante trabalha na organização ou tem vínculo familiar com os responsáveis, declare isso — o vínculo não gera desconto, mas **não dispensa a comprovação da entrevista com o responsável, realizada no ambiente da organização**.  
-- **Evidências da organização:** comprove que a organização existe e que o grupo teve acesso a ela — fotos do local/da visita, link da organização no Google, endereço completo e forma de contato. **Prefira o perfil da organização no Google Meu Negócio (Google Business Profile)**, que é a comprovação mais direta; site e redes sociais complementam. As fotos só são aceitas como **arquivos JPG ou PNG dentro do repositório** — fotos hospedadas fora dele (Google Drive, Imgur, anexos colados no editor do GitHub etc.) não são consideradas.  
-- **Responsável pela organização:** **nome e telefone** de quem atendeu o grupo — o professor pode entrar em contato para confirmar as informações.
+- **Nome e natureza da organização:** Xenon multimarcas (Concenssionaria) 
+
+- **Contexto e porte:** Com fins lucrativos, Uma empresa com micro operações que realiza no mínimo de 15 venda ao mês, com uma quantidade de 6 funcionarios no total atual podendo aumentar futuramente.  
+
+- **Problemas e necessidades identificados:** 
+**P1:** Ruptura e falta de controle do estoque de veículos** | Perda de vendas e divulgação de automóveis que já não estão disponíveis no pátio físico. | Controle rigoroso de status por veículo (`Disponível`, `Vendido`, `Reservado`, `Em Manutenção`) integrado à consulta gerencial rápida
+**P2:** Desorganização de entregas e documentação cartorária** | Atrasos na entrega dos carros aos clientes, falhas no acompanhamento das notas fiscais e burocracia em cartório. | Criação de módulos específicos de **Pedido de Venda** e **Entrega**, permitindo rastreamento logístico detalhado e auditoria via relatório gerencia
+**P3:** Dificuldade na apuração de indicadores de vendas e desempenho** | Falta de métricas claras sobre o faturamento acumulado, ticket médio por transação e comissão da equipe. | Implementação de consultas analíticas e métricas de faturamento para cálculo automático do **Ticket Médio**  e ranking de **Desempenho por Funcionário
+**P4:** Ausência de validação automatizada de regras de negócio** | Riscos de fraudes, registros de vendas sem vendedor vinculado ou financiamentos associados a pagamentos à vista. | Aplicação de restrições de integridade (`CHECK`, `FOREIGN KEY`) e rotinas de **Auditoria** dedicadas para garantir a conformidade dos dados
+
+- **Escopo do sistema:** O modelo relacional da Xenon Multimarcas foi projetado para englobar todos os dados e processos da organização, evitando recortes que atendam a apenas um setor específico. Embora a demanda inicial estivesse focada no controle de estoque e na logística de entregas, o banco de dados integra a operação completa da concessionária.
+
+Na prática, o sistema devera fazer os cadastros de clientes e funcionários, gerencia o estoque de veículos (sejam eles disponíveis, vendidos, em manutenção ou reservados), integra as instituições financeiras parceiras para concessão de crédito e registra o fluxo completo das vendas e financiamentos. Por fim, o modelo cobre a emissão dos pedidos de venda, o controle de notas fiscais, o trâmite cartorário e o acompanhamento das entregas. Essa estrutura unificada garante a integridade dos dados e sustenta tanto o trabalho do dia a dia quanto as análises gerenciais e rotinas de auditoria.
+
+- **Justificativa da escolha:** Um de nossos integrantes do grupo identificou a necessidade da empresa e notou que encaixaria perfeitamente no trabalho solicitado, consideramos o fato dessa área ter bastante movimentação
+
+- **Evidências da organização:** 
+- instagram: @multimarcasxenon
+- Cartão digital da empresa: https://cartao-digital.com/xenonmultimarcas/
+- local do Maps: https://share.google/2ecURySgI5GrRgYwr
+
+- **Responsável pela organização:** (**nome e telefone** de quem atendeu o grupo — o professor pode entrar em contato para confirmar as informações.) - **Cuzido coloque as informações do seu chefe aqui**
 
 **Relato da entrevista (todos os grupos)**
 
