@@ -1,4 +1,4 @@
-<img width="1341" height="75" alt="image" src="https://github.com/user-attachments/assets/d4a09544-210d-4c7d-83c4-6ccc02bdc222" /># Entrega 2 — Modelo Lógico, Implementação SQL e Apresentação Final
+# Entrega 2 — Modelo Lógico, Implementação SQL e Apresentação Final
 
 ### Modelagem de um sistema de gestão de informações para uma organização de pequeno porte
 
