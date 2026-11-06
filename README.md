@@ -1,4 +1,4 @@
-# Entrega 2 — Modelo Lógico, Implementação SQL e Apresentação Final
+<img width="1341" height="75" alt="image" src="https://github.com/user-attachments/assets/d4a09544-210d-4c7d-83c4-6ccc02bdc222" /># Entrega 2 — Modelo Lógico, Implementação SQL e Apresentação Final
 
 ### Modelagem de um sistema de gestão de informações para uma organização de pequeno porte
 
@@ -46,10 +46,10 @@
 - **Contexto e porte:** Com fins lucrativos, Uma empresa com micro operações que realiza no mínimo de 15 venda ao mês, com uma quantidade de 6 funcionarios no total atual podendo aumentar futuramente.  
 
 - **Problemas e necessidades identificados:** 
-**P1:** Ruptura e falta de controle do estoque de veículos** | Perda de vendas e divulgação de automóveis que já não estão disponíveis no pátio físico. | Controle rigoroso de status por veículo (`Disponível`, `Vendido`, `Reservado`, `Em Manutenção`) integrado à consulta gerencial rápida
-**P2:** Desorganização de entregas e documentação cartorária** | Atrasos na entrega dos carros aos clientes, falhas no acompanhamento das notas fiscais e burocracia em cartório. | Criação de módulos específicos de **Pedido de Venda** e **Entrega**, permitindo rastreamento logístico detalhado e auditoria via relatório gerencia
-**P3:** Dificuldade na apuração de indicadores de vendas e desempenho** | Falta de métricas claras sobre o faturamento acumulado, ticket médio por transação e comissão da equipe. | Implementação de consultas analíticas e métricas de faturamento para cálculo automático do **Ticket Médio**  e ranking de **Desempenho por Funcionário
-**P4:** Ausência de validação automatizada de regras de negócio** | Riscos de fraudes, registros de vendas sem vendedor vinculado ou financiamentos associados a pagamentos à vista. | Aplicação de restrições de integridade (`CHECK`, `FOREIGN KEY`) e rotinas de **Auditoria** dedicadas para garantir a conformidade dos dados
+- **P1:** Ruptura e falta de controle do estoque de veículos** | Perda de vendas e divulgação de automóveis que já não estão disponíveis no pátio físico. | Controle rigoroso de status por veículo (`Disponível`, `Vendido`, `Reservado`, `Em Manutenção`) integrado à consulta gerencial rápida
+- **P2:** Desorganização de entregas e documentação cartorária** | Atrasos na entrega dos carros aos clientes, falhas no acompanhamento das notas fiscais e burocracia em cartório. | Criação de módulos específicos de **Pedido de Venda** e **Entrega**, permitindo rastreamento logístico detalhado e auditoria via relatório gerencia
+- **P3:** Dificuldade na apuração de indicadores de vendas e desempenho** | Falta de métricas claras sobre o faturamento acumulado, ticket médio por transação e comissão da equipe. | Implementação de consultas analíticas e métricas de faturamento para cálculo automático do **Ticket Médio**  e ranking de **Desempenho por Funcionário
+- **P4:** Ausência de validação automatizada de regras de negócio** | Riscos de fraudes, registros de vendas sem vendedor vinculado ou financiamentos associados a pagamentos à vista. | Aplicação de restrições de integridade (`CHECK`, `FOREIGN KEY`) e rotinas de **Auditoria** dedicadas para garantir a conformidade dos dados
 
 - **Escopo do sistema:** O modelo relacional da Xenon Multimarcas foi projetado para englobar todos os dados e processos da organização, evitando recortes que atendam a apenas um setor específico. Embora a demanda inicial estivesse focada no controle de estoque e na logística de entregas, o banco de dados integra a operação completa da concessionária.
 
@@ -62,7 +62,7 @@ Na prática, o sistema devera fazer os cadastros de clientes e funcionários, ge
 - Cartão digital da empresa: https://cartao-digital.com/xenonmultimarcas/
 - local do Maps: https://share.google/2ecURySgI5GrRgYwr
 
-- **Responsável pela organização:** (**nome e telefone** de quem atendeu o grupo — o professor pode entrar em contato para confirmar as informações.) - **Cuzido coloque as informações do seu chefe aqui**
+- **Responsável pela organização:** Nome: Willian, Numero de Telefone: 11 2585-4801
 
 **Relato da entrevista (todos os grupos)**
 
