@@ -192,13 +192,19 @@ Os atributos simples foram convertidos em colunas com tipos compatíveis: identi
 
 A estrutura permite analisar volume e valor de vendas por período, desempenho por vendedor, modelos/marcas comercializados, disponibilidade do estoque, formas de pagamento, volume e aprovação de financiamentos por instituição, andamento documental e tempo entre venda e entrega. Esses dados podem apoiar planejamento de estoque, acompanhamento comercial e identificação de gargalos documentais/logísticos.
 
-*KPI sem consulta no script que o calcule não é considerado KPI. Cada problema declarado deve ter pelo menos uma consulta que o responda.*
+### KPIs propostos
 
-> **O que é KPI:** *Key Performance Indicator* (indicador-chave de desempenho) é um número que mostra, de forma objetiva, se a organização está indo bem em algo que importa para a gestão dela. Um KPI tem **fórmula** (como é calculado), **período** (por dia, semana, mês) e, de preferência, uma **meta** para comparação. Exemplos: ticket médio por venda, taxa de cancelamento de pedidos, produtos abaixo do estoque mínimo, tempo médio de atendimento, número de beneficiários atendidos por mês, percentual de doações recorrentes. "Melhorar o atendimento" não é KPI; "tempo médio entre o pedido e a entrega, por semana" é.
-
-> **Como levantar:** é recomendável usar pesquisas e ferramentas de IA para descobrir quais indicadores são usados por organizações do mesmo tipo (ex.: "principais KPIs de uma pizzaria", "indicadores de gestão de uma ONG de doação de alimentos") e quais análises de BI e de IA costumam ser aplicadas a elas. Depois, **filtre pelo que o seu banco consegue calcular**: um KPI só vale se as tabelas do modelo tiverem os dados necessários e se houver uma consulta no script que o calcule (ver *Rastreabilidade*, abaixo). Se possível, confirme com o responsável pela organização quais indicadores seriam úteis para ele. Registre esse uso de IA na seção 6\.
-
----
+|Código|KPI e fórmula|Período sugerido|Interpretação|
+|-|-|-|-|
+|KPI01|**Quantidade de vendas concluídas** = contagem de vendas com `st\_venda='Concluída'`|Mensal|Volume comercial efetivado.|
+|KPI02|**Faturamento concluído** = soma de `vl\_total` para vendas concluídas|Mensal|Valor total vendido no período.|
+|KPI03|**Ticket médio** = faturamento concluído ÷ quantidade de vendas concluídas|Mensal|Valor médio por venda concluída.|
+|KPI04|**Taxa de cancelamento** = vendas canceladas ÷ total de vendas × 100|Mensal|Participação de cancelamentos no total registrado.|
+|KPI05|**Estoque por situação** = contagem de veículos agrupada por `st\_veiculo`|Diário|Visão da disponibilidade.|
+|KPI06|**Taxa de aprovação de financiamento** = financiamentos aprovados ÷ financiamentos analisados (aprovados + recusados) × 100|Mensal|Resultado das análises de crédito registradas.|
+|KPI07|**Tempo médio venda–entrega** = média de dias entre `dt\_venda` e `dt\_entrega` para entregas concluídas|Mensal|Eficiência do fluxo de entrega.|
+|KPI08|**Vendas por funcionário** = contagem e soma de vendas concluídas agrupadas por funcionário|Mensal|Apoio à gestão comercial.|
+Metas numéricas não foram fornecidas pela organização; devem ser definidas com o responsável, e não inventadas no relatório.
 
 ## 2\. Modelo Lógico Relacional
 
