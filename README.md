@@ -36,13 +36,18 @@
 * **Comprovação:** adicionar `levantamento/evidencia\_entrevista.jpg` ou `.png` (nome real do arquivo) ao repositório.
 * **Levantamento completo:** criar `levantamento/levantamento.md` com o relato organizado e linkar aqui.
 
-**Processos de negócio (todos os grupos)**
+### Processos de negócio mapeados
 
-*Apresente os **principais processos mapeados** na organização — ex.: cadastro de clientes/beneficiários/fiéis, controle de estoque ou doações, vendas ou arrecadação, emissão de pedidos ou solicitações, entregas ou distribuição, organização de eventos/rituais/mutirões.*
+1. **Cadastro de clientes:** registrar nome completo, CPF, telefone e, quando disponíveis, e-mail e endereço; permitir consulta e alteração cadastral.
+2. **Cadastro e controle de veículos:** registrar chassi, marca, modelo, ano, preço, tipo/categoria e situação (Disponível, Vendido, Reservado ou Em Manutenção); consultar o estoque.
+3. **Cadastro de funcionários:** registrar nome, CPF, telefone e cargo para identificar os responsáveis pelas vendas.
+4. **Registro e gestão de vendas:** associar cliente, funcionário e veículo; guardar data, valor, forma de pagamento e status.
+5. **Gestão de financiamentos:** quando aplicável, associar a venda a um banco e registrar valor financiado, quantidade/valor das parcelas e situação da análise.
+6. **Emissão e acompanhamento do pedido de venda:** após confirmação da compra ou aprovação do financiamento, registrar pedido, data, nota fiscal, cartório e status documental.
+7. **Agendamento e acompanhamento da entrega:** registrar data prevista, data efetiva, endereço e status logístico.
+8. **Organização dos registros comerciais:** manter os registros das etapas anteriores relacionados e consultáveis.
 
-- **Levante os processos típicos do tipo de organização.** É recomendável usar pesquisas e ferramentas de IA para descobrir quais processos são comuns em organizações do mesmo tipo (ex.: o que toda pizzaria, ONG de doação de alimentos ou oficina mecânica costuma fazer) e conferir se eles existem na organização escolhida. Isso pode exigir **uma nova visita à organização** para confirmar como cada processo funciona lá. Registre esse uso de IA na seção 6\.  
-- **Inclua os processos que existem na organização**, mesmo os que não estão ligados aos problemas declarados — o banco de dados reúne todos os dados da organização (ver *Escopo do sistema* acima).  
-- **Justifique os processos prováveis não incluídos:** se um processo comum nesse tipo de organização ficou de fora (ex.: compras de fornecedores, cancelamentos, escala da equipe), explique por quê — por exemplo, a organização não o realiza, ou ele é feito por terceiros.
+**Justificativa de processos não incluídos:** o README não detalha compras/aquisição de veículos, fornecedores, avaliação de usados, despesas, comissões, seguros, documentação de entrada, cancelamento operacional nem manutenção preventiva/corretiva. Não se deve afirmar que esses processos não existem. O grupo deve perguntar ao responsável quais são realizados, quais são terceirizados e quais ficam fora do escopo. Em especial, esclarecer P2 (manutenções).
 
 **Requisitos (todos os grupos)**
 
