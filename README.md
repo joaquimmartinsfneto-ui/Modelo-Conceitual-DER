@@ -214,6 +214,22 @@ Metas numéricas não foram fornecidas pela organização; devem ser definidas c
 * **Apoio à decisão:** recomendações de reposição/compra de veículos poderiam considerar giro por marca/modelo e tempo em estoque, mas a E1 não possui data de entrada no estoque; esse indicador depende de incluir esse atributo.
 * **Manutenção:** análise de custo/frequência de manutenção depende da criação e alimentação da entidade MANUTENCAO, ainda pendente de levantamento.
 
+### Rastreabilidade entre problemas/KPIs e consultas SQL
+
+|Problema/KPI|Tabelas envolvidas|Consulta do script|
+|-|-|-|
+|P1 — organização e recuperação dos registros comerciais/comprovantes|CLIENTE, FUNCIONARIO, VEICULO, VENDA, FINANCIAMENTO, BANCO, PEDIDO\_DE\_VENDA, ENTREGA|G01 (histórico comercial integrado), G02 (vendas por período)|
+|P2 — manutenção desorganizada|VEICULO e futura MANUTENCAO|**Não atendido pela versão atual.** Requer levantamento, tabela e consulta gerencial próprios.|
+|KPI01 — quantidade de vendas concluídas|VENDA|G02|
+|KPI02 — faturamento concluído|VENDA|G02|
+|KPI03 — ticket médio|VENDA|G03|
+|KPI04 — taxa de cancelamento|VENDA|G04|
+|KPI05 — estoque por situação|VEICULO|G05|
+|KPI06 — taxa de aprovação de financiamento|FINANCIAMENTO, BANCO|G06|
+|KPI07 — tempo médio venda–entrega|VENDA, ENTREGA|G07|
+|KPI08 — vendas por funcionário|FUNCIONARIO, VENDA|G08|
+
+
 ## 2\. Modelo Lógico Relacional
 
 *(diagrama separado — vale 10% na Dimensão Procedimental)*
