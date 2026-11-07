@@ -1,19 +1,7 @@
--- =====================================================================
--- PROJETO DE BANCO DE DADOS - XENON MULTIMARCAS
--- Artefato: Script SQL Completo (Entrega 2)
--- SGBD: MySQL
--- =====================================================================
-
--- 1. CRIACAO E SELECAO DO BANCO DE DADOS
 DROP DATABASE IF EXISTS db_xenon_multimarcas;
 CREATE DATABASE db_xenon_multimarcas CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 USE db_xenon_multimarcas;
 
--- =====================================================================
--- 2. CRIACAO DAS TABELAS INDEPENDENTES
--- =====================================================================
-
--- Tabela CLIENTE
 CREATE TABLE Cliente (
     id_cliente INT AUTO_INCREMENT PRIMARY KEY,
     nm_cliente VARCHAR(100) NOT NULL,
@@ -23,7 +11,6 @@ CREATE TABLE Cliente (
     ds_endereco VARCHAR(255)
 );
 
--- Tabela FUNCIONARIO
 CREATE TABLE Funcionario (
     id_funcionario INT AUTO_INCREMENT PRIMARY KEY,
     nm_funcionario VARCHAR(100) NOT NULL,
@@ -32,7 +19,6 @@ CREATE TABLE Funcionario (
     ds_cargo VARCHAR(50) NOT NULL
 );
 
--- Tabela VEICULO
 CREATE TABLE Veiculo (
     id_veiculo INT AUTO_INCREMENT PRIMARY KEY,
     ds_chassi VARCHAR(17) NOT NULL UNIQUE,
@@ -44,7 +30,6 @@ CREATE TABLE Veiculo (
     st_veiculo VARCHAR(30) NOT NULL CHECK (st_veiculo IN ('Disponível', 'Vendido', 'Reservado', 'Em Manutenção'))
 );
 
--- Tabela BANCO
 CREATE TABLE Banco (
     id_banco INT AUTO_INCREMENT PRIMARY KEY,
     nm_banco VARCHAR(100) NOT NULL,
@@ -52,11 +37,6 @@ CREATE TABLE Banco (
     nr_telefone VARCHAR(20)
 );
 
--- =====================================================================
--- 3. CRIACAO DAS TABELAS DEPENDENTES (COM CHAVES ESTRANGEIRAS)
--- =====================================================================
-
--- Tabela VENDA
 CREATE TABLE Venda (
     id_venda INT AUTO_INCREMENT PRIMARY KEY,
     dt_venda DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -71,7 +51,6 @@ CREATE TABLE Venda (
     CONSTRAINT fk_venda_veiculo FOREIGN KEY (id_veiculo) REFERENCES Veiculo(id_veiculo) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
--- Tabela FINANCIAMENTO
 CREATE TABLE Financiamento (
     id_financiamento INT AUTO_INCREMENT PRIMARY KEY,
     st_financiamento VARCHAR(30) NOT NULL CHECK (st_financiamento IN ('Em Análise', 'Aprovado', 'Recusado', 'Cancelado')),
@@ -84,7 +63,6 @@ CREATE TABLE Financiamento (
     CONSTRAINT fk_financiamento_venda FOREIGN KEY (id_venda) REFERENCES Venda(id_venda) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
--- Tabela PEDIDO_DE_VENDA
 CREATE TABLE Pedido_de_venda (
     id_pedido INT AUTO_INCREMENT PRIMARY KEY,
     dt_pedido DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -95,7 +73,6 @@ CREATE TABLE Pedido_de_venda (
     CONSTRAINT fk_pedido_venda FOREIGN KEY (id_venda) REFERENCES Venda(id_venda) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
--- Tabela ENTREGA
 CREATE TABLE Entrega (
     id_entrega INT AUTO_INCREMENT PRIMARY KEY,
     ds_endereco_entrega VARCHAR(255),
@@ -105,10 +82,6 @@ CREATE TABLE Entrega (
     id_pedido INT NOT NULL UNIQUE,
     CONSTRAINT fk_entrega_pedido FOREIGN KEY (id_pedido) REFERENCES Pedido_de_venda(id_pedido) ON DELETE RESTRICT ON UPDATE CASCADE
 );
-
--- =====================================================================
--- 4. CARGA DA MASSA DE DADOS (INSERT INTO)
--- =====================================================================
 
 INSERT INTO Cliente (nm_cliente, nr_cpf, nr_telefone, ds_email, ds_endereco) VALUES
 ('Carlos Alberto Silva', '12345678901', '11988887777', 'carlos.silva@email.com', 'Rua das Flores, 123 - São Paulo/SP'),
@@ -134,54 +107,33 @@ INSERT INTO Banco (nm_banco, nr_cnpj, nr_telefone) VALUES
 ('Banco Santander Brasil', '90400888000142', '08007627777'),
 ('Banco Bradesco S.A.', '60746948000112', '08007048383');
 
--- Venda 1 (Financiada / Concluída)
 INSERT INTO Venda (dt_venda, vl_total, ds_forma_pagamento, st_venda, id_cliente, id_funcionario, id_veiculo) VALUES
-('2026-10-15 14:30:00', 160000.00, 'Financiamento', 'Concluída', 1, 1, 2);
-
--- Venda 2 (À Vista / Concluída)
-INSERT INTO Venda (dt_venda, vl_total, ds_forma_pagamento, st_venda, id_cliente, id_funcionario, id_veiculo) VALUES
+('2026-10-15 14:30:00', 160000.00, 'Financiamento', 'Concluída', 1, 1, 2),
 ('2026-10-20 11:00:00', 85000.00, 'PIX', 'Concluída', 2, 2, 1);
 
--- Financiamento para Venda 1
 INSERT INTO Financiamento (st_financiamento, qt_parcelas, vl_parcela, vl_financiado, id_banco, id_venda) VALUES
 ('Aprovado', 48, 3500.00, 130000.00, 1, 1);
 
--- Pedidos de Venda
 INSERT INTO Pedido_de_venda (dt_pedido, nr_nota_fiscal, st_pedido, nm_cartorio, id_venda) VALUES
 ('2026-10-16 10:00:00', 'NF-98321', 'Faturado', '1º Cartório de Notas SP', 1),
 ('2026-10-20 14:00:00', 'NF-98322', 'Faturado', '3º Cartório de Títulos SP', 2);
 
--- Entregas
 INSERT INTO Entrega (ds_endereco_entrega, st_entrega, dt_entrega, dt_prevista, id_pedido) VALUES
 ('Av. Paulista, 1000 - São Paulo/SP', 'Entregue', '2026-10-18 16:00:00', '2026-10-18', 1),
 ('Rua das Flores, 123 - São Paulo/SP', 'Entregue', '2026-10-22 10:30:00', '2026-10-22', 2);
 
--- =====================================================================
--- 5. COMANDOS DE MANIPULACAO (UPDATE E DELETE)
--- =====================================================================
-
--- Exemplo de UPDATE: Atualizando o status de um veículo em estoque
 UPDATE Veiculo 
 SET st_veiculo = 'Reservado' 
 WHERE id_veiculo = 3;
 
--- Exemplo de DELETE: Removendo cliente sem histórico de vendas
 DELETE FROM Cliente 
 WHERE id_cliente = 5 
   AND id_cliente NOT IN (SELECT id_cliente FROM Venda);
 
--- =====================================================================
--- 6. CONSULTAS GERENCIAIS (G01 - G04)
--- =====================================================================
-
--- G01: Quais veículos estão disponíveis no estoque para venda?
--- Atende: P1 (Ruptura e falta de controle do estoque)
 SELECT id_veiculo, ds_chassi, nm_marca, nm_modelo, nr_ano, vl_preco, tp_veiculo
 FROM Veiculo
 WHERE st_veiculo = 'Disponível';
 
--- G02: Qual o faturamento total acumulado e a média por venda (Ticket Médio)?
--- Atende: KPI - Ticket Médio por Venda
 SELECT 
     COUNT(id_venda) AS total_vendas_realizadas,
     SUM(vl_total) AS faturamento_total,
@@ -189,8 +141,6 @@ SELECT
 FROM Venda
 WHERE st_venda = 'Concluída';
 
--- G03: Qual o desempenho de vendas por cada funcionário?
--- Atende: KPI - Desempenho e Comissões da Equipe de Vendas
 SELECT 
     f.nm_funcionario,
     f.ds_cargo,
@@ -201,8 +151,6 @@ LEFT JOIN Venda v ON f.id_funcionario = v.id_funcionario AND v.st_venda = 'Concl
 GROUP BY f.id_funcionario, f.nm_funcionario, f.ds_cargo
 ORDER BY total_vendido DESC;
 
--- G04: Relatório completo de trâmite de entregas de veículos comercializados
--- Atende: P2 (Desorganização de entregas e documentação cartorária)
 SELECT 
     v.id_venda,
     c.nm_cliente,
@@ -218,27 +166,17 @@ JOIN Veiculo ve ON v.id_veiculo = ve.id_veiculo
 JOIN Pedido_de_venda pv ON v.id_venda = pv.id_venda
 JOIN Entrega e ON pv.id_pedido = e.id_pedido;
 
--- =====================================================================
--- 7. CONSULTAS DE AUDITORIA (A01 - A03)
--- =====================================================================
-
--- A01: Existe algum registro de venda sem um funcionário válido cadastrado?
--- Verifica: RN01 (Toda venda deve ser intermediada por um funcionário)
 SELECT v.id_venda, v.dt_venda, v.vl_total
 FROM Venda v
 LEFT JOIN Funcionario f ON v.id_funcionario = f.id_funcionario
 WHERE f.id_funcionario IS NULL;
 
--- A02: Existe algum veículo vendido que não possua Pedido de Venda associado?
--- Verifica: RN04 (Toda venda concluída gera obrigatoriamente um pedido de venda)
 SELECT v.id_venda, ve.nm_modelo, v.st_venda
 FROM Venda v
 JOIN Veiculo ve ON v.id_veiculo = ve.id_veiculo
 LEFT JOIN Pedido_de_venda pv ON v.id_venda = pv.id_venda
 WHERE v.st_venda = 'Concluída' AND pv.id_pedido IS NULL;
 
--- A03: Existe financiamento registrado para vendas com forma de pagamento à vista/PIX?
--- Verifica: RN03 (Financiamento só deve existir para pagamentos em Financiamento/Misto)
 SELECT f.id_financiamento, v.id_venda, v.ds_forma_pagamento
 FROM Financiamento f
 JOIN Venda v ON f.id_venda = v.id_venda
