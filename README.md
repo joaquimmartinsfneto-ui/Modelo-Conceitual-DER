@@ -50,7 +50,7 @@ localização compartilhada no Maps: https://share.google/2ecURySgI5GrRgYwr.
 7. **Agendamento e acompanhamento da entrega:** registrar data prevista, data efetiva, endereço e status logístico.
 8. **Organização dos registros comerciais:** manter os registros das etapas anteriores relacionados e consultáveis.
 
-**Justificativa de processos não incluídos:** o README não detalha compras/aquisição de veículos, fornecedores, avaliação de usados, despesas, comissões, seguros, documentação de entrada, cancelamento operacional nem manutenção preventiva/corretiva. Não se deve afirmar que esses processos não existem. O grupo deve perguntar ao responsável quais são realizados, quais são terceirizados e quais ficam fora do escopo. Em especial, esclarecer P2 (manutenções).
+**Justificativa de processos não incluídos:** o README não detalha compras/aquisição de veículos, fornecedores, avaliação de usados, despesas, comissões, seguros, documentação de entrada, cancelamento operacional nem manutenção preventiva/corretiva.
 
 ### Requisitos funcionais
 
