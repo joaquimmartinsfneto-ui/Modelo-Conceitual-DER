@@ -311,7 +311,7 @@ Metas numéricas não foram fornecidas pela organização; devem ser definidas c
 
 # 2\. Modelo Lógico Relacional
 
-**Software previsto:** brModelo Web, conforme a notação solicitada no esqueleto. O README da E1 informa o uso do brModelo Web para o DER; a criação e exportação do modelo lógico desta etapa deve ser confirmada pelo grupo.
+**Software previsto:** brModelo Web
 
 O diagrama lógico deve ser anexado como `diagramas/modelo\_logico.png` (ou PDF) e conter as tabelas, tipos, PKs, FKs e cardinalidades. Abaixo está a especificação para desenhá-lo:
 
