@@ -133,19 +133,59 @@ As consultas de clientes, funcionários, veículos, vendas, financiamentos e ent
 
 ### Regras de negócio codificadas
 
-* **RN01 — Identificação única:** CPF de cliente e funcionário, CNPJ de banco e chassi de veículo não podem se repetir.
-* **RN02 — Venda vinculada:** toda venda deve referenciar exatamente um cliente, um funcionário e um veículo existentes.
-* **RN03 — Exclusividade do veículo:** um veículo não pode estar associado a mais de uma venda; ao concluir a venda, sua situação deve passar para `Vendido`. Se uma venda for cancelada, a situação do veículo deve ser revista conforme a condição real do veículo.
-* **RN04 — Financiamento condicional:** só deve existir financiamento para venda cuja forma de pagamento seja `Financiamento` ou `Misto`; uma venda pode ter no máximo um financiamento e cada financiamento pertence a uma venda.
-* **RN05 — Aprovação para pedido financiado:** venda com financiamento só pode gerar pedido após aprovação do banco. Para pagamento sem financiamento, o pedido pode ser gerado após confirmação da compra.
-* **RN06 — Pedido único por venda:** uma venda pode originar no máximo um pedido; cada pedido pertence a uma única venda.
-* **RN07 — Entrega vinculada:** cada entrega pertence a uma venda com pedido emitido; uma venda pode ter no máximo uma entrega no modelo atual.
-* **RN08 — Liberação da entrega:** uma entrega só pode ser marcada como `Entregue` se houver nota fiscal registrada no pedido e, quando houver financiamento, se ele estiver aprovado.
-* **RN09 — Domínios controlados:** situação de veículo, venda, financiamento, pedido e entrega deve aceitar somente os valores definidos no dicionário.
-* **RN10 — Coerência cronológica:** data da venda não pode ser futura; pedido não pode anteceder a venda; entrega prevista não pode anteceder o pedido/venda; data efetiva não pode anteceder a data prevista sem justificativa operacional registrada.
-* **RN11 — Valores positivos:** preço do veículo, valor da venda, valor financiado, valor de parcela e quantidade de parcelas devem ser positivos.
-* **RN12 — Dados corretos do veículo:** a venda/pedido deve usar um veículo cadastrado com chassi, marca, modelo, ano e preço válidos.
-* **RN13 — Histórico preservado:** cancelamentos devem permanecer registrados com status `Cancelada`, em vez de apagar a transação, para manter histórico e auditoria.
+RN01 — Identificação única
+
+Não podem existir registros duplicados de CPF entre clientes, CPF entre funcionários, CNPJ entre bancos e chassi entre veículos. A unicidade deve ser respeitada dentro de cada tabela correspondente.
+
+RN02 — Venda vinculada
+
+Toda venda deve estar obrigatoriamente associada a um cliente, um funcionário e um veículo existentes no banco de dados.
+
+RN03 — Exclusividade do veículo
+
+Um veículo não pode estar associado a mais de uma venda, conforme a restrição UNIQUE aplicada ao campo id_veiculo da tabela Venda.
+
+RN04 — Financiamento condicional
+
+O financiamento deve ser utilizado somente em vendas cuja forma de pagamento seja Financiamento ou Misto. Cada venda poderá possuir, no máximo, um financiamento, e cada financiamento deverá estar associado a uma única venda.
+
+RN05 — Aprovação do financiamento
+
+Os financiamentos devem possuir uma situação que permita identificar se estão Em Análise, Aprovados, Recusados ou Cancelados. A aprovação deve ser considerada para a continuidade do processo de vendas financiadas.
+
+RN06 — Pedido único por venda
+
+Cada venda poderá possuir, no máximo, um pedido de venda, conforme a restrição UNIQUE aplicada ao campo id_venda da tabela Pedido_de_venda.
+
+RN07 — Entrega vinculada
+
+Cada entrega deve estar associada a uma venda existente. Uma venda poderá possuir, no máximo, uma entrega, conforme a restrição UNIQUE aplicada ao campo id_venda da tabela Entrega.
+
+RN08 — Situação da entrega
+
+A entrega deve possuir uma situação válida entre Agendada, Em Preparação, Pronto para Retirada, Entregue e Cancelada.
+
+RN09 — Domínios controlados
+
+Os campos de situação e forma de pagamento devem aceitar somente os valores definidos no banco de dados:
+- Veículo: Disponível, Vendido, Reservado e Em Manutenção.
+- Venda: Pendente, Aprovada, Concluída e Cancelada.
+- Financiamento: Em Análise, Aprovado, Recusado e Cancelado.
+- Pedido: Em Processamento, Aguardando Emissão, Faturado e Cancelado.
+- Entrega: Agendada, Em Preparação, Pronto para Retirada, Entregue e Cancelada.
+- Forma de pagamento: À Vista, Financiamento, Cartão de Crédito, PIX e Misto.
+
+RN10 — Valores positivos
+
+Os valores de preço do veículo (vl_preco), total da venda (vl_total), valor financiado (vl_financiado) e valor da parcela (vl_parcela) devem ser maiores que zero. A quantidade de parcelas (qt_parcelas) também deve ser positiva.
+
+RN11 — Histórico de vendas preservado
+
+As vendas canceladas devem permanecer registradas no banco de dados com situação Cancelada, preservando o histórico das transações e evitando a exclusão de informações comerciais.
+RN12 — Integridade dos relacionamentos
+Não devem ser permitidas exclusões de clientes, funcionários, veículos, bancos, vendas ou pedidos que possuam registros relacionados que impeçam a operação, respeitando as restrições de integridade referencial configuradas no banco.
+RN13 — Unicidade dos pedidos e notas fiscais
+Cada venda poderá possuir apenas um pedido, e o número da nota fiscal (nr_nota_fiscal), quando informado, não poderá se repetir.
 
 ### Diagrama Entidade-Relacionamento (DER)
 ![Modelo DER Imagem](ModeloDER.png)
