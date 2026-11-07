@@ -298,3 +298,13 @@ A variedade contempla veículos disponíveis, vendidos, reservados e em manuten�
 * **Fontes verificadas:** grupo relata conferência com DER e modelo lógico, incluindo campos obrigatórios e restrições UNIQUE/NOT NULL.
 * **Correções/rejeições:** ajuste manual das datas para manter cronologia coerente.
 * **Justificativa/reflexão:** a geração reduziu trabalho repetitivo, mas os dados fictícios devem ser conferidos quanto a integridade, volume e variedade. A E1 informa seis funcionários; a massa desta proposta usa seis, em vez dos três citados no prompt original, para alinhar ao porte descrito.
+
+### Uso 5 — Apoio na criação e estruturação do script.sql
+
+- **Ferramenta/etapa:** Gemini; auxílio pontual na escrita de comandos DDL (criação de tabelas e restrições), comandos de manipulação e consultas SQL mais elaboradas (`JOIN` e funções de agregação) para o banco de dados da Xenon Multimarcas.
+- **Motivação:** Como infelizmente nós não temos uma conhecimento tão avançado sobre SQL, recorremos à IA para ajudar a traduzir o modelo lógico e o dicionário de dados em um script funcional, garantindo que as tabelas e os relacionamentos fizessem sentido prático, e  nos apoiar na criação nós dando uma base.
+- **Prompt registrado:** Pedimos ajuda para estruturar o código SQL completo da concessionária — incluindo a criação das tabelas, a massa de dados inicial, os comandos de teste (`UPDATE`/`DELETE`) e todas as consultas gerenciais (G01 a G08) e de auditoria (A01 a A03) exigidas pelo projeto.
+- **Resposta recebida:** Um script SQL unificado com a estrutura das tabelas montada, blocos de inserção de dados e as consultas prontas cruzando as tabelas com `JOIN`.
+- **Fontes verificadas:** Passamos o código linha por linha conferindo com o nosso modelo lógico, com o dicionário de dados e com as regras de negócio descritas no README para garantir que nenhuma restrição ficasse de fora.
+- **Correções/rejeições:** Fizemos ajustes manuais importantes, como mudar a ordem de criação das tabelas (para evitar erros de chave estrangeira na hora de rodar), corrigir nomes de colunas que vieram diferentes e alinhar as datas dos testes para que a cronologia das vendas fizesse sentido.
+- **Justificativa/reflexão:** Ter essa ajuda da IA ajudou demais a não nos deixar travado a parte prática sem travamentos de sintaxe, acelerando o trabalho da equipe. No entanto, deu para perceber que a IA às vezes cria estruturas genéricas; por isso, a revisão humana foi indispensável para adaptar o código exatamente à realidade da empresa.
