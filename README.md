@@ -291,6 +291,16 @@ A variedade contempla veículos disponíveis, vendidos, reservados e em manuten�
 * **Correções/rejeições:** o grupo relata ajustes de apresentação e entendimento; não especifica trechos rejeitados.
 * **Justificativa/reflexão:** o conteúdo foi aproveitado após análise coletiva. A documentação precisa manter consistência entre DER, dicionário, modelo lógico e script.
 
+### Uso 4 — geração da massa de dados
+
+* **Ferramenta/etapa:** Gemini; criação de comandos `INSERT INTO` para a massa fictícia.
+* **Motivação:** agilizar a criação de dados de teste e evitar repetição manual.
+* **Prompt registrado na E1:** solicitação de massa fictícia para MySQL com tabelas Cliente, Funcionario, Veiculo, Banco, Venda, Financiamento, Pedido\_de\_venda e Entrega, contemplando 5 clientes, 3 funcionários, veículos em estoque e vendidos e cenários variados.
+* **Resposta recebida:** blocos de INSERT separados por tabela, com referências de chaves estrangeiras alinhadas.
+* **Fontes verificadas:** grupo relata conferência com DER e modelo lógico, incluindo campos obrigatórios e restrições UNIQUE/NOT NULL.
+* **Correções/rejeições:** ajuste manual das datas para manter cronologia coerente.
+* **Justificativa/reflexão:** a geração reduziu trabalho repetitivo, mas os dados fictícios devem ser conferidos quanto a integridade, volume e variedade. A E1 informa seis funcionários; a massa desta proposta usa seis, em vez dos três citados no prompt original, para alinhar ao porte descrito.
+
 ## 7\. Apresentação Corporativa Final
 
 *(pitch cronometrado de **8 minutos** — vale 15%, maior peso individual da Dimensão Procedimental)*
