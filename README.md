@@ -190,29 +190,6 @@ Cada venda poderá possuir apenas um pedido, e o número da nota fiscal (nr_nota
 ### Diagrama Entidade-Relacionamento (DER)
 ![Modelo DER Imagem](ModeloDER.png)
 Link: https://app.brmodeloweb.com/publicview/6ab03281226d3f36496c6ecb
----
-| Elemento | Como aparece | No exemplo |
-| :---- | :---- | :---- |
-| **Entidade** | retângulo | `Entity 1` a `Entity 5` |
-| **Relacionamento** | losango | `Rel 33`, `Rel 34` |
-| **Cardinalidade mínima e máxima** | par `(mín, máx)` dos dois lados de cada relacionamento | `(0, 1)`, `(1, n)`, `(0, n)` |
-| **Autorrelacionamento** | losango ligado duas vezes à mesma entidade, cada lado com sua cardinalidade | `Rel 33`, em `Entity 3` |
-| **Atributo identificador (chave)** | círculo **preenchido** | `Chave 1`, `Chave 2`, `Chave 3`, `Chave 4` |
-| **Identificador composto** | mais de um círculo preenchido na mesma entidade (obrigatório) — ou mais de um atributo sublinhado, se os atributos estiverem listados no retângulo | `Chave 50` \+ `Chave 51`, em `Entity 5` |
-| **Atributo comum** | círculo **vazio** | `Attribute 10`, `Attribute 30` |
-| **Atributo multivalorado** | círculo vazio com a cardinalidade do atributo | `Attribute 11 (1, n)` |
-| **Atributo composto** *(representação gráfica opcional)* | atributo com seus próprios subatributos ligados a ele | `Attribute 21`, com `attr 211` e `attr 212` |
-| **Generalização/especialização** | triângulo ligando a entidade genérica às especializadas. **A indicação de totalidade e disjunção não é obrigatória** | `Entity 1` → `Entity 2` e `Entity 3` |
-| **Entidade associativa** | retângulo envolvendo o losango do relacionamento, que passa a poder se relacionar com outras entidades e ter atributos próprios | `Rel 53`, com `Attribute 530` |
-
-&nbsp;
-
-- **Representação gráfica opcional:** atributos compostos podem ser desenhados como no exemplo (subatributos ligados ao atributo), mas não é obrigatório; o mesmo vale para a indicação de totalidade/disjunção da generalização/especialização.  
-- **Atributos de entidades:** podem ser representados como no brModelo (círculos ligados à entidade, como no exemplo) **ou** listados dentro do retângulo da entidade — nesse caso, o **identificador deve estar sublinhado**.  
-- **Atributos de relacionamentos e de entidades associativas:** **somente** como no brModelo, ligados ao losango ou à entidade associativa (como `Attribute 530`) — não podem ser listados dentro de um retângulo.  
-- **Sem chaves estrangeiras** — elas só aparecem no modelo lógico (seção 2).
-
-Aplicativo utilizado para fazer o DER: app.brmodeloweb.com
 
 ## 1.2 Conversão do Modelo Conceitual para o Modelo Lógico
 
