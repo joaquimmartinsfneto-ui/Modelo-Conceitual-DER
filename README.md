@@ -281,6 +281,16 @@ A variedade contempla veículos disponíveis, vendidos, reservados e em manuten�
 * **Correções/rejeições:** o grupo relata que analisou as sugestões e fez ajustes de documentação; não informou trechos específicos rejeitados.
 * **Justificativa/reflexão:** as sugestões foram mantidas após discussão do grupo. A resposta da IA deve ser tratada como apoio, não como validação automática; cardinalidades e regras precisam ser conferidas com a organização e com as FKs implementadas.
 
+### Uso 3 — listagem de entidades, atributos e restrições
+
+* **Ferramenta/etapa:** Gemini; documentação de entidades, atributos, classificações, relacionamentos e políticas organizacionais.
+* **Motivação:** reduzir o tempo de organização da documentação e facilitar o entendimento do modelo.
+* **Prompt registrado na E1:** pedido para listar e justificar entidades/atributos, classificar atributos, explicar relacionamentos e restrições a partir da conversa e do DER.
+* **Resposta recebida:** estrutura organizada com entidades, atributos, relacionamentos e restrições.
+* **Fontes verificadas:** conversa anterior, imagem do DER e PDF anexado, conforme relato do grupo.
+* **Correções/rejeições:** o grupo relata ajustes de apresentação e entendimento; não especifica trechos rejeitados.
+* **Justificativa/reflexão:** o conteúdo foi aproveitado após análise coletiva. A documentação precisa manter consistência entre DER, dicionário, modelo lógico e script.
+
 ## 7\. Apresentação Corporativa Final
 
 *(pitch cronometrado de **8 minutos** — vale 15%, maior peso individual da Dimensão Procedimental)*
