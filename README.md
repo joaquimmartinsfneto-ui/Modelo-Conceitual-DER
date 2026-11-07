@@ -229,37 +229,23 @@ Metas numéricas não foram fornecidas pela organização; devem ser definidas c
 |KPI07 — tempo médio venda–entrega|VENDA, ENTREGA|G07|
 |KPI08 — vendas por funcionário|FUNCIONARIO, VENDA|G08|
 
+# 2\. Modelo Lógico Relacional
 
-## 2\. Modelo Lógico Relacional
+**Software previsto:** brModelo Web, conforme a notação solicitada no esqueleto. O README da E1 informa o uso do brModelo Web para o DER; a criação e exportação do modelo lógico desta etapa deve ser confirmada pelo grupo.
 
-*(diagrama separado — vale 10% na Dimensão Procedimental)*
+O diagrama lógico deve ser anexado como `diagramas/modelo\_logico.png` (ou PDF) e conter as tabelas, tipos, PKs, FKs e cardinalidades. Abaixo está a especificação para desenhá-lo:
 
-O modelo lógico deve seguir a **notação visual do brModelo** para o modelo lógico, como no exemplo abaixo. Informe no README **em qual software ou aplicativo ele foi criado**.
+```text
+CLIENTE (1,1) —— (0,N) VENDA
+FUNCIONARIO (1,1) —— (0,N) VENDA
+VEICULO (0,1) —— (1,1) VENDA
+BANCO (1,1) —— (0,N) FINANCIAMENTO
+VENDA (0,1) —— (1,1) FINANCIAMENTO
+VENDA (0,1) —— (1,1) PEDIDO\_DE\_VENDA
+VENDA (0,1) —— (1,1) ENTREGA
+```
 
-![Exemplo de modelo lógico na notação do brModelo](Exemplo_Logico.png)
-
-| Elemento | Como aparece | No exemplo |
-| :---- | :---- | :---- |
-| **Tabela** | retângulo com o nome da tabela no topo e uma linha por coluna | `Entity 1`, `Entity 5` |
-| **Coluna** | nome da coluna, à esquerda, com o tipo de dado à direita | `Attribute 30` — `INT` |
-| **Chave primária** | marca `PK` ao lado do tipo | `Chave 1`, em `Entity 1`; `Chave 50` \+ `Chave 51`, em `Entity 5` (chave primária composta) |
-| **Chave estrangeira** | marca `FK` ao lado do tipo | `Chave 3`, em `Entity 4` |
-| **Coluna que é chave primária e estrangeira** | marcas `PK, FK` | `Chave 1`, em `Entity 2` |
-| **Ligação entre tabelas** | linha entre a tabela da FK e a tabela referenciada, com a cardinalidade `(mín, máx)` em cada ponta | `Entity 3` — `Entity 4`: `(1, 1)` e `(0, n)` |
-
-&nbsp;
-
-Deve apresentar claramente:
-
-- Tabelas  
-- Atributos (colunas), com seus tipos de dados  
-- Chaves primárias  
-- Chaves estrangeiras  
-- Cardinalidades já convertidas
-
-As **demais restrições de integridade** — obrigatoriedade (`NOT NULL`), unicidade (`UNIQUE`), valores permitidos (`CHECK`), valores padrão (`DEFAULT`) — não aparecem no diagrama do brModelo e devem ser documentadas no **dicionário de dados** (seção 5\) e implementadas no **script SQL** (seção 3).
-
----
+A ligação ENTREGA está implementada por `id\_venda` no script-base, embora a descrição conceitual da E1 diga que Pedido gera Entrega. Para representar exatamente o relacionamento Pedido–Entrega, recomenda-se alterar a FK para `id\_pedido` em ENTREGA e revisar o DER; o grupo deve escolher uma única interpretação e mantê-la igual no diagrama, dicionário e SQL. A versão SQL entregue nesta proposta mantém `id\_venda` para seguir o dicionário preliminar da E1.
 
 ## 3\. Script SQL Completo
 
