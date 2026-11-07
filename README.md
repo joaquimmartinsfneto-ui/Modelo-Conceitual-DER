@@ -1,19 +1,14 @@
-# Entrega 2 — Modelo Lógico, Implementação SQL e Apresentação Final
+ # Entrega 2 — Modelo Lógico, Implementação SQL e Apresentação Final
 
-### Modelagem de um sistema de gestão de informações para uma organização de pequeno porte
+## Sistema de gestão de informações — Xenon Multimarcas
 
-> Este arquivo é o esqueleto dos artefatos finais do grupo, a serem organizados no repositório GitHub. **Será corrigido exclusivamente o conteúdo da branch `main` do repositório** — arquivos que estiverem em qualquer outra branch não serão considerados, mesmo que o link enviado aponte para ela. Preencha cada seção com o conteúdo do seu projeto. Alguns itens são documentos Markdown, outros são arquivos separados (diagramas, dicionário de dados, script `.sql`, massa de dados, slides) — está indicado em cada seção. Nesta etapa vocês atuam como uma **software house** implementando o banco de dados completo do sistema modelado na Entrega 1 e revisado na seção 1.1 — seja para uma empresa, uma ONG ou outra organização escolhida pelo grupo.
-
-> **Lembrete:** termos como "empresa" e "negócio" usados abaixo são o vocabulário técnico padrão de modelagem de dados e se aplicam a qualquer tipo de organização, com ou sem fins lucrativos.
-
-> **Importante:** esta etapa exige uma **organização real**, com evidências de existência e contato com um responsável.
-
-> - **Se a organização da Entrega 1 era real**, continue com ela — não é permitido trocá-la por outra.  
-> - **Se a organização da Entrega 1 era fictícia** (ou não teve a existência comprovada na correção), o grupo deve **procurar agora uma organização real** e refazer, para ela, toda a base da Entrega 1, inclusive o DER (ver seção 1.1, Caso B).
-
-> Em qualquer caso, o grupo deve manter o acesso à organização, pois pode ser necessário voltar a campo para validar regras, tirar dúvidas sobre o processo de normalização ou conferir se a massa de dados reflete a realidade observada.
-
----
+## Integrantes
+|Nome completo|RGM|Usuário do GitHub|
+|-|-:|-|
+|Joaquim Martins Ferreira Neto|47609630|netosec|
+|Gabriel Cabrera Conceição|47657499|gabrielcabrera602-commits|
+|Guilherme Reis|47513438|Coelho|
+|Gabriel Franco|47451289|gfranco0|
 
 ## 1\. Relatório Técnico Final
 
