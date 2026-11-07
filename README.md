@@ -270,30 +270,16 @@ A massa proposta é inteiramente fictícia. Ela contém 8 clientes, 6 funcionár
 
 A variedade contempla veículos disponíveis, vendidos, reservados e em manutenção; vendas pendentes, aprovadas, concluídas e canceladas; pagamentos à vista, PIX, cartão, financiamento e misto; financiamentos em análise, aprovados, recusados e cancelados; pedidos em processamento, aguardando emissão, faturados e cancelados; entregas agendadas, em preparação, prontas, entregues e canceladas; e cliente sem venda. Todos os dados pessoais e identificadores inseridos são fictícios e não devem ser confundidos com dados de clientes reais.
 
-## 6\. Uso de Inteligência Artificial
+# 6\. Uso de Inteligência Artificial
+### Uso 1 e 2 — revisão do DER, atributos e documentação
 
-*(documentação obrigatória — não é opcional se o grupo usou IA em qualquer etapa: pesquisa, levantamento de processos, requisitos e regras típicos, escrita, organização de ideias, revisão de texto, geração de massa de dados ou apoio a scripts SQL)*
-
-Para cada uso relevante de ferramenta de IA (ChatGPT, Claude, Gemini, Perplexity etc.), registre:
-
-| Item | O que registrar |
-| :---- | :---- |
-| **Ferramenta e etapa** | Qual IA foi usada e em qual parte do trabalho (ex.: normalização, geração da massa de dados, escrita de queries SQL, redação do relatório, preparação dos slides). |
-| **Motivação** | Por que o grupo recorreu à IA nesse ponto específico. |
-| **Prompt(s) utilizados** | Texto exato (ou muito próximo) do que foi perguntado/pedido à IA. |
-| **Resposta recebida** | Resumo ou trecho relevante da resposta da IA. |
-| **Fontes consultadas e verificadas** | Se a IA citou fontes/dados, quais foram checadas pelo grupo e como. |
-| **Trechos rejeitados ou corrigidos** | O que da resposta da IA foi descartado, editado ou corrigido manualmente (ex.: query SQL ajustada, dado fictício alterado), e por quê. |
-| **Justificativa da escolha final** | Por que o grupo manteve, adaptou ou rejeitou o que a IA sugeriu. |
-| **Reflexão crítica** | Limites, vieses ou erros identificados no uso da IA nessa etapa (ex.: normalização incorreta sugerida pela IA, script SQL com erro de sintaxe, dado fictício incoerente com o volume real da organização). |
-
-&nbsp;
-
-*Se o grupo não usou nenhuma ferramenta de IA em alguma dessas etapas, declare isso explicitamente.*
-
-**Uso de IA observado e não declarado será penalizado.**
-
----
+* **Ferramenta/etapa:** Gemini; revisão das conexões/cardinalidades do DER e apoio à documentação das entidades e relacionamentos.
+* **Motivação:** prazo curto e necessidade de organizar o modelo e a documentação após dificuldades com uma organização inicialmente contatada.
+* **Prompts registrados na E1:** (1) pedido para verificar conexões e relacionamentos do DER com base em imagem e PDF de exemplo de dicionário; (2) pedido para documentar entidades e relacionamentos com base na imagem e no PDF.
+* **Resposta recebida:** apontamento de ajustes nas cardinalidades entre venda e cliente, veículo, funcionário e financiamento/banco; geração de texto de apoio para a documentação.
+* **Fontes verificadas:** imagem do DER e PDF de exemplo anexados ao Gemini, conforme relato do grupo.
+* **Correções/rejeições:** o grupo relata que analisou as sugestões e fez ajustes de documentação; não informou trechos específicos rejeitados.
+* **Justificativa/reflexão:** as sugestões foram mantidas após discussão do grupo. A resposta da IA deve ser tratada como apoio, não como validação automática; cardinalidades e regras precisam ser conferidas com a organização e com as FKs implementadas.
 
 ## 7\. Apresentação Corporativa Final
 
