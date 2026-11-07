@@ -10,8 +10,6 @@
 |Guilherme Reis|47513438|Coelho|
 |Gabriel Franco|47451289|gfranco0|
 
- 1\. Relatório Técnico Final
-
 ## 1.1 Revisão do Modelo Conceitual
 
 ## Caracterização da organização
