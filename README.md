@@ -247,6 +247,17 @@ VENDA (0,1) —— (1,1) ENTREGA
 
 A ligação ENTREGA está implementada por `id\_venda` no script-base, embora a descrição conceitual da E1 diga que Pedido gera Entrega. Para representar exatamente o relacionamento Pedido–Entrega, recomenda-se alterar a FK para `id\_pedido` em ENTREGA e revisar o DER; o grupo deve escolher uma única interpretação e mantê-la igual no diagrama, dicionário e SQL. A versão SQL entregue nesta proposta mantém `id\_venda` para seguir o dicionário preliminar da E1.
 
+## 2.1 Esquema relacional e tipos
+
+* `CLIENTE(id\_cliente PK, nm\_cliente, nr\_cpf UNIQUE, nr\_telefone, ds\_email, ds\_endereco)`
+* `FUNCIONARIO(id\_funcionario PK, nm\_funcionario, nr\_cpf UNIQUE, nr\_telefone, ds\_cargo)`
+* `VEICULO(id\_veiculo PK, ds\_chassi UNIQUE, nm\_marca, nm\_modelo, nr\_ano, vl\_preco, tp\_veiculo, st\_veiculo)`
+* `VENDA(id\_venda PK, id\_cliente FK, id\_funcionario FK, id\_veiculo FK UNIQUE, dt\_venda, vl\_total, ds\_forma\_pagamento, st\_venda)`
+* `BANCO(id\_banco PK, nm\_banco, nr\_cnpj UNIQUE, nr\_telefone)`
+* `FINANCIAMENTO(id\_financiamento PK, id\_banco FK, id\_venda FK UNIQUE, vl\_financiado, qt\_parcelas, vl\_parcela, st\_financiamento)`
+* `PEDIDO\_DE\_VENDA(id\_pedido PK, id\_venda FK UNIQUE, dt\_pedido, nr\_nota\_fiscal UNIQUE NULL, nm\_cartorio, st\_pedido)`
+* `ENTREGA(id\_entrega PK, id\_venda FK UNIQUE, dt\_prevista, dt\_entrega NULL, ds\_endereco\_entrega, st\_entrega)`
+
 ## 3\. Script SQL Completo
 
 *(arquivo `.sql` — vale 12% na Dimensão Procedimental)*
