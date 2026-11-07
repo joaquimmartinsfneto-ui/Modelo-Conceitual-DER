@@ -27,7 +27,7 @@
 
 ### Relato da entrevista e observação presencial
 
-* **Entrevistado e função:** William Soares Carvalho, gerente e socio da empresa. Gabriel Cabrera, Gabriel Franco e Joaquim Martins.
+* **Entrevistado e função:** William Soares Carvalho
 * **Integrantes presentes:** Gabriel Cabrera, Gabriel Franco e Joaquim Martins.
 * **Data e local dentro da organização:** 19 de Setembro, no local Av. Marechal Tito, 1850, 2012, 2212 e 2548 – São Miguel Paulista, São Paulo - SP (CEP: 08022-000)
 * **Observações diretas da rotina:**  o grupo viu uma movimentação de cliente na hora da entrevista, vimos como funciona o primeiro atendimento; ao vendedor apresentar o veículo ao cliente interessado, ambos tiveram uma breve conversa e foram para a sala realizar uma simulação, a principio, o vendedor anotu em seu caderno os dados básicos do cliente, Nome, carro interessado, CPF, data de nascimento e numero de telefone.
