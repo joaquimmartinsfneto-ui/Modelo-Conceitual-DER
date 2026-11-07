@@ -36,6 +36,7 @@ localização compartilhada no Maps: https://share.google/2ecURySgI5GrRgYwr.
 * **Observações diretas da rotina:**  o grupo viu uma movimentação de cliente na hora da entrevista, vimos como funciona o primeiro atendimento; ao vendedor apresentar o veículo ao cliente interessado, ambos tiveram uma breve conversa e foram para a sala realizar uma simulação, a principio, o vendedor anotu em seu caderno os dados básicos do cliente, Nome, carro interessado, CPF, data de nascimento e numero de telefone.
 * **Respostas/validações do responsável:** \[DESCREVER o que foi confirmado sobre processos, regras, volumes e problemas].
 * **Nova visita/atualizações em relação à Entrega 1:** \[INFORMAR se houve; caso não tenha havido, declarar].
+* [`levantamento `](Markdown.md)
 
 ### Processos de negócio mapeados
 
