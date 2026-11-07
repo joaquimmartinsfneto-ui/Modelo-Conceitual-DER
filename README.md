@@ -258,47 +258,9 @@ A ligação ENTREGA está implementada por `id\_venda` no script-base, embora a 
 * `PEDIDO\_DE\_VENDA(id\_pedido PK, id\_venda FK UNIQUE, dt\_pedido, nr\_nota\_fiscal UNIQUE NULL, nm\_cartorio, st\_pedido)`
 * `ENTREGA(id\_entrega PK, id\_venda FK UNIQUE, dt\_prevista, dt\_entrega NULL, ds\_endereco\_entrega, st\_entrega)`
 
-## 3\. Script SQL Completo
+# 3\. Script SQL Completo
 
-*(arquivo `.sql` — vale 12% na Dimensão Procedimental)*
-
-O script completo é **um arquivo no formato `.sql` disponível no repositório**, de preferência numa pasta chamada **`docs`** (ex.: `docs/script.sql`), com link no README. Script colado só no README, em PDF, em imagem ou em outro formato não é aceito.
-
-**SGBD:** MySQL — o disponível no laboratório ou outra instalação equivalente a que o grupo tenha acesso. O script deve executar no MySQL.
-
-O script deve conter, nesta ordem lógica:
-
-1. `CREATE DATABASE`  
-2. `CREATE TABLE` (todas as tabelas, com tipos de dados adequados)  
-3. **Constraints** (PK, FK, `NOT NULL`, `UNIQUE`, `CHECK` etc.)  
-4. `INSERT INTO` (carga da massa de dados — ver seção 4\)  
-5. `SELECT` com `JOIN` (consultas que cruzam múltiplas tabelas)  
-6. `UPDATE`  
-7. `DELETE`  
-8. **Consultas gerenciais** (que respondem perguntas de gestão, ex.: faturamento/arrecadação por período, número de atendimentos/beneficiários)  
-9. **Consultas de auditoria** (que verificam consistência/integridade dos dados)
-
-Cada **consulta gerencial** e cada **consulta de auditoria** deve ter um cabeçalho em comentário com um código (`G01`, `G02`… para gerenciais; `A01`, `A02`… para auditoria), a pergunta que ela responde em português e o que ela atende:
-
-```sql
--- G03 — Quais bebidas estão abaixo do estoque mínimo hoje?
--- Atende: P1 (ruptura de estoque de bebidas)
-SELECT ...
-
--- A02 — Existe pedido registrado sem nenhum item?
--- Verifica: RN04 (todo pedido tem ao menos um item)
-SELECT ...
-```
-
-&nbsp;
-
-- **Consultas gerenciais** respondem aos problemas declarados e aos KPIs da seção 1.6 — pelo menos uma por problema declarado e por KPI.  
-- **Consultas de auditoria** verificam regras de negócio, citando o código da regra (`RNxx`) que cada uma confere.  
-- Essas mesmas consultas são as usadas na demonstração da apresentação final (seção 7).
-
-*Teste o script do zero (banco vazio) antes de entregar, para garantir que ele executa sem erros.*
-
----
+Arquivo separado: [`docs/script.sql`](docs/script.sql). SGBD: MySQL 8.0 ou compatível. O script contém criação do banco/tabelas, constraints, massa fictícia, consultas JOIN, UPDATE, DELETE demonstrativo, consultas gerenciais G01–G08 e auditorias A01–A08.
 
 ## 4\. Massa de Dados
 
