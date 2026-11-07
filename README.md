@@ -270,20 +270,6 @@ A massa proposta é inteiramente fictícia. Ela contém 8 clientes, 6 funcionár
 
 A variedade contempla veículos disponíveis, vendidos, reservados e em manutenção; vendas pendentes, aprovadas, concluídas e canceladas; pagamentos à vista, PIX, cartão, financiamento e misto; financiamentos em análise, aprovados, recusados e cancelados; pedidos em processamento, aguardando emissão, faturados e cancelados; entregas agendadas, em preparação, prontas, entregues e canceladas; e cliente sem venda. Todos os dados pessoais e identificadores inseridos são fictícios e não devem ser confundidos com dados de clientes reais.
 
-## 5\. Repositório GitHub
-
-*(vale 13% — Documentação e Repositório)*
-
-O repositório deve conter:
-
-- Relatório Técnico (no `README.md`)  
-- **Dicionário de Dados** atualizado, no modelo do arquivo `02-03g_Exemplo_Dicionario_Dados.pdf` e com as restrições de integridade de cada coluna (obrigatoriedade, unicidade, valores permitidos, valor padrão), em **um único arquivo HTML** no repositório. **Exceção — turma de GTI:** o dicionário é apresentado em **um único arquivo Markdown (`.md`) separado do README**, seguindo o mesmo modelo do `02-03g_Exemplo_Dicionario_Dados.pdf`.  
-- Diagramas (DER revisado e modelo lógico)  
-- Levantamento (pasta `levantamento`, recomendada) e evidências da organização e da entrevista (fotos JPG ou PNG)  
-- Script SQL completo em arquivo `.sql` (de preferência na pasta `docs`)  
-- **Histórico de commits** que evidencie o desenvolvimento ao longo do tempo (evite um único commit final)  
-- **Evidências de colaboração entre os membros do grupo:** é a listagem de commits do repositório, que deve estar **equilibrada entre os integrantes** — a quantidade de commits deve se distribuir de forma proporcional entre todos os membros do grupo, cada um fazendo commits com a própria conta do GitHub. O integrante precisa ser **identificável na conta do GitHub**: o nome configurado na conta deve ser compatível com o nome do aluno na tabela de Integrantes, onde também deve constar o usuário do GitHub de cada um
-
 ## 6\. Uso de Inteligência Artificial
 
 *(documentação obrigatória — não é opcional se o grupo usou IA em qualquer etapa: pesquisa, levantamento de processos, requisitos e regras típicos, escrita, organização de ideias, revisão de texto, geração de massa de dados ou apoio a scripts SQL)*
