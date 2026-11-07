@@ -49,23 +49,42 @@
 
 **Justificativa de processos não incluídos:** o README não detalha compras/aquisição de veículos, fornecedores, avaliação de usados, despesas, comissões, seguros, documentação de entrada, cancelamento operacional nem manutenção preventiva/corretiva. Não se deve afirmar que esses processos não existem. O grupo deve perguntar ao responsável quais são realizados, quais são terceirizados e quais ficam fora do escopo. Em especial, esclarecer P2 (manutenções).
 
-**Requisitos (todos os grupos)**
+### Requisitos funcionais
 
-*Apresente os requisitos do sistema, atualizados com base na correção da Entrega 1 (ou elaborados agora, para quem trocou de organização):*
+* **RF01 — Gerenciamento de clientes:** cadastrar, consultar e alterar clientes, armazenando `nm\_cliente`, `nr\_cpf`, `nr\_telefone` (obrigatórios), `ds\_email` e `ds\_endereco` (opcionais); impedir CPF duplicado.
+* **RF02 — Gerenciamento de veículos:** cadastrar e atualizar veículos com `ds\_chassi`, `nm\_marca`, `nm\_modelo`, `nr\_ano`, `vl\_preco`, `tp\_veiculo` e `st\_veiculo`; impedir chassi duplicado e permitir consulta do estoque por situação.
+* **RF03 — Gerenciamento de funcionários:** cadastrar, consultar e atualizar `nm\_funcionario`, `nr\_cpf`, `nr\_telefone` e `ds\_cargo`; impedir CPF duplicado.
+* **RF04 — Registro e gestão de vendas:** registrar `dt\_venda`, `vl\_total`, `ds\_forma\_pagamento` e `st\_venda`, vinculando obrigatoriamente um cliente, um funcionário e um veículo; permitir acompanhar vendas pendentes, aprovadas, concluídas e canceladas.
+* **RF05 — Gestão de financiamentos bancários:** registrar, quando a forma de pagamento for Financiamento ou Misto, o banco, `vl\_financiado`, `qt\_parcelas`, `vl\_parcela` e `st\_financiamento`; permitir acompanhar análise, aprovação, recusa ou cancelamento.
+* **RF06 — Emissão de pedido de venda:** gerar pedido associado a uma venda confirmada (ou com financiamento aprovado, quando houver), registrando `dt\_pedido`, `nr\_nota\_fiscal`, `nm\_cartorio` e `st\_pedido`.
+* **RF07 — Consulta de veículos disponíveis:** exibir em consulta o chassi, marca, modelo, ano, preço, tipo e situação do veículo, com atualização do estado após a venda/reserva/manutenção.
+* **RF08 — Acompanhamento de pedidos e entregas:** registrar `dt\_prevista`, `dt\_entrega`, `ds\_endereco\_entrega` e `st\_entrega`; permitir consultar a situação da entrega e identificar atrasos.
+* **RF09 — Consulta integrada do histórico comercial:** permitir localizar a venda e consultar, em conjunto, cliente, funcionário, veículo, pagamento/financiamento, pedido e entrega, para facilitar a recuperação dos dados e comprovantes associados.
+* **RF10 — Controle de manutenção (pendente de validação):** caso a concessionária confirme que controla manutenções internamente, registrar veículo, tipo/descrição do serviço, datas, custo, responsável/prestador e situação. Esses atributos ainda não foram levantados e não devem ser implementados como fatos sem validação.
 
-- **Requisitos Funcionais:** o que o sistema precisa **fazer**, com os dados envolvidos (ex.: "o sistema deve permitir registrar uma venda com data, cliente, vendedor, forma de pagamento e, para cada item, produto, quantidade e preço unitário"). Cada um com um código (`RF01`, `RF02`…).  
-- **Requisitos Não Funcionais:** características de qualidade (ex.: desempenho, segurança, usabilidade, disponibilidade). Cada um com um código (`RNF01`, `RNF02`…).  
-- **Levante os requisitos típicos do tipo de organização.** Assim como nos processos, é recomendável usar pesquisas e ferramentas de IA para descobrir quais requisitos funcionais e não funcionais são comuns em sistemas de organizações semelhantes e conferir se eles se aplicam à organização escolhida — o que pode exigir confirmação com o responsável. Registre esse uso de IA na seção 6\.  
-- **Justifique os requisitos prováveis não incluídos:** se um requisito comum nesse tipo de organização ficou de fora, explique por quê (ex.: a organização não realiza o processo correspondente, ou a necessidade não existe no porte dela).
+### Requisitos não funcionais
 
-*Na Entrega 1, os erros mais comuns foram: requisitos de um sistema diferente do que foi mapeado (ex.: cardápio por QR Code ou motor de recomendação, quando o processo real é o garçom anotar o pedido), problemas declarados sem nenhum requisito que os resolva e requisitos técnicos (autenticação por JWT, hospedagem em nuvem) listados como funcionais. Os requisitos devem corresponder aos processos de negócio descritos acima e cobrir todos os problemas declarados (`P1`, `P2`…).*
+* **RNF01 — Usabilidade:** telas e consultas devem usar nomenclatura clara, formulários objetivos e validação dos campos obrigatórios, facilitando o uso pela equipe de pequeno porte.
+* **RNF02 — Disponibilidade:** os dados devem estar disponíveis durante o horário de operação da concessionária, conforme infraestrutura adotada.
+* **RNF03 — Integridade:** o banco deve aplicar PK, FK, NOT NULL, UNIQUE e CHECK compatíveis com as regras cadastradas.
+* **RNF04 — Segurança e privacidade:** restringir acesso a dados pessoais e comerciais por função; não expor CPF, telefone ou endereço em relatórios sem necessidade; manter cópias de segurança. A política concreta de perfis e backup deve ser definida com a organização.
+* **RNF05 — Desempenho:** consultas comuns de clientes, estoque e vendas devem responder em tempo adequado ao porte informado; índices devem ser aplicados às chaves e campos de busca relevantes.
 
-**Regras de negócio (todos os grupos)**
+### Regras de negócio codificadas
 
-*Liste as regras de negócio vigentes, cada uma com um código (`RN01`, `RN02`…) — mantenha os códigos da Entrega 1 quando já existirem. Esses códigos são citados nas justificativas das restrições (seção 1.5) e nas consultas de auditoria do script SQL (seção 3).*
-
-- **Levante as regras típicas do tipo de organização.** Assim como nos processos e nos requisitos, é recomendável usar pesquisas e ferramentas de IA para descobrir quais regras são comuns em organizações semelhantes e conferir se elas valem na organização escolhida — o que pode exigir confirmação com o responsável. Considere tanto as **regras operacionais** (ex.: pedido só é entregue se estiver registrado; cancelamento fica no histórico, não é apagado) quanto as **restrições legais e organizacionais** (ex.: LGPD, emissão de nota fiscal, normas sanitárias, idade mínima, acesso por cargo). Registre esse uso de IA na seção 6\.  
-- **Justifique as regras prováveis não incluídas:** se uma regra comum nesse tipo de organização ficou de fora, explique por quê (ex.: a organização não realiza o processo correspondente, ou a regra não se aplica ao porte ou à natureza dela).
+* **RN01 — Identificação única:** CPF de cliente e funcionário, CNPJ de banco e chassi de veículo não podem se repetir.
+* **RN02 — Venda vinculada:** toda venda deve referenciar exatamente um cliente, um funcionário e um veículo existentes.
+* **RN03 — Exclusividade do veículo:** um veículo não pode estar associado a mais de uma venda; ao concluir a venda, sua situação deve passar para `Vendido`. Se uma venda for cancelada, a situação do veículo deve ser revista conforme a condição real do veículo.
+* **RN04 — Financiamento condicional:** só deve existir financiamento para venda cuja forma de pagamento seja `Financiamento` ou `Misto`; uma venda pode ter no máximo um financiamento e cada financiamento pertence a uma venda.
+* **RN05 — Aprovação para pedido financiado:** venda com financiamento só pode gerar pedido após aprovação do banco. Para pagamento sem financiamento, o pedido pode ser gerado após confirmação da compra.
+* **RN06 — Pedido único por venda:** uma venda pode originar no máximo um pedido; cada pedido pertence a uma única venda.
+* **RN07 — Entrega vinculada:** cada entrega pertence a uma venda com pedido emitido; uma venda pode ter no máximo uma entrega no modelo atual.
+* **RN08 — Liberação da entrega:** uma entrega só pode ser marcada como `Entregue` se houver nota fiscal registrada no pedido e, quando houver financiamento, se ele estiver aprovado.
+* **RN09 — Domínios controlados:** situação de veículo, venda, financiamento, pedido e entrega deve aceitar somente os valores definidos no dicionário.
+* **RN10 — Coerência cronológica:** data da venda não pode ser futura; pedido não pode anteceder a venda; entrega prevista não pode anteceder o pedido/venda; data efetiva não pode anteceder a data prevista sem justificativa operacional registrada.
+* **RN11 — Valores positivos:** preço do veículo, valor da venda, valor financiado, valor de parcela e quantidade de parcelas devem ser positivos.
+* **RN12 — Dados corretos do veículo:** a venda/pedido deve usar um veículo cadastrado com chassi, marca, modelo, ano e preço válidos.
+* **RN13 — Histórico preservado:** cancelamentos devem permanecer registrados com status `Cancelada`, em vez de apagar a transação, para manter histórico e auditoria.
 
 **Notação do DER conceitual (todos os grupos — Caso A e Caso B)**
 
@@ -115,15 +134,22 @@
 
 *Use a correção da Entrega 1 do grupo como guia dos erros a não repetir, mesmo sendo outra organização.*
 
-### 1.2 Conversão do Modelo Conceitual para o Modelo Lógico
+## 1.2 Conversão do Modelo Conceitual para o Modelo Lógico
 
-*(vale 7,5%)*
+Cada entidade conceitual foi convertida em uma tabela relacional com uma chave primária própria:
 
-- **Entidades → Tabelas:** *como cada entidade virou tabela.*  
-- **Atributos → Colunas:** *conversão correta dos atributos.*  
-- **Relacionamentos → Chaves:** *como os relacionamentos foram traduzidos.*  
-- **Cardinalidades:** *como cada cardinalidade (1:1, 1:N, N:N) foi tratada (inclusive tabelas associativas, se houver).*  
-- **Generalização/especialização:** *se o DER tiver, qual estratégia de conversão foi usada (tabela única, uma tabela por entidade ou só as especializadas) e por quê.*
+|Entidade conceitual|Tabela relacional|Conversão/observação|
+|-|-|-|
+|CLIENTE|`CLIENTE`|Atributos cadastrais convertidos em colunas.|
+|FUNCIONARIO|`FUNCIONARIO`|Dados do colaborador em tabela própria.|
+|VEICULO|`VEICULO`|Dados de identificação e situação do estoque.|
+|VENDA|`VENDA`|Entidade transacional; recebe FKs de cliente, funcionário e veículo.|
+|BANCO|`BANCO`|Cadastro separado para evitar repetir dados bancários nos financiamentos.|
+|FINANCIAMENTO|`FINANCIAMENTO`|Tabela própria, com FK para BANCO e FK UNIQUE para VENDA.|
+|PEDIDO\_DE\_VENDA|`PEDIDO\_DE\_VENDA`|Tabela documental com FK UNIQUE para VENDA.|
+|ENTREGA|`ENTREGA`|Tabela logística com FK UNIQUE para VENDA.|
+
+Os atributos simples foram convertidos em colunas com tipos compatíveis: identificadores em `INT AUTO\_INCREMENT`, textos em `VARCHAR`/`TEXT`, datas em `DATE`/`DATETIME`, valores monetários em `DECIMAL(12,2)` e quantidades em `INT`. Os relacionamentos 1:N foram implementados com FK no lado N. Os relacionamentos 1:1 opcionais foram implementados com FK e restrição `UNIQUE` no lado dependente. Não há relacionamento N:N nem generalização/especialização no DER descrito na E1; portanto, não foi necessária tabela associativa nem estratégia de herança.
 
 ### 1.3 Definição de Chaves Primárias e Estrangeiras
 
