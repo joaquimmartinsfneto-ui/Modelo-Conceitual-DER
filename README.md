@@ -27,7 +27,7 @@
 | :---- | :---- | :---- |
 | Nome | RGM | usuario |
 | Joaquim Martins Ferreira Neto | 47609630 | netosec |
-| Gabriel Cabrera Conceição | RGM | gabrielcabrera602-commits |
+| Gabriel Cabrera Conceição | 47657499 | gabrielcabrera602-commits |
 | Guilherme Reis | 47513438 | Coelho  |
 | Gabriel Franco | 47451289 | gfranco0 |
 
