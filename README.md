@@ -311,21 +311,67 @@ Metas numéricas não foram fornecidas pela organização; devem ser definidas c
 
 # 2\. Modelo Lógico Relacional
 
-**Software previsto:** brModelo Web
+Entidades reconhecidas:
 
-O diagrama lógico deve ser anexado como `diagramas/modelo_logico.png` (ou PDF) e conter as tabelas, tipos, PKs, FKs e cardinalidades. Abaixo está a especificação para desenhá-lo:
+VEICULO: Representa os automóveis em estoque disponíveis para comercialização na concessionária. Justifica-se pela necessidade de rastrear histórico de preços, características físicas e status de disponibilidade.
 
-```text
-CLIENTE (1,1) —— (0,N) VENDA
-FUNCIONARIO (1,1) —— (0,N) VENDA
-VEICULO (0,1) —— (1,1) VENDA
-BANCO (1,1) —— (0,N) FINANCIAMENTO
-VENDA (0,1) —— (1,1) FINANCIAMENTO
-VENDA (0,1) —— (1,1) PEDIDO\_DE\_VENDA
-VENDA (0,1) —— (1,1) ENTREGA
-```
+CLIENTE: Representa a pessoa física que adquire veículos ou solicita propostas comerciais. Sua manutenção é essencial para a emissão de contratos, faturamento e cumprimento das exigências contratuais
 
-A ligação ENTREGA está implementada por `id_venda` no script-base, embora a descrição conceitual da E1 diga que Pedido gera Entrega. Para representar exatamente o relacionamento Pedido–Entrega, recomenda-se alterar a FK para `id_pedido` em ENTREGA e revisar o DER; o grupo deve escolher uma única interpretação e mantê-la igual no diagrama, dicionário e SQL. A versão SQL entregue nesta proposta mantém `id_venda` para seguir o dicionário preliminar da E1.
+FUNCIONARIO: Representa o colaborador/vendedor responsável pelo atendimento ao cliente e intermediação da venda. Justifica-se para fins de controle de comissões, auditoria de processos e auditoria interna de acesso
+
+VENDA: Entidade central da aplicação que registra a transação comercial. Conecta o cliente, o vendedor e o veículo comercializado em uma data e valor específicos
+
+BANCO: Representa as instituições financeiras parceiras que concedem crédito para as operações de financiamento. É necessária para o controle de propostas enviadas e parceiros comerciais.
+
+FINANCIAMENTO: Representa o contrato de crédito aprovado por um banco para viabilizar uma venda. Justifica-se para controle de taxas, parcelamento e aprovação de crédito
+
+PEDIDO DE VENDA: Representa o trâmite documental e fiscal decorrente do fechamento da venda. Justifica-se pela necessidade de registrar a emissão de Nota Fiscal Eletrônica e processos de cartório para transferência de propriedade.
+
+ENTREGA: Representa a etapa logística de transferência de posse do veículo ao cliente. Justifica-se para agendamento, controle de datas de liberação e local de entrega.
+
+Atributos e classificações:
+
+VEICULO: PK: id_veiculo atributos Simples / Obrigatórios: ds_chassi (único), nm_marca, nm_modelo, nr_ano, vl_preco, st_veiculo (domínio restrito) Atributos Opcionais: ds_cor, tp_veiculo
+
+CLIENTE: PK: id_cliente Atributos Simples / Obrigatórios: nm_cliente, nr_cpf (único), nr_telefone Atributos Opcionais: ds_email, ds_endereco
+
+FUNCIONARIO: PK: id_funcionario Atributos Simples / Obrigatórios: nm_funcionario, nr_cpf (único), ds_cargo, nr_telefone
+
+VENDA: PK: id_venda FK: id_cliente, id_funcionario, id_veiculo Atributos Simples / Obrigatórios: dt_venda, vl_total, ds_forma_pagamento, st_venda
+
+BANCO PK: id_banco Atributos Simples / Obrigatórios: nm_banco, nr_cnpj (único) Atributos Opcionais: nr_telefone
+
+FINANCIAMENTO PK: id_financiamento FK: id_banco, id_venda Atributos Simples / Obrigatórios: vl_financiado, qt_parcelas, vl_parcela, st_financiamento Atributos Opcionais: pc_taxa_juros
+
+PEDIDO DE VENDA: PK: id_pedido FK: id_venda Atributos Simples / Obrigatórios: dt_pedido, st_pedido Atributos Opcionais: nr_nota_fiscal, nm_cartorio
+
+ENTREGA: PK: id_entrega FK: id_venda Atributos Simples / Obrigatórios: dt_prevista, st_entrega Atributos Opcionais: dt_entrega, ds_endereco_entrega
+
+Relacionamentos pertinentes: Cliente realiza Venda: Mapeamento: CLIENTE (1, 1) <---- realiza ----> (0, N) VENDA Descrição: Um cliente pode realizar várias vendas ao longo do tempo (0 a N), porém cada registro de venda pertence obrigatoriamente a um único cliente (1 para 1).
+
+Funcionário realiza Venda: Mapeamento: FUNCIONARIO (1, 1) <---- intermedia ----> (0, N) VENDA Descrição: Um colaborador pode atuar em diversas vendas (0 a N), mas cada venda é intermediada por apenas um funcionário responsável (1 para 1).
+
+Venda envolve Veículo: Mapeamento: VEICULO (0, 1) <---- envolve ----> (1, 1) VENDA Descrição: Toda venda registrada deve conter obrigatoriamente exatamente um veículo (1 para 1). Um veículo em estoque participa de no máximo uma venda ativa (0 a 1).
+
+Venda possui Financiamento: Mapeamento: VENDA (0, 1) <---- gera ----> (1, 1) FINANCIAMENTO Descrição: Uma venda pode ou não ser financiada (0 a 1, pois o pagamento pode ser à vista). Quando existe um financiamento, ele pertence a uma única venda específica (1 para 1).
+
+Banco analisa Financiamento: Mapeamento: BANCO (1, 1) <---- avalia ----> (0, N) FINANCIAMENTO Descrição: Um banco pode analisar e aprovar múltiplos financiamentos (0 a N), mas cada proposta de financiamento é vinculada a um único banco concessor (1 para 1).
+
+Venda gera Pedido de Venda: Mapeamento: VENDA (0, 1) <---- consolida ----> (1, 1) PEDIDO_DE_VENDA Descrição: Uma venda efetuada origina um pedido de venda formal (1 para 1), no qual serão vinculados os trâmites fiscais e cartorários.
+
+Pedido gera Entrega: Mapeamento: PEDIDO_DE_VENDA (0, 1) <---- origina ----> (1, 1) ENTREGA Descrição: Um pedido de venda gera o processo de agendamento e liberação logística para entrega do veículo ao cliente (1 para 1).
+
+Restrições e políticas organizacionais aplicadas ao modelo.
+
+Unicidade e Validação Cadastral: O nr_cpf de clientes e funcionários, o nr_cnpj de bancos e o ds_chassi de veículos possuem restrição de integridade do tipo UNIQUE, impedindo a duplicação de cadastros no sistema
+
+Exclusividade de Venda de Veículo: Um veículo cadastrado só pode estar associado a um único registro de venda com status concluído ou ativo. Seu atributo st_veiculo deve ser alterado obrigatoriamente para 'Vendido' imediatamente após o fechamento da transação
+
+Modalidade de Pagamento e Financiamento: A criação de um registro na entidade FINANCIAMENTO é condicional: só ocorre caso o atributo ds_forma_pagamento da entidade VENDA seja igual a 'Financiamento' ou 'Misto'.
+
+Faturamento e Emissão de Documentação: A liberação da ENTREGA com status 'Entregue' fica estritamente sujeita ao preenchimento do atributo nr_nota_fiscal na entidade PEDIDO_DE_VENDA e à aprovação prévia do financiamento (caso existente).
+
+Datas Cronológicas Coerentes: A dt_venda não pode conter valores futuros em relação ao timestamp do servidor, e a dt_prevista da entrega deve ser igual ou posterior à dt_venda.
 
 ## 2.1 Esquema relacional e tipos
 
