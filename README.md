@@ -43,7 +43,7 @@
 
 - **Nome e natureza da organização:** Xenon multimarcas (Concenssionaria) 
 
-- **Contexto e porte:** Com fins lucrativos, Uma empresa com micro operações que realiza no mínimo de 15 venda ao mês, com uma quantidade de 6 funcionarios no total atual podendo aumentar futuramente.  
+- **Contexto e porte:** Com fins lucrativos, Uma empresa com micro operações que realiza no mínimo de 8 venda ao mês, com uma quantidade de 5 funcionarios no total atual podendo aumentar futuramente.  
 
 - **Problemas e necessidades identificados:** 
 - **P1:** Ruptura e falta de controle do estoque de veículos** | Perda de vendas e divulgação de automóveis que já não estão disponíveis no pátio físico. | Controle rigoroso de status por veículo (`Disponível`, `Vendido`, `Reservado`, `Em Manutenção`) integrado à consulta gerencial rápida
