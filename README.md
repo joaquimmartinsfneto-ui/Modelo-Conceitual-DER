@@ -229,7 +229,7 @@ Cada entidade conceitual foi convertida em uma tabela relacional com uma chave p
 |PEDIDO\_DE\_VENDA|`PEDIDO\_DE\_VENDA`|Tabela documental com FK UNIQUE para VENDA.|
 |ENTREGA|`ENTREGA`|Tabela logística com FK UNIQUE para VENDA.|
 
-Os atributos simples foram convertidos em colunas com tipos compatíveis: identificadores em `INT AUTO\_INCREMENT`, textos em `VARCHAR`/`TEXT`, datas em `DATE`/`DATETIME`, valores monetários em `DECIMAL(12,2)` e quantidades em `INT`. Os relacionamentos 1:N foram implementados com FK no lado N. Os relacionamentos 1:1 opcionais foram implementados com FK e restrição `UNIQUE` no lado dependente. Não há relacionamento N:N nem generalização/especialização no DER descrito na E1; portanto, não foi necessária tabela associativa nem estratégia de herança.
+Os atributos simples foram convertidos em colunas com tipos compatíveis: identificadores em `INT AUTO\_INCREMENT`, textos em `VARCHAR`/`TEXT`, datas em `DATE`/`DATETIME`, valores monetários em `DECIMAL(12,2)` e quantidades em `INT`. Os relacionamentos 1:N foram implementados com FK no lado N. Os relacionamentos 1:1 opcionais foram implementados com FK e restrição `UNIQUE` no lado dependente.
 
 ## 1.3 Definição de Chaves Primárias e Estrangeiras
 
