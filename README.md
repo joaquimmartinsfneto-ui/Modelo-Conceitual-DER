@@ -86,11 +86,9 @@
 * **RN12 — Dados corretos do veículo:** a venda/pedido deve usar um veículo cadastrado com chassi, marca, modelo, ano e preço válidos.
 * **RN13 — Histórico preservado:** cancelamentos devem permanecer registrados com status `Cancelada`, em vez de apagar a transação, para manter histórico e auditoria.
 
-**Notação do DER conceitual (todos os grupos — Caso A e Caso B)**
-
-*O DER deve seguir a notação do **brModelo**, como no exemplo abaixo:*
-
-![Exemplo de DER na notação do brModelo](Exemplo_DER.png)
+### Diagrama Entidade-Relacionamento (DER)
+![Modelo DER Imagem](ModeloDER.png)
+Link: https://app.brmodeloweb.com/publicview/6ab03281226d3f36496c6ecb
 
 | Elemento | Como aparece | No exemplo |
 | :---- | :---- | :---- |
