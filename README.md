@@ -262,20 +262,13 @@ A ligação ENTREGA está implementada por `id\_venda` no script-base, embora a 
 
 Arquivo separado: [`docs/script.sql`](docs/script.sql). SGBD: MySQL 8.0 ou compatível. O script contém criação do banco/tabelas, constraints, massa fictícia, consultas JOIN, UPDATE, DELETE demonstrativo, consultas gerenciais G01–G08 e auditorias A01–A08.
 
-## 4\. Massa de Dados
+# 4\. Massa de Dados
 
-*(incluída no script ou em arquivo separado — parte da nota de Implementação SQL, 12%)*
+Arquivo: [`docs/script.sql`](docs/script.sql), na seção de `INSERT INTO`.
 
-Se a massa de dados ficar em arquivo separado, ele deve seguir a mesma regra do script: **um arquivo no formato `.sql` no repositório**, de preferência na pasta **`docs`** (ex.: `docs/massa_de_dados.sql`), com link no README.
+A massa proposta é inteiramente fictícia. Ela contém 8 clientes, 6 funcionários, 18 veículos, 3 bancos, 15 vendas, financiamentos para parte das vendas, pedidos e entregas em diferentes situações. O volume considera o porte informado na E1: seis funcionários e pelo menos quinze vendas mensais. Os registros são uma massa de teste representativa, não uma reprodução de dados reais nem uma série histórica de 15 vendas por mês. Para simular o volume anual com maior fidelidade, ampliar os registros após validar os dados observados com a organização.
 
-- **Dados reais da organização (nomes de clientes, fiéis, beneficiários, doadores, valores reais etc.) não devem ser utilizados, em respeito à privacidade dessas informações.** A massa de dados deve ser **fictícia**, mas **coerente com as operações modeladas** (mesmos tipos de processo, volumes e regras observados na organização real).  
-- Volume de registros **coerente com a realidade da organização** (nada de 3 linhas de exemplo — mas também nada artificialmente inflado sem sentido).  
-- **Explique como o volume real da organização** — os números informados em *Contexto e porte* (seção 1.1), como clientes ativos, pedidos por mês, atendimentos por semana, itens no estoque — **justifica a quantidade de registros de cada tabela** da massa de dados.  
-- Dados consistentes o suficiente para validar os processos organizacionais modelados (ex.: pedidos que referenciam clientes e produtos existentes, ou doações que referenciam doadores e campanhas existentes).  
-- **Variedade e quantidade coerentes com a organização, para que os testes sejam possíveis:** os dados devem cobrir as situações reais — não só o caso comum, mas também pedidos cancelados, clientes sem compras, produtos abaixo do estoque mínimo, pagamentos em formas diferentes, registros em períodos diferentes. Sem essa variedade, as consultas gerenciais e de auditoria (seção 3\) não têm o que mostrar: uma consulta de produtos abaixo do estoque mínimo que retorna vazio não demonstra nada.  
-- **Documente o uso de LLMs** para gerar essa massa de dados na seção 6 (**Uso de Inteligência Artificial**), incluindo ferramentas, prompts e ajustes feitos manualmente.
-
----
+A variedade contempla veículos disponíveis, vendidos, reservados e em manutenção; vendas pendentes, aprovadas, concluídas e canceladas; pagamentos à vista, PIX, cartão, financiamento e misto; financiamentos em análise, aprovados, recusados e cancelados; pedidos em processamento, aguardando emissão, faturados e cancelados; entregas agendadas, em preparação, prontas, entregues e canceladas; e cliente sem venda. Todos os dados pessoais e identificadores inseridos são fictícios e não devem ser confundidos com dados de clientes reais.
 
 ## 5\. Repositório GitHub
 
@@ -290,8 +283,6 @@ O repositório deve conter:
 - Script SQL completo em arquivo `.sql` (de preferência na pasta `docs`)  
 - **Histórico de commits** que evidencie o desenvolvimento ao longo do tempo (evite um único commit final)  
 - **Evidências de colaboração entre os membros do grupo:** é a listagem de commits do repositório, que deve estar **equilibrada entre os integrantes** — a quantidade de commits deve se distribuir de forma proporcional entre todos os membros do grupo, cada um fazendo commits com a própria conta do GitHub. O integrante precisa ser **identificável na conta do GitHub**: o nome configurado na conta deve ser compatível com o nome do aluno na tabela de Integrantes, onde também deve constar o usuário do GitHub de cada um
-
----
 
 ## 6\. Uso de Inteligência Artificial
 
