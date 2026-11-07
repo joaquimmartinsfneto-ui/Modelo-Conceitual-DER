@@ -171,15 +171,21 @@ Os atributos simples foram convertidos em colunas com tipos compatíveis: identi
 * **Terceira Forma Normal (3FN):** os atributos não-chave dependem diretamente da chave primária da tabela, sem depender de outro atributo não-chave. Por exemplo, nome/CPF do cliente dependem de `id\_cliente`, não de `id\_venda`; nome/CNPJ do banco dependem de `id\_banco`, não de `id\_financiamento`; dados documentais ficam em PEDIDO\_DE\_VENDA e dados logísticos em ENTREGA. Isso reduz redundância e anomalias de atualização.
 
 **Justificativa:** a separação evita repetir dados cadastrais em transações, permite alterar dados de um cliente/banco em um único local e separa o ciclo comercial, documental, financeiro e logístico. A estrutura atual não representa parcelas individualmente (há apenas quantidade e valor da parcela), porque esse detalhamento não aparece entre os atributos levantados na E1. Caso a organização precise controlar vencimento e pagamento de cada parcela, será necessária uma entidade PARCELA após levantamento
-### 1.5 Justificativas Técnicas das Decisões
 
-*(vale 7,5%)*
+## 1.5 Justificativas Técnicas das Decisões
 
-- Justificar as **chaves primárias** escolhidas.  
-- Justificar as **chaves estrangeiras** e os relacionamentos que elas implementam.  
-- Justificar as **restrições** aplicadas (unicidade, obrigatoriedade, valores permitidos etc.), citando o código da regra de negócio (`RNxx`) que cada restrição implementa, quando houver.  
-- Justificar **decisões arquiteturais** gerais do modelo.
+* **PKs substitutas (`id\_\*`):** identificadores numéricos independentes dos dados de negócio; evitam que alterações em nome, CPF, chassi ou razão social afetem os relacionamentos.
+* **FKs em VENDA:** implementam os relacionamentos obrigatórios com CLIENTE, FUNCIONARIO e VEICULO (RN02), impedindo venda com referências inexistentes.
+* **UNIQUE em CPF, CNPJ e chassi:** evita cadastros duplicados (RN01). A validação de formato deve ser feita pela aplicação e, quando suportada, por CHECK; apenas contar caracteres não garante que CPF/CNPJ sejam matematicamente válidos.
+* **UNIQUE em `VENDA.id\_veiculo`:** impede mais de uma venda para o mesmo veículo (RN03). A situação `st\_veiculo` registra o estado atual; a aplicação/transação deve atualizá-la quando a venda for concluída.
+* **FK UNIQUE em FINANCIAMENTO.id\_venda:** implementa no máximo um financiamento por venda (RN04). A regra condicional que compara forma de pagamento e existência de financiamento exige validação transacional ou trigger; deve ser testada no MySQL.
+* **FK UNIQUE em PEDIDO\_DE\_VENDA.id\_venda e ENTREGA.id\_venda:** implementam no máximo um pedido e uma entrega por venda (RN06 e RN07).
+* **NOT NULL:** aplicado a campos essenciais para identificar registros e cumprir os requisitos (RN02, RN09 e RN11). Campos opcionais permanecem NULL quando não informados.
+* **CHECK/domínios:** controlam status, forma de pagamento, valores positivos, quantidade de parcelas e coerência básica de datas (RN09–RN12). A versão do MySQL usada deve aplicar CHECK; validar a versão no ambiente de laboratório.
+* **Separação de tabelas:** VENDA registra a negociação; FINANCIAMENTO registra crédito; PEDIDO\_DE\_VENDA registra documentação; ENTREGA registra logística. Isso reduz campos vazios e permite acompanhar cada etapa (RN04–RN08).
+* **Histórico:** vendas canceladas permanecem armazenadas (RN13), permitindo auditoria e análise de cancelamentos.
 
+**Limitação técnica importante:** regras que dependem de dados em tabelas diferentes (por exemplo, só emitir pedido se o financiamento estiver aprovado; só marcar entrega como entregue se existir nota fiscal) não são garantidas por um CHECK simples. Devem ser implementadas na camada de serviço/transação ou por triggers e cobertas por consultas de auditoria.
 ### 1.6 Proposta de Arquitetura Analítica para BI e IA
 
 *(vale 7,5%)*
