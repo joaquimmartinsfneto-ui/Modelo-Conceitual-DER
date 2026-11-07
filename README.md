@@ -206,6 +206,14 @@ A estrutura permite analisar volume e valor de vendas por período, desempenho p
 |KPI08|**Vendas por funcionário** = contagem e soma de vendas concluídas agrupadas por funcionário|Mensal|Apoio à gestão comercial.|
 Metas numéricas não foram fornecidas pela organização; devem ser definidas com o responsável, e não inventadas no relatório.
 
+### Potencial de BI e IA
+
+* **BI descritivo:** dashboards de vendas por mês, ticket médio, formas de pagamento, estoque por situação, financiamentos por banco e entregas por status.
+* **BI diagnóstico:** comparar cancelamentos por forma de pagamento, identificar em qual etapa os pedidos ficam parados e observar diferenças de aprovação entre instituições financeiras.
+* **Análise preditiva (futura):** após acumular histórico suficiente e validar qualidade dos dados, estimar demanda por categoria/modelo, sazonalidade de vendas e probabilidade de atraso de entrega. Os dados atuais não permitem prometer precisão nem treinar modelos robustos sem histórico real adequado.
+* **Apoio à decisão:** recomendações de reposição/compra de veículos poderiam considerar giro por marca/modelo e tempo em estoque, mas a E1 não possui data de entrada no estoque; esse indicador depende de incluir esse atributo.
+* **Manutenção:** análise de custo/frequência de manutenção depende da criação e alimentação da entidade MANUTENCAO, ainda pendente de levantamento.
+
 ## 2\. Modelo Lógico Relacional
 
 *(diagrama separado — vale 10% na Dimensão Procedimental)*
