@@ -88,6 +88,7 @@
 
 ### Diagrama Entidade-Relacionamento (DER)
 ![Modelo DER Imagem](ModeloDER.png)
+
 Link: https://app.brmodeloweb.com/publicview/6ab03281226d3f36496c6ecb
 
 | Elemento | Como aparece | No exemplo |
