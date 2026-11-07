@@ -10,54 +10,22 @@
 |Guilherme Reis|47513438|Coelho|
 |Gabriel Franco|47451289|gfranco0|
 
-## 1\. Relatório Técnico Final
+ 1\. Relatório Técnico Final
 
-*(arquivo Markdown — reúne a maior parte da Dimensão Conceitual, 30%)*
+## 1.1 Revisão do Modelo Conceitual
 
-**O Relatório Técnico Final deve ser o próprio `README.md` da raiz da branch `main`**, seguindo a estrutura deste esqueleto. Relatório entregue em outro arquivo (PDF, Word, outro `.md`, Google Docs, wiki do GitHub etc.) **não será corrigido**. Os demais artefatos (DER, modelo lógico, dicionário de dados, levantamento, script SQL, massa de dados, slides) ficam em arquivos separados no repositório, com link a partir do README.
+## Caracterização da organização
 
-### Integrantes
+* **Nome e natureza:** Xenon Multimarcas, concessionária/loja de veículos multimarcas com fins lucrativos.
+* **Contexto e porte:** Com fins lucrativos, Uma empresa com micro operações que realiza no mínimo de 8 venda ao mês, com uma quantidade de 5 funcionarios no total atual podendo aumentar futuramente.
+* **Problemas e necessidades identificados:**
 
-| Nome completo do aluno | RGM | Usuário do GitHub |
-| :---- | :---- | :---- |
-| Nome | RGM | usuario |
-| Joaquim Martins Ferreira Neto | 47609630 | netosec |
-| Gabriel Cabrera Conceição | 47657499 | gabrielcabrera602-commits |
-| Guilherme Reis | 47513438 | Coelho  |
-| Gabriel Franco | 47451289 | gfranco0 |
-
-&nbsp;
-
-### 1.1 Revisão do Modelo Conceitual
-
-*(obrigatória, sem peso próprio — mas todo o restante da entrega é construído e avaliado sobre este modelo: um erro que permanecer no DER revisado se propaga para a conversão, a normalização, o modelo lógico e o script SQL)*
-
-**Caracterização da organização (todos os grupos)**
-
-*Repita aqui a caracterização da organização — atualizada, mesmo que a organização seja a da Entrega 1\. Na Entrega 1, os erros mais comuns foram: porte sem números, problema declarado que depois não aparecia no DER, evidências fora do repositório e modelo cobrindo só parte da organização. Evite-os:*
-
-- **Nome e natureza da organização:** Xenon multimarcas (Concenssionaria) 
-
-- **Contexto e porte:** Com fins lucrativos, Uma empresa com micro operações que realiza no mínimo de 8 venda ao mês, com uma quantidade de 5 funcionarios no total atual podendo aumentar futuramente.  
-
-- **Problemas e necessidades identificados:** 
-- **P1:** Ruptura e falta de controle do estoque de veículos** | Perda de vendas e divulgação de automóveis que já não estão disponíveis no pátio físico. | Controle rigoroso de status por veículo (`Disponível`, `Vendido`, `Reservado`, `Em Manutenção`) integrado à consulta gerencial rápida
-- **P2:** Desorganização de entregas e documentação cartorária** | Atrasos na entrega dos carros aos clientes, falhas no acompanhamento das notas fiscais e burocracia em cartório. | Criação de módulos específicos de **Pedido de Venda** e **Entrega**, permitindo rastreamento logístico detalhado e auditoria via relatório gerencia
-- **P3:** Dificuldade na apuração de indicadores de vendas e desempenho** | Falta de métricas claras sobre o faturamento acumulado, ticket médio por transação e comissão da equipe. | Implementação de consultas analíticas e métricas de faturamento para cálculo automático do **Ticket Médio**  e ranking de **Desempenho por Funcionário
-- **P4:** Ausência de validação automatizada de regras de negócio** | Riscos de fraudes, registros de vendas sem vendedor vinculado ou financiamentos associados a pagamentos à vista. | Aplicação de restrições de integridade (`CHECK`, `FOREIGN KEY`) e rotinas de **Auditoria** dedicadas para garantir a conformidade dos dados
-
-- **Escopo do sistema:** O modelo relacional da Xenon Multimarcas foi projetado para englobar todos os dados e processos da organização, evitando recortes que atendam a apenas um setor específico. Embora a demanda inicial estivesse focada no controle de estoque e na logística de entregas, o banco de dados integra a operação completa da concessionária.
-
-Na prática, o sistema devera fazer os cadastros de clientes e funcionários, gerencia o estoque de veículos (sejam eles disponíveis, vendidos, em manutenção ou reservados), integra as instituições financeiras parceiras para concessão de crédito e registra o fluxo completo das vendas e financiamentos. Por fim, o modelo cobre a emissão dos pedidos de venda, o controle de notas fiscais, o trâmite cartorário e o acompanhamento das entregas. Essa estrutura unificada garante a integridade dos dados e sustenta tanto o trabalho do dia a dia quanto as análises gerenciais e rotinas de auditoria.
-
-- **Justificativa da escolha:** Um de nossos integrantes do grupo identificou a necessidade da empresa e notou que encaixaria perfeitamente no trabalho solicitado, consideramos o fato dessa área ter bastante movimentação
-
-- **Evidências da organização:** 
-- instagram: @multimarcasxenon
-- Cartão digital da empresa: https://cartao-digital.com/xenonmultimarcas/
-- local do Maps: https://share.google/2ecURySgI5GrRgYwr
-
-- **Responsável pela organização:** Nome: Willian, Numero de Telefone: 11 2585-4801
+  * **P1 — Registros comerciais e comprovantes desorganizados:** dificuldade para manter organizadas as informações e os comprovantes das transações de venda.
+  * **P2 — Manutenções sem organização centralizada:** ausência de organização adequada dos registros de manutenção dos veículos.
+* **Escopo do sistema:** O modelo relacional da Xenon Multimarcas foi projetado para englobar todos os dados e processos da organização, evitando recortes que atendam a apenas um setor específico. Embora a demanda inicial estivesse focada no controle de estoque e na logística de entregas, o banco de dados integra a operação completa da concessionária.
+* **Justificativa da escolha:** Um de nossos integrantes do grupo identificou a necessidade da empresa e notou que encaixaria perfeitamente no trabalho solicitado, consideramos o fato dessa área ter bastante movimentação
+* **Evidências disponíveis na Entrega 1:** Instagram informado como `@multimarcasxenon`; cartão digital: https://cartao-digital.com/xenonmultimarcas/; localização compartilhada no Maps: https://share.google/2ecURySgI5GrRgYwr. Inserir no repositório fotos JPG/PNG da organização e da visita/entrevista, além do endereço completo, se obtidos.
+* **Responsável pela organização:** **Nome: Willian, Numero de Telefone: 11 2585-4801**
 
 **Relato da entrevista (todos os grupos)**
 
