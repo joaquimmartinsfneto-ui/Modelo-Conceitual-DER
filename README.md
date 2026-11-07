@@ -151,9 +151,18 @@ Cada entidade conceitual foi convertida em uma tabela relacional com uma chave p
 
 Os atributos simples foram convertidos em colunas com tipos compatíveis: identificadores em `INT AUTO\_INCREMENT`, textos em `VARCHAR`/`TEXT`, datas em `DATE`/`DATETIME`, valores monetários em `DECIMAL(12,2)` e quantidades em `INT`. Os relacionamentos 1:N foram implementados com FK no lado N. Os relacionamentos 1:1 opcionais foram implementados com FK e restrição `UNIQUE` no lado dependente. Não há relacionamento N:N nem generalização/especialização no DER descrito na E1; portanto, não foi necessária tabela associativa nem estratégia de herança.
 
-### 1.3 Definição de Chaves Primárias e Estrangeiras
+## 1.3 Definição de Chaves Primárias e Estrangeiras
 
-*Liste as PKs e FKs de cada tabela (serve de base para a justificativa técnica abaixo).*
+|Tabela|Chave primária|Chaves estrangeiras|Restrições adicionais|
+|-|-|-|-|
+|CLIENTE|`id\_cliente`|—|`nr\_cpf` UNIQUE|
+|FUNCIONARIO|`id\_funcionario`|—|`nr\_cpf` UNIQUE|
+|VEICULO|`id\_veiculo`|—|`ds\_chassi` UNIQUE|
+|VENDA|`id\_venda`|`id\_cliente` → CLIENTE; `id\_funcionario` → FUNCIONARIO; `id\_veiculo` → VEICULO|`id\_veiculo` UNIQUE|
+|BANCO|`id\_banco`|—|`nr\_cnpj` UNIQUE|
+|FINANCIAMENTO|`id\_financiamento`|`id\_banco` → BANCO; `id\_venda` → VENDA|`id\_venda` UNIQUE|
+|PEDIDO\_DE\_VENDA|`id\_pedido`|`id\_venda` → VENDA|`id\_venda` UNIQUE; `nr\_nota\_fiscal` UNIQUE quando informado|
+|ENTREGA|`id\_entrega`|`id\_venda` → VENDA|`id\_venda` UNIQUE|
 
 ### 1.4 Processo de Normalização (1FN, 2FN e 3FN)
 
