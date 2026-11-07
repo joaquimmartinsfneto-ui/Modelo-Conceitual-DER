@@ -186,23 +186,11 @@ Os atributos simples foram convertidos em colunas com tipos compatíveis: identi
 * **Histórico:** vendas canceladas permanecem armazenadas (RN13), permitindo auditoria e análise de cancelamentos.
 
 **Limitação técnica importante:** regras que dependem de dados em tabelas diferentes (por exemplo, só emitir pedido se o financiamento estiver aprovado; só marcar entrega como entregue se existir nota fiscal) não são garantidas por um CHECK simples. Devem ser implementadas na camada de serviço/transação ou por triggers e cobertas por consultas de auditoria.
-### 1.6 Proposta de Arquitetura Analítica para BI e IA
 
-*(vale 7,5%)*
+## 1.6 Proposta de Arquitetura Analítica para BI e IA
+### Informações estratégicas
 
-- **Informações estratégicas** que podem ser extraídas dos dados para a gestão da organização.  
-- **Indicadores e métricas gerenciais** propostos (KPIs).  
-- **Potencial dos dados para BI:** como a estrutura apoia dashboards/relatórios.  
-- **Aplicações analíticas e de IA:** como o modelo pode alimentar análises preditivas, recomendações etc.
-
-**Rastreabilidade:** inclua uma tabela que ligue cada problema declarado na caracterização da organização e cada KPI proposto às tabelas que o sustentam e à consulta do script SQL que o responde (pelo código da consulta — ver seção 3):
-
-| Problema ou KPI | Tabelas envolvidas | Consulta no script |
-| :---- | :---- | :---- |
-| *ex.: P1 — ruptura de estoque de bebidas* | *PRODUTO, MOVIMENTACAO\_ESTOQUE* | *G03* |
-| *ex.: ticket médio por ambiente* | *PEDIDO, ITEM\_PEDIDO, AMBIENTE* | *G05* |
-
-&nbsp;
+A estrutura permite analisar volume e valor de vendas por período, desempenho por vendedor, modelos/marcas comercializados, disponibilidade do estoque, formas de pagamento, volume e aprovação de financiamentos por instituição, andamento documental e tempo entre venda e entrega. Esses dados podem apoiar planejamento de estoque, acompanhamento comercial e identificação de gargalos documentais/logísticos.
 
 *KPI sem consulta no script que o calcule não é considerado KPI. Cada problema declarado deve ter pelo menos uma consulta que o responda.*
 
