@@ -226,23 +226,23 @@ Cada entidade conceitual foi convertida em uma tabela relacional com uma chave p
 |VENDA|`VENDA`|Entidade transacional; recebe FKs de cliente, funcionário e veículo.|
 |BANCO|`BANCO`|Cadastro separado para evitar repetir dados bancários nos financiamentos.|
 |FINANCIAMENTO|`FINANCIAMENTO`|Tabela própria, com FK para BANCO e FK UNIQUE para VENDA.|
-|PEDIDO\_DE\_VENDA|`PEDIDO\_DE\_VENDA`|Tabela documental com FK UNIQUE para VENDA.|
+|PEDIDO_DE_VENDA|`PEDIDO\_DE\_VENDA`|Tabela documental com FK UNIQUE para VENDA.|
 |ENTREGA|`ENTREGA`|Tabela logística com FK UNIQUE para VENDA.|
 
-Os atributos simples foram convertidos em colunas com tipos compatíveis: identificadores em `INT AUTO\_INCREMENT`, textos em `VARCHAR`/`TEXT`, datas em `DATE`/`DATETIME`, valores monetários em `DECIMAL(12,2)` e quantidades em `INT`. Os relacionamentos 1:N foram implementados com FK no lado N. Os relacionamentos 1:1 opcionais foram implementados com FK e restrição `UNIQUE` no lado dependente.
+Os atributos simples foram convertidos em colunas com tipos compatíveis: identificadores em `INT AUTO_INCREMENT`, textos em `VARCHAR`/`TEXT`, datas em `DATE`/`DATETIME`, valores monetários em `DECIMAL(12,2)` e quantidades em `INT`. Os relacionamentos 1:N foram implementados com FK no lado N. Os relacionamentos 1:1 opcionais foram implementados com FK e restrição `UNIQUE` no lado dependente.
 
 ## 1.3 Definição de Chaves Primárias e Estrangeiras
 
 |Tabela|Chave primária|Chaves estrangeiras|Restrições adicionais|
 |-|-|-|-|
-|CLIENTE|`id\_cliente`|—|`nr\_cpf` UNIQUE|
-|FUNCIONARIO|`id\_funcionario`|—|`nr\_cpf` UNIQUE|
-|VEICULO|`id\_veiculo`|—|`ds\_chassi` UNIQUE|
-|VENDA|`id\_venda`|`id\_cliente` → CLIENTE; `id\_funcionario` → FUNCIONARIO; `id\_veiculo` → VEICULO|`id\_veiculo` UNIQUE|
-|BANCO|`id\_banco`|—|`nr\_cnpj` UNIQUE|
-|FINANCIAMENTO|`id\_financiamento`|`id\_banco` → BANCO; `id\_venda` → VENDA|`id\_venda` UNIQUE|
-|PEDIDO\_DE\_VENDA|`id\_pedido`|`id\_venda` → VENDA|`id\_venda` UNIQUE; `nr\_nota\_fiscal` UNIQUE quando informado|
-|ENTREGA|`id\_entrega`|`id\_venda` → VENDA|`id\_venda` UNIQUE|
+|CLIENTE|`id_cliente`|—|`nr_cpf` UNIQUE|
+|FUNCIONARIO|`id_funcionario`|—|`nr_cpf` UNIQUE|
+|VEICULO|`id_veiculo`|—|`ds_chassi` UNIQUE|
+|VENDA|`id_venda`|`id_cliente` → CLIENTE; `id_funcionario` → FUNCIONARIO; `id_veiculo` → VEICULO|`id_veiculo` UNIQUE|
+|BANCO|`id_banco`|—|`nr_cnpj` UNIQUE|
+|FINANCIAMENTO|`id_financiamento`|`id_banco` → BANCO; `id_venda` → VENDA|`id_venda` UNIQUE|
+|PEDIDO\_DE\_VENDA|`id_pedido`|`id_venda` → VENDA|`id_venda` UNIQUE; `nr_nota_fiscal` UNIQUE quando informado|
+|ENTREGA|`id_entrega`|`id_venda` → VENDA|`id_venda` UNIQUE|
 
 ## 1.4 Processo de Normalização (1FN, 2FN e 3FN)
 
@@ -254,12 +254,12 @@ Os atributos simples foram convertidos em colunas com tipos compatíveis: identi
 
 ## 1.5 Justificativas Técnicas das Decisões
 
-* **PKs substitutas (`id\_\*`):** identificadores numéricos independentes dos dados de negócio; evitam que alterações em nome, CPF, chassi ou razão social afetem os relacionamentos.
+* **PKs substitutas (`id_*`):** identificadores numéricos independentes dos dados de negócio; evitam que alterações em nome, CPF, chassi ou razão social afetem os relacionamentos.
 * **FKs em VENDA:** implementam os relacionamentos obrigatórios com CLIENTE, FUNCIONARIO e VEICULO (RN02), impedindo venda com referências inexistentes.
 * **UNIQUE em CPF, CNPJ e chassi:** evita cadastros duplicados (RN01). A validação de formato deve ser feita pela aplicação e, quando suportada, por CHECK; apenas contar caracteres não garante que CPF/CNPJ sejam matematicamente válidos.
-* **UNIQUE em `VENDA.id\_veiculo`:** impede mais de uma venda para o mesmo veículo (RN03). A situação `st\_veiculo` registra o estado atual; a aplicação/transação deve atualizá-la quando a venda for concluída.
-* **FK UNIQUE em FINANCIAMENTO.id\_venda:** implementa no máximo um financiamento por venda (RN04). A regra condicional que compara forma de pagamento e existência de financiamento exige validação transacional ou trigger; deve ser testada no MySQL.
-* **FK UNIQUE em PEDIDO\_DE\_VENDA.id\_venda e ENTREGA.id\_venda:** implementam no máximo um pedido e uma entrega por venda (RN06 e RN07).
+* **UNIQUE em `VENDA.id_veiculo`:** impede mais de uma venda para o mesmo veículo (RN03). A situação `st_veiculo` registra o estado atual; a aplicação/transação deve atualizá-la quando a venda for concluída.
+* **FK UNIQUE em FINANCIAMENTO.id_venda:** implementa no máximo um financiamento por venda (RN04). A regra condicional que compara forma de pagamento e existência de financiamento exige validação transacional ou trigger; deve ser testada no MySQL.
+* **FK UNIQUE em PEDIDO_DE_VENDA.id_venda e ENTREGA.id_venda:** implementam no máximo um pedido e uma entrega por venda (RN06 e RN07).
 * **NOT NULL:** aplicado a campos essenciais para identificar registros e cumprir os requisitos (RN02, RN09 e RN11). Campos opcionais permanecem NULL quando não informados.
 * **CHECK/domínios:** controlam status, forma de pagamento, valores positivos, quantidade de parcelas e coerência básica de datas (RN09–RN12). A versão do MySQL usada deve aplicar CHECK; validar a versão no ambiente de laboratório.
 * **Separação de tabelas:** VENDA registra a negociação; FINANCIAMENTO registra crédito; PEDIDO\_DE\_VENDA registra documentação; ENTREGA registra logística. Isso reduz campos vazios e permite acompanhar cada etapa (RN04–RN08).
@@ -276,13 +276,13 @@ A estrutura permite analisar volume e valor de vendas por período, desempenho p
 
 |Código|KPI e fórmula|Período sugerido|Interpretação|
 |-|-|-|-|
-|KPI01|**Quantidade de vendas concluídas** = contagem de vendas com `st\_venda='Concluída'`|Mensal|Volume comercial efetivado.|
-|KPI02|**Faturamento concluído** = soma de `vl\_total` para vendas concluídas|Mensal|Valor total vendido no período.|
+|KPI01|**Quantidade de vendas concluídas** = contagem de vendas com `st_venda='Concluída'`|Mensal|Volume comercial efetivado.|
+|KPI02|**Faturamento concluído** = soma de `vl_total` para vendas concluídas|Mensal|Valor total vendido no período.|
 |KPI03|**Ticket médio** = faturamento concluído ÷ quantidade de vendas concluídas|Mensal|Valor médio por venda concluída.|
 |KPI04|**Taxa de cancelamento** = vendas canceladas ÷ total de vendas × 100|Mensal|Participação de cancelamentos no total registrado.|
-|KPI05|**Estoque por situação** = contagem de veículos agrupada por `st\_veiculo`|Diário|Visão da disponibilidade.|
+|KPI05|**Estoque por situação** = contagem de veículos agrupada por `st_veiculo`|Diário|Visão da disponibilidade.|
 |KPI06|**Taxa de aprovação de financiamento** = financiamentos aprovados ÷ financiamentos analisados (aprovados + recusados) × 100|Mensal|Resultado das análises de crédito registradas.|
-|KPI07|**Tempo médio venda–entrega** = média de dias entre `dt\_venda` e `dt\_entrega` para entregas concluídas|Mensal|Eficiência do fluxo de entrega.|
+|KPI07|**Tempo médio venda–entrega** = média de dias entre `dt_venda` e `dt_entrega` para entregas concluídas|Mensal|Eficiência do fluxo de entrega.|
 |KPI08|**Vendas por funcionário** = contagem e soma de vendas concluídas agrupadas por funcionário|Mensal|Apoio à gestão comercial.|
 Metas numéricas não foram fornecidas pela organização; devem ser definidas com o responsável, e não inventadas no relatório.
 
@@ -313,7 +313,7 @@ Metas numéricas não foram fornecidas pela organização; devem ser definidas c
 
 **Software previsto:** brModelo Web
 
-O diagrama lógico deve ser anexado como `diagramas/modelo\_logico.png` (ou PDF) e conter as tabelas, tipos, PKs, FKs e cardinalidades. Abaixo está a especificação para desenhá-lo:
+O diagrama lógico deve ser anexado como `diagramas/modelo_logico.png` (ou PDF) e conter as tabelas, tipos, PKs, FKs e cardinalidades. Abaixo está a especificação para desenhá-lo:
 
 ```text
 CLIENTE (1,1) —— (0,N) VENDA
@@ -325,18 +325,18 @@ VENDA (0,1) —— (1,1) PEDIDO\_DE\_VENDA
 VENDA (0,1) —— (1,1) ENTREGA
 ```
 
-A ligação ENTREGA está implementada por `id\_venda` no script-base, embora a descrição conceitual da E1 diga que Pedido gera Entrega. Para representar exatamente o relacionamento Pedido–Entrega, recomenda-se alterar a FK para `id\_pedido` em ENTREGA e revisar o DER; o grupo deve escolher uma única interpretação e mantê-la igual no diagrama, dicionário e SQL. A versão SQL entregue nesta proposta mantém `id\_venda` para seguir o dicionário preliminar da E1.
+A ligação ENTREGA está implementada por `id_venda` no script-base, embora a descrição conceitual da E1 diga que Pedido gera Entrega. Para representar exatamente o relacionamento Pedido–Entrega, recomenda-se alterar a FK para `id_pedido` em ENTREGA e revisar o DER; o grupo deve escolher uma única interpretação e mantê-la igual no diagrama, dicionário e SQL. A versão SQL entregue nesta proposta mantém `id_venda` para seguir o dicionário preliminar da E1.
 
 ## 2.1 Esquema relacional e tipos
 
-* `CLIENTE(id\_cliente PK, nm\_cliente, nr\_cpf UNIQUE, nr\_telefone, ds\_email, ds\_endereco)`
-* `FUNCIONARIO(id\_funcionario PK, nm\_funcionario, nr\_cpf UNIQUE, nr\_telefone, ds\_cargo)`
-* `VEICULO(id\_veiculo PK, ds\_chassi UNIQUE, nm\_marca, nm\_modelo, nr\_ano, vl\_preco, tp\_veiculo, st\_veiculo)`
-* `VENDA(id\_venda PK, id\_cliente FK, id\_funcionario FK, id\_veiculo FK UNIQUE, dt\_venda, vl\_total, ds\_forma\_pagamento, st\_venda)`
-* `BANCO(id\_banco PK, nm\_banco, nr\_cnpj UNIQUE, nr\_telefone)`
-* `FINANCIAMENTO(id\_financiamento PK, id\_banco FK, id\_venda FK UNIQUE, vl\_financiado, qt\_parcelas, vl\_parcela, st\_financiamento)`
-* `PEDIDO\_DE\_VENDA(id\_pedido PK, id\_venda FK UNIQUE, dt\_pedido, nr\_nota\_fiscal UNIQUE NULL, nm\_cartorio, st\_pedido)`
-* `ENTREGA(id\_entrega PK, id\_venda FK UNIQUE, dt\_prevista, dt\_entrega NULL, ds\_endereco\_entrega, st\_entrega)`
+* `CLIENTE(id_cliente PK, nm_cliente, nr_cpf UNIQUE, nr_telefone, ds_email, ds_endereco)`
+* `FUNCIONARIO(id_funcionario PK, nm_funcionario, nr_cpf UNIQUE, nr_telefone, ds_cargo)`
+* `VEICULO(id_veiculo PK, ds_chassi UNIQUE, nm_marca, nm_modelo, nr_ano, vl_preco, tp_veiculo, st_veiculo)`
+* `VENDA(id_venda PK, id_cliente FK, id_funcionario FK, id_veiculo FK UNIQUE, dt_venda, vl_total, ds_forma_pagamento, st_venda)`
+* `BANCO(id_banco PK, nm_banco, nr_cnpj UNIQUE, nr_telefone)`
+* `FINANCIAMENTO(id_financiamento PK, id_banco FK, id_venda FK UNIQUE, vl_financiado, qt_parcelas, vl_parcela, st_financiamento)`
+* `PEDIDO_DE_VENDA(id_pedido PK, id_venda FK UNIQUE, dt_pedido, nr_nota_fiscal UNIQUE NULL, nm_cartorio, st_pedido)`
+* `ENTREGA(id_entrega PK, id_venda FK UNIQUE, dt_prevista, dt_entrega NULL, ds_endereco_entrega, st_entrega)`
 
 # 3\. Script SQL Completo
 
@@ -344,7 +344,7 @@ Arquivo separado: [`docs/script.sql`](docs/script.sql). SGBD: MySQL 8.0 ou compa
 
 # 4\. Massa de Dados
 
-Arquivo: [`docs/script.sql`](docs/script.sql), na seção de `INSERT INTO`.
+Arquivo: [`docs/script.sql`](docs/script.sql).
 
 A massa proposta é inteiramente fictícia. Ela contém 8 clientes, 6 funcionários, 18 veículos, 3 bancos, 15 vendas, financiamentos para parte das vendas, pedidos e entregas em diferentes situações. O volume considera o porte informado na E1: seis funcionários e pelo menos quinze vendas mensais. Os registros são uma massa de teste representativa, não uma reprodução de dados reais nem uma série histórica de 15 vendas por mês. Para simular o volume anual com maior fidelidade, ampliar os registros após validar os dados observados com a organização.
 
@@ -355,7 +355,7 @@ A variedade contempla veículos disponíveis, vendidos, reservados e em manuten�
 
 * **Ferramenta/etapa:** Gemini; revisão das conexões/cardinalidades do DER e apoio à documentação das entidades e relacionamentos.
 * **Motivação:** prazo curto e necessidade de organizar o modelo e a documentação após dificuldades com uma organização inicialmente contatada.
-* **Prompts registrados na E1:** (1) pedido para verificar conexões e relacionamentos do DER com base em imagem e PDF de exemplo de dicionário; (2) pedido para documentar entidades e relacionamentos com base na imagem e no PDF.
+* **Prompts:** (1) pedido para verificar conexões e relacionamentos do DER com base em imagem e PDF de exemplo de dicionário; (2) pedido para documentar entidades e relacionamentos com base na imagem e no PDF.
 * **Resposta recebida:** apontamento de ajustes nas cardinalidades entre venda e cliente, veículo, funcionário e financiamento/banco; geração de texto de apoio para a documentação.
 * **Fontes verificadas:** imagem do DER e PDF de exemplo anexados ao Gemini, conforme relato do grupo.
 * **Correções/rejeições:** o grupo relata que analisou as sugestões e fez ajustes de documentação; não informou trechos específicos rejeitados.
@@ -365,7 +365,7 @@ A variedade contempla veículos disponíveis, vendidos, reservados e em manuten�
 
 * **Ferramenta/etapa:** Gemini; documentação de entidades, atributos, classificações, relacionamentos e políticas organizacionais.
 * **Motivação:** reduzir o tempo de organização da documentação e facilitar o entendimento do modelo.
-* **Prompt registrado na E1:** pedido para listar e justificar entidades/atributos, classificar atributos, explicar relacionamentos e restrições a partir da conversa e do DER.
+* **Prompt:** pedido para listar e justificar entidades/atributos, classificar atributos, explicar relacionamentos e restrições a partir da conversa e do DER.
 * **Resposta recebida:** estrutura organizada com entidades, atributos, relacionamentos e restrições.
 * **Fontes verificadas:** conversa anterior, imagem do DER e PDF anexado, conforme relato do grupo.
 * **Correções/rejeições:** o grupo relata ajustes de apresentação e entendimento; não especifica trechos rejeitados.
@@ -375,7 +375,7 @@ A variedade contempla veículos disponíveis, vendidos, reservados e em manuten�
 
 * **Ferramenta/etapa:** Gemini; criação de comandos `INSERT INTO` para a massa fictícia.
 * **Motivação:** agilizar a criação de dados de teste e evitar repetição manual.
-* **Prompt registrado na E1:** solicitação de massa fictícia para MySQL com tabelas Cliente, Funcionario, Veiculo, Banco, Venda, Financiamento, Pedido\_de\_venda e Entrega, contemplando 5 clientes, 3 funcionários, veículos em estoque e vendidos e cenários variados.
+* **Prompt:** solicitação de massa fictícia para MySQL com tabelas Cliente, Funcionario, Veiculo, Banco, Venda, Financiamento, Pedido\_de\_venda e Entrega, contemplando 5 clientes, 3 funcionários, veículos em estoque e vendidos e cenários variados.
 * **Resposta recebida:** blocos de INSERT separados por tabela, com referências de chaves estrangeiras alinhadas.
 * **Fontes verificadas:** grupo relata conferência com DER e modelo lógico, incluindo campos obrigatórios e restrições UNIQUE/NOT NULL.
 * **Correções/rejeições:** ajuste manual das datas para manter cronologia coerente.
