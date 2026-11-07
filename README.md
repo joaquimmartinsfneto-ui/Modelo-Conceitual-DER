@@ -27,26 +27,16 @@
 * **Evidências disponíveis na Entrega 1:** Instagram informado como `@multimarcasxenon`; cartão digital: https://cartao-digital.com/xenonmultimarcas/; localização compartilhada no Maps: https://share.google/2ecURySgI5GrRgYwr. Inserir no repositório fotos JPG/PNG da organização e da visita/entrevista, além do endereço completo, se obtidos.
 * **Responsável pela organização:** **Nome: Willian, Numero de Telefone: 11 2585-4801**
 
-**Relato da entrevista (todos os grupos)**
+### Relato da entrevista e observação presencial
 
-*Relate a entrevista com o responsável pela organização. A entrevista da Entrega 1 pode ser reaproveitada se atender a todos os itens abaixo — inclusive ter sido feita no ambiente da organização, com foto — e se tiver levantado o necessário para os processos, requisitos e regras desta etapa. Se algo precisou ser confirmado depois (ex.: processos típicos levantados por pesquisa), relate também a nova visita.*
-
-- **Quem:** William Soares Carvalho, gerente e socio da empresa. Gabriel Cabrera, Gabriel Franco e Joaquim Martins.  
-- **Quando e onde:** 19 de Setembro, na concessionária —  o grupo viu uma movimentação de cliente na hora da entrevista, vimos como funciona o primeiro atendimento; ao vendedor apresentar o veículo ao cliente interessado, ambos tiveram uma breve conversa e foram para a sala realizar uma simulação, a principio, o vendedor anotu em seu caderno os dados básicos do cliente, Nome, carro interessado, CPF, data de nascimento e numero de telefone. 
-- **Comprovação:** ao menos uma foto da entrevista no local, como arquivo JPG ou PNG no repositório.  
-- **O que foi levantado:** o que foi perguntado, o que foi confirmado e, se houve nova visita, o que mudou em relação à Entrega 1 (processos, regras, volumes, problemas). O levantamento completo fica em **um arquivo Markdown (`.md`) à parte no repositório**, com link no README — **recomenda-se fortemente** colocá-lo numa pasta chamada **`levantamento`** (ex.: `levantamento/levantamento.md`). Esse arquivo é um **texto organizado, escrito pelo grupo**, sobre o que foi levantado — **não** é um vídeo ou áudio da entrevista, nem a transcrição crua de formulários ou de perguntas e respostas. **No README, apresente um resumo do levantamento.**
-
-**Nível de detalhe — processos, requisitos e regras de negócio (todos os grupos)**
-
-*Frases genéricas como "o sistema deve permitir cadastrar cliente" são **superficiais** e não bastam. Em processos, requisitos e regras, indique **quais dados** estão envolvidos — todos os campos que aparecem no trabalho (DER, dicionário de dados, modelo lógico):*
-
-| Superficial | Detalhado |
-| :---- | :---- |
-| *O sistema deve permitir cadastrar cliente.* | *RF03 — O sistema deve permitir cadastrar cliente com nome completo, CPF, telefone, e-mail e endereço (logradouro, número, bairro, CEP).* |
-| *O cliente faz o pedido.* | *O garçom anota no pedido a mesa, o número da pulseira do cliente e, para cada item, o produto, a quantidade e as observações.* |
-| *O cliente precisa estar cadastrado.* | *RN05 — Todo cliente deve ter CPF válido e único; telefone e nome completo são obrigatórios.* |
-
-&nbsp;
+* **Entrevistado e função:** William Soares Carvalho, gerente e socio da empresa. Gabriel Cabrera, Gabriel Franco e Joaquim Martins.
+* **Integrantes presentes:** Gabriel Cabrera, Gabriel Franco e Joaquim Martins.
+* **Data e local dentro da organização:** 19 de Setembro, no local Av. Marechal Tito, 1850, 2012, 2212 e 2548 – São Miguel Paulista, São Paulo - SP (CEP: 08022-000)
+* **Observações diretas da rotina:**  o grupo viu uma movimentação de cliente na hora da entrevista, vimos como funciona o primeiro atendimento; ao vendedor apresentar o veículo ao cliente interessado, ambos tiveram uma breve conversa e foram para a sala realizar uma simulação, a principio, o vendedor anotu em seu caderno os dados básicos do cliente, Nome, carro interessado, CPF, data de nascimento e numero de telefone.
+* **Respostas/validações do responsável:** \[DESCREVER o que foi confirmado sobre processos, regras, volumes e problemas].
+* **Nova visita/atualizações em relação à Entrega 1:** \[INFORMAR se houve; caso não tenha havido, declarar].
+* **Comprovação:** adicionar `levantamento/evidencia\_entrevista.jpg` ou `.png` (nome real do arquivo) ao repositório.
+* **Levantamento completo:** criar `levantamento/levantamento.md` com o relato organizado e linkar aqui.
 
 **Processos de negócio (todos os grupos)**
 
