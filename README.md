@@ -104,7 +104,7 @@ O sistema deve disponibilizar consultas gerenciais para acompanhar:
 - Taxa de aprovação de financiamentos por banco.
 - Tempo médio entre venda e entrega.
 - Quantidade e valor total de vendas concluídas por funcionário.
-- 
+  
 RF12 — Consultas de auditoria
 
 O sistema deve permitir executar consultas para identificar inconsistências nos registros, incluindo vendas sem funcionário válido, vendas concluídas sem pedido associado e financiamentos vinculados a formas de pagamento incompatíveis.
