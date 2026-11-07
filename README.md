@@ -114,26 +114,7 @@ Link: https://app.brmodeloweb.com/publicview/6ab03281226d3f36496c6ecb
 - **Atributos de relacionamentos e de entidades associativas:** **somente** como no brModelo, ligados ao losango ou à entidade associativa (como `Attribute 530`) — não podem ser listados dentro de um retângulo.  
 - **Sem chaves estrangeiras** — elas só aparecem no modelo lógico (seção 2).
 
-*Informe no README **em qual software ou aplicativo o DER foi criado**.*
-
-**Caso A — mesma organização da Entrega 1**
-
-*Apresente o **DER conceitual revisado**, na notação descrita acima. A revisão parte da correção da Entrega 1 recebida pelo grupo — o DER e os demais itens acima. Para cada apontamento da correção, registre o que foi feito:*
-
-| Apontamento da correção da E1 | O que mudou no trabalho | Por quê |
-| :---- | :---- | :---- |
-| *ex.: N:N entre PEDIDO e PRODUTO sem quantidade* | *criada a entidade associativa ITEM\_PEDIDO com quantidade e preço praticado* | *sem ela não é possível saber quanto de cada produto foi vendido* |
-| *ex.: chaves estrangeiras desenhadas no DER* | *removidas — passam a aparecer só no modelo lógico (seção 2\)* | *FK é decisão do modelo lógico, não do conceitual* |
-
-&nbsp;
-
-*Se o grupo discordar de algum apontamento e mantiver o modelo como estava, registre isso na tabela com a justificativa. Apontamento não citado na tabela é tratado como não corrigido.*
-
-**Caso B — nova organização (a da Entrega 1 era fictícia ou não teve a existência comprovada)**
-
-*Além de todos os itens acima, apresente o **DER conceitual** da nova organização, na notação descrita acima.*
-
-*Use a correção da Entrega 1 do grupo como guia dos erros a não repetir, mesmo sendo outra organização.*
+**Aplicativo utilizado para fazer o DER: app.brmodeloweb.com
 
 ## 1.2 Conversão do Modelo Conceitual para o Modelo Lógico
 
