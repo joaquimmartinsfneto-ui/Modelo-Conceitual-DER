@@ -26,7 +26,7 @@
 Instagram: `@multimarcasxenon`; 
 cartão digital: https://cartao-digital.com/xenonmultimarcas/;
 localização compartilhada no Maps: https://share.google/2ecURySgI5GrRgYwr.
-* **Responsável pela organização:** **Nome: Willian, Numero de Telefone: 11 2585-4801**
+* **Responsável pela organização:** **Nome: Willian Soares Carvalho, Numero de Telefone: 11 2585-4801**
 
 ### Relato da entrevista e observação presencial
 
