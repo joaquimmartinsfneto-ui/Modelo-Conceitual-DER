@@ -54,16 +54,37 @@ localização compartilhada no Maps: https://share.google/2ecURySgI5GrRgYwr.
 
 ### Requisitos funcionais
 
-* **RF01 — Gerenciamento de clientes:** cadastrar, consultar e alterar clientes, armazenando `nm\_cliente`, `nr\_cpf`, `nr\_telefone` (obrigatórios), `ds\_email` e `ds\_endereco` (opcionais); impedir CPF duplicado.
-* **RF02 — Gerenciamento de veículos:** cadastrar e atualizar veículos com `ds\_chassi`, `nm\_marca`, `nm\_modelo`, `nr\_ano`, `vl\_preco`, `tp\_veiculo` e `st\_veiculo`; impedir chassi duplicado e permitir consulta do estoque por situação.
-* **RF03 — Gerenciamento de funcionários:** cadastrar, consultar e atualizar `nm\_funcionario`, `nr\_cpf`, `nr\_telefone` e `ds\_cargo`; impedir CPF duplicado.
-* **RF04 — Registro e gestão de vendas:** registrar `dt\_venda`, `vl\_total`, `ds\_forma\_pagamento` e `st\_venda`, vinculando obrigatoriamente um cliente, um funcionário e um veículo; permitir acompanhar vendas pendentes, aprovadas, concluídas e canceladas.
-* **RF05 — Gestão de financiamentos bancários:** registrar, quando a forma de pagamento for Financiamento ou Misto, o banco, `vl\_financiado`, `qt\_parcelas`, `vl\_parcela` e `st\_financiamento`; permitir acompanhar análise, aprovação, recusa ou cancelamento.
-* **RF06 — Emissão de pedido de venda:** gerar pedido associado a uma venda confirmada (ou com financiamento aprovado, quando houver), registrando `dt\_pedido`, `nr\_nota\_fiscal`, `nm\_cartorio` e `st\_pedido`.
-* **RF07 — Consulta de veículos disponíveis:** exibir em consulta o chassi, marca, modelo, ano, preço, tipo e situação do veículo, com atualização do estado após a venda/reserva/manutenção.
-* **RF08 — Acompanhamento de pedidos e entregas:** registrar `dt\_prevista`, `dt\_entrega`, `ds\_endereco\_entrega` e `st\_entrega`; permitir consultar a situação da entrega e identificar atrasos.
-* **RF09 — Consulta integrada do histórico comercial:** permitir localizar a venda e consultar, em conjunto, cliente, funcionário, veículo, pagamento/financiamento, pedido e entrega, para facilitar a recuperação dos dados e comprovantes associados.
-* **RF10 — Controle de manutenção (pendente de validação):** caso a concessionária confirme que controla manutenções internamente, registrar veículo, tipo/descrição do serviço, datas, custo, responsável/prestador e situação. Esses atributos ainda não foram levantados e não devem ser implementados como fatos sem validação.
+RF01 — Gerenciamento de clientes
+O sistema deve permitir cadastrar, consultar e atualizar clientes, armazenando nome (nm_cliente), CPF (nr_cpf), telefone (nr_telefone), e-mail (ds_email) e endereço (ds_endereco). Nome, CPF e telefone são obrigatórios, enquanto e-mail e endereço são opcionais. O CPF deve ser único.
+RF02 — Gerenciamento de funcionários
+O sistema deve permitir cadastrar, consultar e atualizar funcionários, armazenando nome (nm_funcionario), CPF (nr_cpf), telefone (nr_telefone) e cargo (ds_cargo). Todos os campos são obrigatórios, e o CPF não pode ser duplicado.
+RF03 — Gerenciamento de veículos
+O sistema deve permitir cadastrar, consultar e atualizar veículos, armazenando chassi (ds_chassi), marca (nm_marca), modelo (nm_modelo), ano (nr_ano), preço (vl_preco), tipo (tp_veiculo) e situação (st_veiculo). O chassi deve ser único e o preço deve ser positivo. A situação deve aceitar apenas os valores: Disponível, Vendido, Reservado e Em Manutenção.
+RF04 — Gerenciamento de bancos
+O sistema deve permitir cadastrar e consultar instituições bancárias, armazenando nome (nm_banco), CNPJ (nr_cnpj) e telefone (nr_telefone). O nome e o CNPJ são obrigatórios, e o CNPJ deve ser único.
+RF05 — Registro e gerenciamento de vendas
+O sistema deve permitir registrar e consultar vendas, armazenando data (dt_venda), valor total (vl_total), forma de pagamento (ds_forma_pagamento) e situação (st_venda). Cada venda deve estar obrigatoriamente vinculada a um cliente, um funcionário e um veículo cadastrados. O sistema deve permitir acompanhar as vendas nos estados Pendente, Aprovada, Concluída e Cancelada.
+RF06 — Gerenciamento de financiamentos
+O sistema deve permitir registrar e consultar financiamentos vinculados às vendas, armazenando banco responsável (id_banco), venda associada (id_venda), valor financiado (vl_financiado), quantidade de parcelas (qt_parcelas), valor da parcela (vl_parcela) e situação (st_financiamento). O financiamento deve estar associado a uma instituição bancária e a uma única venda, permitindo acompanhar os estados Em Análise, Aprovado, Recusado e Cancelado.
+RF07 — Emissão e gerenciamento de pedidos de venda
+O sistema deve permitir registrar e consultar pedidos de venda vinculados às vendas, armazenando data do pedido (dt_pedido), número da nota fiscal (nr_nota_fiscal), cartório (nm_cartorio) e situação (st_pedido). Cada venda poderá possuir, no máximo, um pedido, e cada pedido deverá pertencer a uma única venda.
+RF08 — Gerenciamento de entregas
+O sistema deve permitir registrar e consultar entregas vinculadas às vendas, armazenando data prevista (dt_prevista), data efetiva da entrega (dt_entrega), endereço de entrega (ds_endereco_entrega) e situação (st_entrega). O sistema deve permitir acompanhar as entregas nos estados Agendada, Em Preparação, Pronto para Retirada, Entregue e Cancelada.
+RF09 — Consulta de veículos disponíveis e estoque
+O sistema deve permitir consultar os veículos cadastrados, exibindo chassi, marca, modelo, ano, preço, tipo e situação. Deve possibilitar a visualização do estoque agrupado por situação, identificando veículos disponíveis, vendidos, reservados e em manutenção.
+RF10 — Consulta do histórico comercial
+O sistema deve disponibilizar uma consulta integrada das informações comerciais, permitindo localizar uma venda e visualizar os dados do cliente, funcionário, veículo, forma de pagamento, financiamento, banco, pedido de venda e entrega, quando existentes.
+RF11 — Consultas gerenciais e indicadores
+O sistema deve disponibilizar consultas gerenciais para acompanhar:
+- Quantidade de vendas concluídas e faturamento.
+- Ticket médio das vendas concluídas.
+- Taxa de cancelamento de vendas.
+- Quantidade de veículos por situação.
+- Taxa de aprovação de financiamentos por banco.
+- Tempo médio entre venda e entrega.
+- Quantidade e valor total de vendas concluídas por funcionário.
+RF12 — Consultas de auditoria
+O sistema deve permitir executar consultas para identificar inconsistências nos registros, incluindo vendas sem funcionário válido, vendas concluídas sem pedido associado e financiamentos vinculados a formas de pagamento incompatíveis.
 
 ### Requisitos não funcionais
 
@@ -114,7 +135,7 @@ Link: https://app.brmodeloweb.com/publicview/6ab03281226d3f36496c6ecb
 - **Atributos de relacionamentos e de entidades associativas:** **somente** como no brModelo, ligados ao losango ou à entidade associativa (como `Attribute 530`) — não podem ser listados dentro de um retângulo.  
 - **Sem chaves estrangeiras** — elas só aparecem no modelo lógico (seção 2).
 
-**Aplicativo utilizado para fazer o DER: app.brmodeloweb.com
+Aplicativo utilizado para fazer o DER: app.brmodeloweb.com
 
 ## 1.2 Conversão do Modelo Conceitual para o Modelo Lógico
 
