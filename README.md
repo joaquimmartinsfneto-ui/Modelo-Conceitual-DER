@@ -257,8 +257,7 @@ A estrutura permite analisar volume e valor de vendas por período, desempenho p
 |KPI05|**Estoque por situação** = contagem de veículos agrupada por `st_veiculo`|Diário|Visão da disponibilidade.|
 |KPI06|**Taxa de aprovação de financiamento** = financiamentos aprovados ÷ financiamentos analisados (aprovados + recusados) × 100|Mensal|Resultado das análises de crédito registradas.|
 |KPI07|**Tempo médio venda–entrega** = média de dias entre `dt_venda` e `dt_entrega` para entregas concluídas|Mensal|Eficiência do fluxo de entrega.|
-|KPI08|**Vendas por funcionário** = contagem e soma de vendas concluídas agrupadas por funcionário|Mensal|Apoio à gestão comercial.|
-Metas numéricas não foram fornecidas pela organização; devem ser definidas com o responsável, e não inventadas no relatório.
+|KPI08|**Vendas por funcionário** = contagem e soma de vendas concluídas agrupadas por funcionário|Mensal|Apoio à gestão comercial.
 
 ### Potencial de BI e IA
 
